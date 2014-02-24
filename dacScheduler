@@ -1,0 +1,59 @@
+//This function is going to take an input of all classes in a semester and all classes taken so far
+// and choose x classes to
+// attend and return the scheduled classes with these added.
+function course(level,courseName,courseNumber, creditHours)
+{
+	this.courseName = name;
+	this.level = level;
+	this.courseNumber = courseNumber;
+	this.creditHours = creditHours;
+	//All of these can be undefined. If a variable is undefined, it is considered to mean
+	//Any course of that level. This can be used for the requirements var
+}
+
+function restriction(dayOrNight, maxHours){
+	this.dayOrNight = dayOrNight;
+	this.maxHours = maxHours;
+}
+
+function scheduleSemesterClasses(inSchedule, inSemester, minTotalHours, restrictions, requirements){
+	//inSchedule and inSemester should be a list of course objects
+	//Requirements will be a list of courses that are required
+	//If the requirements creditHours+ the schedule credit hours are == to minTotalHours, this will return a copy
+	//of the input schedule
+	//restrictions is an array that should contain a semester courseload restriction object
+
+	//1. Get minTotalHours - (inSchedule+requirements hours) we can only assign courses from requirements
+	// if this == 0 (n+m+o)
+
+	//2. get every possible schedule and make an array of possible schedules (n*m)
+
+	//3. simplify these possible schedules to have no repeated course combinations (n^2 depending on implementation maybe more)
+
+	//4. return a list of combinationally unique schedules (list of classes) for the total semesters.
+
+
+}
+
+//This is the main function of the program
+function scheduleAll(inSchedule, classesAvailable, minTotalHours, restrictions, requirements, startingSemester){
+	//
+	var totalHoursSpent; //needs to be intialized
+	var requirementsHoursLeft; // needs to be intialized
+	var uniqueSchedules = [inSchedule]; //unique schedules is initialized to an array of size 1
+
+	while(requirementsHoursLeft > 0 && totalHoursSpent < minTotalHours){
+		//generate the list of classes available this semester and put it in the inSemester variable
+		var inSemester;
+		var newUniqueSchedules = [];
+		for(var x = 0; x < uniqueSchedules.length; x++){
+			newUniqueSchedules.concat(scheduleSemesterClasses(unqiueSchedules[x], inSemester, minTotalHours, restrictions, requirements));
+		}
+		//go through each newUnique schedules listing to make sure they are unique
+
+		//increment the semester
+	}
+}
+
+//I think that by ordering the schedules from smallest course number to largest,
+//we can find if an array is completely unique in nlogn time.
