@@ -1,0 +1,22 @@
+We talked about our architecture during our discussion last night(24/02). It is difficult for people with varying backgrounds to be sure that we understand each other exactly. To that end I decided to make a small proof of concept to show how I believe our architecture should work.
+
+Please note that I do not feel any pride about this work. Feel free to criticize it as much as you like, the only goal is to get something tangible that we can look at and discuss.
+
+I have deployed the code to http://comp.umsl.edu/~Group1/sandbox if you want to see the code in action.
+
+How it fits together:
+test.xml
+--------
+Contains the original xml. For simplicity I only used 2 elements from the Rotation.xml file for this demo.
+
+xml-parser.php
+--------------
+Parses the xml file, and then converts the data to json (I do this because it is very simple to convert JSON to Javascript Objects). It then embeds the json data into the html page.
+
+json-parser.js
+--------------
+Converts the json into javascript objects.
+
+index.php
+---------
+brings everything together and prints the js objects as proof that it worked.

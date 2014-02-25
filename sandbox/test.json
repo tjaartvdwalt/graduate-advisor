@@ -1,0 +1,4 @@
+{"rotation_year":
+ {"year":"2013",
+  "course":[{"subject":"CMP SCI","course_number":"1250","course_name":"Introduction to Computing","rotation_term":[{"term":"Spring","time_code":{}},{"term":"Fall","time_code":"D,E"}]},
+            {"subject":"CMP SCI","course_number":"2250","course_name":"Programming and Data Structures","rotation_term":[{"term":"Spring","time_code":{}},{"term":"Fall","time_code":"D"}]}]}}
