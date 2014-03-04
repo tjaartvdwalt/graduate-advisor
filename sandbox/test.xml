@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Rotations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://comp.umsl.edu/~xml_data/Rotation.xsd">
+  <rotation_year>
+    <year>2013</year>
+    <course>
+      <subject>CMP SCI</subject>
+      <course_number>1250</course_number>
+      <course_name>Introduction to Computing</course_name>
+      <rotation_term>
+        <term>Spring</term>
+        <time_code></time_code>
+      </rotation_term>
+      <rotation_term>
+        <term>Fall</term>
+        <time_code>D,E</time_code>
+      </rotation_term>
+    </course>
+    <course>
+      <subject>CMP SCI</subject>
+      <course_number>2250</course_number>
+      <course_name>Programming and Data Structures</course_name>
+      <rotation_term>
+        <term>Spring</term>
+        <time_code></time_code>
+      </rotation_term>
+      <rotation_term>
+        <term>Fall</term>
+        <time_code>D</time_code>
+      </rotation_term>
+    </course>
+  </rotation_year>
+</Rotations>
