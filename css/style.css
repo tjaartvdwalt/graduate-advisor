@@ -1,0 +1,13 @@
+body {
+  padding-top: 50px;
+}
+
+.bucket {
+    padding-top: 20px;
+    border-right-style:solid;
+    border-bottom-style:solid;
+    border-left-style:solid;
+}
+.spacer {
+    visibility:hidden;
+}
