@@ -4,6 +4,11 @@
     <?php
       // parses the xml file and embeds the results as json in the html
       include 'php/xml-parser.php';
+      // The rules are not xml but in a json... we don't have to parse it just include it here.
+      echo "<script id=\"rules\" type=\"application/json\">";
+      $file_content = file_get_contents ("json/rules.json");
+      echo "$file_content";
+      echo "</script>\n";
     ?>
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,9 +20,12 @@
     <link href="css/style.css" rel="stylesheet">
     
     <!-- importing everything here is not great. We should think about using include.js -->
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/control/CoursesController.js"></script>
     <script src="js/model/Courses.js"></script>
     <script src="js/model/JSONParser.js"></script>
+    <script src="js/model/Rules.js"></script>
     <script src="js/model/UserCourses.js"></script>
     <script src="js/view/AvailableRenderer.js"></script>
     <script src="js/view/BucketRenderer.js"></script>
@@ -47,9 +55,9 @@
     
     <div class="container-fluid ">
       <div class="row">
-        <button onclick="toRender=6000;">6000</button>
-        <button onclick="toRender=5000;">5000</button>
-        <button onclick="toRender=4000;">4000</button>
+        <button id="available-6000">6000</button>
+        <button id="available-5000">5000</button>
+        <button id="available-4000">4000</button>
       </div>
       <div class="row">
         <div class="col-xs-1">
@@ -69,21 +77,17 @@
         </div>
       </div>
       <div class="row">
-        <script>
-          var controller = new CoursesController();
-          //var availableBucket = document.getElementById("available-bucket");
-          //console.log(availableBucket.value);
-          controller.renderAvailable("6000");
-
+        <script language="javascript">
+          // We define controller as a global var here
+          controller = new CoursesController();
+          controller.renderAvailable('6000');
           controller.renderBucket('core');
           controller.renderBucket('6000');
           controller.renderBucket('5000');
           controller.renderBucket('4000');
+          controller.addButtonListeners();
         </script>
-        
       </div>
     </div>
-    <script src="js/lib/jquery.min.js"></script>
-    <script src="js/lib/bootstrap.min.js"></script>
   </body>
 </html>

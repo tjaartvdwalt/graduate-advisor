@@ -1,5 +1,5 @@
 function BucketRenderer() {
-    this.bucketSize = 10;
+    this.bucketSize = 6;
 
     this.renderBucket = renderBucket;
     function renderBucket(type, bucket) {
@@ -10,7 +10,7 @@ function BucketRenderer() {
             }
 
         for(var i in bucket) {
-            document.write("<button>" + i + "</button>");
+            document.write("<button id=\"" + i + "\">" + i + "</button>");
         }
 
         document.write("</div>");
