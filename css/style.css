@@ -8,6 +8,16 @@ body {
     border-bottom-style:solid;
     border-left-style:solid;
 }
+
+.min {
+    border-top-style:solid;
+    border-color: green;    
+    }
+.max {
+    border-top-style:solid;
+    border-color: red;    
+    }
+
 .spacer {
     visibility:hidden;
 }

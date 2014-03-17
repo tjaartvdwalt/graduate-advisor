@@ -59,40 +59,41 @@ function CourseRenederer(userCourses, rules){
     this.renderAvailable = function (courses, filter) {
         var available = $("#available");
         if (filter == null) {
-            console.log("filter is null");
             filter = available.attr('filter');
-            console.log(filter);
         }
         else {
             available.attr({'filter' : filter});
         }
-        // $("#available").each( function(index, element ) {
-        //      console.log(element);
-        //  });
-
+        var j = 0;
         for(var i in courses) {
             var button = $("#" + i);
             if((button.get(0).id > filter && button.get(0).id -  1000 < filter)) {
                 button.detach().prependTo('#available');
                 button.show();
+                j++
             }
             else {
                 button.hide();
             }
         }
+
+        for(var k=0;k<7-j;k++) {
+            $('<button>Spacer</button>').attr({
+                'class' : 'spacer'
+            }).appendTo(available);
+        }
+
     }
 
     this.renderSelected = function (courses, filter) {
+        //        interpretRule();
         var j = 0;
         // JQuery select based on multiple class values
         var selected = $('.selected.' + filter);
         var spacers =  $('.selected.' + filter + " > .spacer");
-
-        console.log(spacers);
         spacers.remove();
 
         for(var i in courses) {
-            //console.log(filter);
             var button = $("#" + i);
 
             // Core courses are handled seperately
@@ -104,8 +105,6 @@ function CourseRenederer(userCourses, rules){
                 }
             }
             else {
-                console.log("else");
-                console.log(i);
                 if((button.get(0).id > filter && button.get(0).id -  1000 < filter)) {
                     button.detach().prependTo(selected);
                     button.show();
@@ -123,7 +122,6 @@ function CourseRenederer(userCourses, rules){
     }
 
     this.renderDescription = function (course) {
-        console.log(course);
         var description = $('#description');
         // remove the previous description
         description.children("div").remove();
@@ -133,7 +131,7 @@ function CourseRenederer(userCourses, rules){
             "<tr><td>course name</td><td>" + course.course_name + "</td></tr>" +
             "<tr><td>credits</td><td>" + course.credit + "</td></tr>" +
             "<tr><td>course description</td><td>" + course.course_description+ "</td></tr>"
-            "</table>";
+        "</table>";
         $('<div>' + details + '</div>').prependTo(description);
     }
 }

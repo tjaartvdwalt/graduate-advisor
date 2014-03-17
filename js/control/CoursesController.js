@@ -30,7 +30,6 @@ function CoursesController() {
             //available and selected buckets
             if(this.currentClicked == event.currentTarget.id) {
                 var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
-                console.log("2 clicked");
                 var src = this.userCourses.getCourseBucket(event.currentTarget.id);
                 // If the selected course is currently in available move it to selected
                 // else if it is selected move it to available
@@ -45,7 +44,6 @@ function CoursesController() {
                 this.currentClicked = "";
             }
             else {
-                console.log(event.currentTarget);
                 var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
                 this.renderer.renderDescription(clickedCourse);
                 this.currentClicked = event.currentTarget.id;
