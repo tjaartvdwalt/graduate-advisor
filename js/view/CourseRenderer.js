@@ -35,15 +35,15 @@ function CourseRenederer(userCourses, rules){
     }
 
     this.renderAll = function(currentAvailable) {
-            this.renderAvailable(this.userCourses["available"], '6000');
+        this.renderAvailable(this.userCourses["available"], currentAvailable);
 
         this.renderSelected(this.userCourses["selected"], 'core');
-    this.renderSelected(this.userCourses["selected"], '6000');
-    this.renderSelected(this.userCourses["selected"], '5000');
-    this.renderSelected(this.userCourses["selected"], '4000');
+        this.renderSelected(this.userCourses["selected"], '6000');
+        this.renderSelected(this.userCourses["selected"], '5000');
+        this.renderSelected(this.userCourses["selected"], '4000');
 
-        }
-    
+    }
+
     /*
      * This function renders (or rerenders) the available course list.
      * The component it renders has a id="available".
@@ -57,7 +57,15 @@ function CourseRenederer(userCourses, rules){
      * more intuitive since not everybody knows unobtrusive js.}
      */
     this.renderAvailable = function (courses, filter) {
-
+        var available = $("#available");
+        if (filter == null) {
+            console.log("filter is null");
+            filter = available.attr('filter');
+            console.log(filter);
+        }
+        else {
+            available.attr({'filter' : filter});
+        }
         // $("#available").each( function(index, element ) {
         //      console.log(element);
         //  });
@@ -82,9 +90,9 @@ function CourseRenederer(userCourses, rules){
 
         console.log(spacers);
         spacers.remove();
-//        for(var spacer in spacers) {
-//        }
-        
+        //        for(var spacer in spacers) {
+        //        }
+
         for(var i in courses) {
             //console.log(filter);
             var button = $("#" + i);
@@ -123,9 +131,9 @@ function CourseRenederer(userCourses, rules){
         description.children("div").remove();
         // Add the new description
         var details = "course number: " + course.course_number + "<br>" +
-                      "course name:   " + course.course_name + "<br>" +
-                      "credits:"        + course.credit + "<br>" +
-                      "course description:   " + course.course_description + "<br>";
-            $('<div>' + details + '</div>').prependTo(description);
+            "course name:   " + course.course_name + "<br>" +
+            "credits:"        + course.credit + "<br>" +
+            "course description:   " + course.course_description + "<br>";
+        $('<div>' + details + '</div>').prependTo(description);
     }
 }

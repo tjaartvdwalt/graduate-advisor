@@ -13,12 +13,6 @@ function UserCourses(courses, rules) {
      * can do these checks inside a for loop
      */
     this.getCourse = function (courseNumber) {
-
-        // console.log(courseNumber);
-        // console.log(this.available);
-        // console.log(this.available["6900"]);
-        // console.log(this.selected["6900"]);
-
         if(this.available[courseNumber] !== undefined) {
             return this.available[courseNumber];
         }
@@ -30,6 +24,24 @@ function UserCourses(courses, rules) {
         }
         else if(this.waived[courseNumber] !== undefined) {
             return this.waived[courseNumber]
+        }
+    }
+
+    /* TODO: We should refactor this method after we have updated the data structure
+     * Returns the bucket that the given course is in
+     */
+    this.getCourseBucket = function(courseNumber) {
+        if(this.available[courseNumber] !== undefined) {
+            return this.available;
+        }
+        else if(this.selected[courseNumber] !== undefined) {
+            return this.selected;
+        }
+        else if(this.taken[courseNumber] !== undefined) {
+            return this.taken;
+        }
+        else if(this.waived[courseNumber] !== undefined) {
+            return this.waived;
         }
     }
 

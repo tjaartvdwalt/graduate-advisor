@@ -24,13 +24,23 @@ function CoursesController() {
             break;
             // Any course button
         default:
+            // TODO: This method will have to be refactored when we start looking at
+            // waived and taken courses
             // If this is the 2nd consecutive click on the button switch it between the
             //available and selected buckets
             if(this.currentClicked == event.currentTarget.id) {
                 var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
                 console.log("2 clicked");
-                this.userCourses.moveCourse(clickedCourse, this.userCourses.available, this.userCourses.selected);
-                this.renderer.renderAll('6000');
+                var src = this.userCourses.getCourseBucket(event.currentTarget.id);
+                // If the selected course is currently in available move it to selected
+                // else if it is selected move it to available
+                if(src == this.userCourses.available) {
+                   this.userCourses.moveCourse(clickedCourse, src, this.userCourses.selected);
+                }
+                else {
+                   this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
+                }
+                this.renderer.renderAll();
 
                 this.currentClicked = "";
             }

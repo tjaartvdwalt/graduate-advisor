@@ -43,10 +43,10 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Configure</a></li>
+            <li><a href="#">Configure</a></li>
             <li><a href="#">Taken</a></li>
             <li><a href="#">Waived</a></li>
-            <li><a href="#">Select</a></li>
+            <li class="active"><a href="#">Select</a></li>
             <li><a href="#contact">Schedule</a></li>
           </ul>
         </div><!--/.nav-collapse -->
