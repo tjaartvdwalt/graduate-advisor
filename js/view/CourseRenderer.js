@@ -90,8 +90,6 @@ function CourseRenederer(userCourses, rules){
 
         console.log(spacers);
         spacers.remove();
-        //        for(var spacer in spacers) {
-        //        }
 
         for(var i in courses) {
             //console.log(filter);
@@ -130,10 +128,12 @@ function CourseRenederer(userCourses, rules){
         // remove the previous description
         description.children("div").remove();
         // Add the new description
-        var details = "course number: " + course.course_number + "<br>" +
-            "course name:   " + course.course_name + "<br>" +
-            "credits:"        + course.credit + "<br>" +
-            "course description:   " + course.course_description + "<br>";
+        var details ="<table>" +
+            "<tr><td>course number</td><td>" + course.course_number + "</td></tr>" +
+            "<tr><td>course name</td><td>" + course.course_name + "</td></tr>" +
+            "<tr><td>credits</td><td>" + course.credit + "</td></tr>" +
+            "<tr><td>course description</td><td>" + course.course_description+ "</td></tr>"
+            "</table>";
         $('<div>' + details + '</div>').prependTo(description);
     }
 }

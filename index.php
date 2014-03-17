@@ -76,8 +76,9 @@
           <b>4000</b>
         </div>
       </div>
-      <div class="row">
+      <div class="row-fluid">
         <div id="available" class="col-xs-1"></div>
+        <div class="clearfix visible-xs"></div>
         <div class="col-md-offset-1 col-xs-1 bucket selected core"></div>
         <div class="col-md-offset-1 col-xs-1 bucket selected 6000"></div>
         <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
