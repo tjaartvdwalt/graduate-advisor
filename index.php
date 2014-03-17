@@ -27,8 +27,7 @@
     <script src="js/model/JSONParser.js"></script>
     <script src="js/model/Rules.js"></script>
     <script src="js/model/UserCourses.js"></script>
-    <script src="js/view/AvailableRenderer.js"></script>
-    <script src="js/view/BucketRenderer.js"></script>
+    <script src="js/view/CourseRenderer.js"></script>
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -44,9 +43,10 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Select</a></li>
-            <li><a href="about.html">Taken</a></li>
-            <li><a href="about.html">Waived</a></li>
+            <li class="active"><a href="#">Configure</a></li>
+            <li><a href="#">Taken</a></li>
+            <li><a href="#">Waived</a></li>
+            <li><a href="#">Select</a></li>
             <li><a href="#contact">Schedule</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -77,17 +77,21 @@
         </div>
       </div>
       <div class="row">
-        <script language="javascript">
-          // We define controller as a global var here
-          controller = new CoursesController();
-          controller.renderAvailable('6000');
-          controller.renderBucket('core');
-          controller.renderBucket('6000');
-          controller.renderBucket('5000');
-          controller.renderBucket('4000');
-          controller.addButtonListeners();
-        </script>
+        <div id="available" class="col-xs-1"></div>
+        <div class="col-md-offset-1 col-xs-1 bucket selected core"></div>
+        <div class="col-md-offset-1 col-xs-1 bucket selected 6000"></div>
+        <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
+        <div class="col-md-offset-1 col-xs-1 bucket selected 4000"></div>
+      </div>
+      <div class="row">
+        <div id ="description" class="col-md-offset-2 col-xs-7"></div>
       </div>
     </div>
+    <!-- We really need to make the import of the controller unobtrusive -->
+    <!-- as everything else in the gui use unobtrusive js -->
+    <script language="javascript">
+      controller = new CoursesController();
+    </script>
+    
   </body>
 </html>

@@ -1,53 +1,69 @@
-/* The UserCourses object manages the courses taken, waived and selected by the user.
- * The resulting selected courses list will be used to filter the output for the
- * scheduling algorithm
- *
- * The constructor takes 1 argument:
- * buckets: an 2 dimensional associative array of all the available courses divided into buckets
- *
- * The buckets contains the courses to be picked from by the user. It is important
- * that balance must be maintained. If a course moves from available to selected
- * it must be removed from available when added to selected and visa versa.
- */
-function UserCourses(courses) {
-    // function removeSelectedCourse(course) {
-    //     this.selected.removeItem(course);
-    //     this.buckets.removeItem("prop")
-    //     }
-
-    this.addSelectedCourse = addSelectedCourse
-    function addSelectedCourse(course, bucket) {
-        this.selected[bucket][course.course_number] = course;
-        delete this.available[bucket][course.course_number];
+function UserCourses(courses, rules) {
+    this.addCourse = function (course, dest) {
+        dest[course.course_number] = course;
     }
 
-    this.addSelectedCourses = addSelectedCourses
-    function addSelectedCourses(courses, bucket) {
-        for(var i in courses) {
-            this.selected[bucket][courses[i].course_number] = courses[i];
-            delete this.available[bucket][courses[i].course_number];
+    this.moveCourse = function (course, src, dest) {
+        dest[course.course_number] = course;
+        delete src[course.course_number];
+    }
+
+    /*
+     * TODO: We should refactor the data structure so that we
+     * can do these checks inside a for loop
+     */
+    this.getCourse = function (courseNumber) {
+
+        // console.log(courseNumber);
+        // console.log(this.available);
+        // console.log(this.available["6900"]);
+        // console.log(this.selected["6900"]);
+
+        if(this.available[courseNumber] !== undefined) {
+            return this.available[courseNumber];
+        }
+        else if(this.selected[courseNumber] !== undefined) {
+            return this.selected[courseNumber];
+        }
+        else if(this.taken[courseNumber] !== undefined) {
+            return this.taken[courseNumber];
+        }
+        else if(this.waived[courseNumber] !== undefined) {
+            return this.waived[courseNumber]
         }
     }
 
-    function getSelectedCourses() {
+    this.getAvailableCourses = function () {
         return this.selected;
     }
 
-    function getTakenCourses() {
+    this.getSelectedCourses = function () {
+        return this.selected;
+    }
+
+    this.getTakenCourses = function () {
         return this.taken;
     }
 
-    function getWaivedCourses() {
+    this.getWaivedCourses = function () {
         return this.waived;
     }
 
     // Constructor items
-    this.available = courses.buckets;
-    // We initialise core. courses as selected. If waived gets set this will change.
-    this.selected  = courses.getEmptyBuckets();
-    this.addSelectedCourses(courses.buckets["core"], "core");
+    this.available = {};
+    this.selected  = {};
+    this.taken     = {};
+    this.waived    = {};
+    // We initialise core courses as selected. Everything else goes in available
+    core = rules.getRules().core;
+    for(var i in courses) {
+        if($.inArray(courses[i].course_number, core) < 0) {
+            this.addCourse(courses[i], this.available);
+        }
+        else {
+            this.addCourse(courses[i], this.selected);
+        }
 
-    this.taken     = courses.getEmptyBuckets();
-    this.waived    = courses.getEmptyBuckets();
+    }
 
 }
