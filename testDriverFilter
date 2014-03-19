@@ -10,7 +10,7 @@ var coursesInSchedule;
 xmlString = $.get("Rotation.xml", function() {
   	xmlObj = $.parseXML(xmlString.responseText);
 	console.log(xmlObj);
-	coursesInSchedule = parseToCourses(xmlObj);
+	scheduleAll(0,0,parseToCourses(xmlObj));
 
 });
 
