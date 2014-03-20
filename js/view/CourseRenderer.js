@@ -42,6 +42,8 @@ function CourseRenederer(userCourses, rules){
         this.renderSelected(this.userCourses["selected"], '5000');
         this.renderSelected(this.userCourses["selected"], '4000');
 
+        this.renderSchedule();
+
     }
 
     /*
@@ -154,5 +156,10 @@ function CourseRenederer(userCourses, rules){
             "<tr><td>course description</td><td>" + course.course_description+ "</td></tr>"
         "</table>";
         $('<div>' + details + '</div>').prependTo(description);
+    }
+    this.renderSchedule = function () {
+            $('<button>Schedule</button>').attr({
+                'id' : 'schedule-button'
+            }).appendTo('body');
     }
 }

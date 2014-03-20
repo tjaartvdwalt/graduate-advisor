@@ -19,6 +19,10 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     
+    <script>
+      var MAX_SEMESTERS = 10;
+      var MAX_PER_SEM = 4;
+    </script>
     <!-- importing everything here is not great. We should think about using include.js -->
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
@@ -28,6 +32,9 @@
     <script src="js/model/Rules.js"></script>
     <script src="js/model/UserCourses.js"></script>
     <script src="js/view/CourseRenderer.js"></script>
+    <script src="js/CourseParser.js"></script>
+    <script src="js/Validate_Course_List.js"></script>
+    
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
