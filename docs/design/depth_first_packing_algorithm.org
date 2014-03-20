@@ -111,6 +111,8 @@ Since the most empty semester is now 2 we can place the next course in any semes
 |          | 5700 | 5130 | 5500 | 4280 |
 |          | 4760 |      |      |      |
 
+
+
 | Semester |    1 |    2 |    3 |    4 |
 |----------+------+------+------+------|
 |          | 5320 | 5420 | 6420 | 4250 |
