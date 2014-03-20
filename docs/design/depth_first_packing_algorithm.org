@@ -44,12 +44,12 @@ To make this approach concrete I decided to show with an example how this can be
 
 
 From this schedule we classify the courses into the times they are presented
-| which semestr |                                                                   |
-|---------------+-------------------------------------------------------------------|
-| arbitrary     | 6420 (Spring 2015 and Spring 2017) 5420 (Fall 2014 and Fall 2016) |
-| spring        | 5320, 5500, 5700                                                  |
-| fall          | 5130                                                              |
-| all           | 4250, 4280, 4760, 5880                                            |
+| which semester |                                                                   |
+|----------------+-------------------------------------------------------------------|
+| arbitrary      | 6420 (Spring 2015 and Spring 2017) 5420 (Fall 2014 and Fall 2016) |
+| spring         | 5320, 5500, 5700                                                  |
+| fall           | 5130                                                              |
+| all            | 4250, 4280, 4760, 5880                                            |
 
 We start packing from Spring 2014 for 4 semesters. We consider a semester full when it contains 3 courses.
 
@@ -69,13 +69,16 @@ Now we start alternating between the Spring and Fall semesters. We will pack the
 | Semester |    1 |    2 |    3 | 4 |
 |----------+------+------+------+---|
 |          | 5320 | 5420 | 6420 |   |
-|          |      |      |      |   |
-\
+
+
+
 | Semester |    1 |    2 |    3 | 4 |
 |----------+------+------+------+---|
 |          | 5320 | 5420 | 6420 |   |
 |          |      | 5130 |      |   | 
-\
+
+
+
 | Semester |    1 |    2 |    3 | 4 |
 |----------+------+------+------+---|
 |          | 5320 | 5420 | 6420 |   |
