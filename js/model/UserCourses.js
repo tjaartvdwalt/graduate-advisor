@@ -67,7 +67,7 @@ function UserCourses(courses, rules) {
     this.taken     = {};
     this.waived    = {};
     // We initialise core courses as selected. Everything else goes in available
-    core = rules.getRules().core;
+    core = rules.rules.core;
     for(var i in courses) {
         if($.inArray(courses[i].course_number, core) < 0) {
             this.addCourse(courses[i], this.available);

@@ -35,6 +35,7 @@ function CoursesController() {
                 // else if it is selected move it to available
                 if(src == this.userCourses.available) {
                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.selected);
+                    console.log(this.userCourses.selected);
                 }
                 else {
                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);

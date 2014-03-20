@@ -86,18 +86,29 @@ function CourseRenederer(userCourses, rules){
     }
 
     this.renderSelected = function (courses, filter) {
-        //        interpretRule();
+        console.log(filter);
+        displayRules = this.rules.rules[filter];
+        if(displayRules != null) {
+            var keys = Object.keys(displayRules);
+            console.log(keys[0]);
+            console.log(displayRules[keys[0]]);
+        }
+
         var j = 0;
         // JQuery select based on multiple class values
         var selected = $('.selected.' + filter);
         var spacers =  $('.selected.' + filter + " > .spacer");
         spacers.remove();
+        var minRules =  $('.min');
+        minRules.remove();
+        var maxRules =  $('.max');
+        maxRules.remove();
 
         for(var i in courses) {
             var button = $("#" + i);
 
             // Core courses are handled seperately
-            if($.inArray(button.get(0).id, this.rules.getRules().core) >= 0) {
+            if($.inArray(button.get(0).id, this.rules.rules.core) >= 0) {
                 if(filter == 'core'){
                     button.detach().prependTo(selected);
                     button.show();
@@ -109,6 +120,10 @@ function CourseRenederer(userCourses, rules){
                     button.detach().prependTo(selected);
                     button.show();
                     j++;
+                    if(keys != null && j == displayRules[keys[0]]) {
+                        $("<div>").addClass(keys[0]).prependTo(selected);
+                    }
+
                 }
             }
         }
@@ -118,6 +133,12 @@ function CourseRenederer(userCourses, rules){
             $('<button>Spacer</button>').attr({
                 'class' : 'spacer'
             }).prependTo(selected);
+            j++;
+
+
+            if(keys != null && j == displayRules[keys[0]]) {
+                $("<div>").addClass(keys[0]).prependTo(selected);
+            }
         }
     }
 
