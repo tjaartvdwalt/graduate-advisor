@@ -5,6 +5,8 @@ function CoursesController() {
     this.userCourses = new UserCourses(this.courses.courses, this.rules);
     this.renderer =    new CourseRenederer(this.userCourses, this.rules);
 
+    this.rotation = new JSONParser().getJSON('rotation');
+    console.log(this.rotation);
     this.renderer.renderAll('6000');
 
     /*
@@ -23,6 +25,19 @@ function CoursesController() {
             this.renderer.renderAvailable(this.userCourses["available"], "4000");
             break;
             // Any course button
+        case "schedule-button":
+            var Courses_Offered = Get_Courses_Offered(this.rotation);
+            /** This is where you can introduce courses that have already been taken, though
+                I think we can implement this at the GUI-level (with rules that disclude
+                courses that are already taken.
+            **/
+            var Courses_Taken = new Array();
+            var Courses_Available = Get_Courses_Available(Courses_Taken, Courses_Offered);
+            /** "choices" needs to be an array of 10 course object - non-time specific **/
+            var Schedules = GetSchedules(this.userCourses.selected, Courses_Available);
+            console.log(Schedules);
+            break;
+            // Any course button
         default:
             // TODO: This method will have to be refactored when we start looking at
             // waived and taken courses
@@ -34,10 +49,10 @@ function CoursesController() {
                 // If the selected course is currently in available move it to selected
                 // else if it is selected move it to available
                 if(src == this.userCourses.available) {
-                   this.userCourses.moveCourse(clickedCourse, src, this.userCourses.selected);
+                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.selected);
                 }
                 else {
-                   this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
+                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
                 }
                 this.renderer.renderAll();
 
@@ -68,6 +83,11 @@ function CoursesController() {
                 courseButton.addEventListener("click", this, false);
             }
         }
+
+        var scheduleButton = document.getElementById('schedule-button');
+        console.log(scheduleButton);
+        scheduleButton.addEventListener("click", this, false);
+
 
     }
     this.addButtonListeners();
