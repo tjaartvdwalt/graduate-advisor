@@ -70,31 +70,28 @@ Now we start alternating between the Spring and Fall semesters. We will pack the
 |----------+------+------+------+---|
 |          | 5320 | 5420 | 6420 |   |
 |          |      |      |      |   |
-\\
+
 | Semester |    1 |    2 |    3 | 4 |
 |----------+------+------+------+---|
 |          | 5320 | 5420 | 6420 |   |
 |          |      | 5130 |      |   | 
-\\
+
 | Semester |    1 |    2 |    3 | 4 |
 |----------+------+------+------+---|
 |          | 5320 | 5420 | 6420 |   |
 |          |      | 5130 | 5500 |   |
-|          |      |      |      |   |
 
 Since there is now no more Fall semesters left we pack the rest of the Spring semesters
 | Semester |    1 |    2 |    3 | 4 |
 |----------+------+------+------+---|
 |          | 5320 | 5420 | 6420 |   |
 |          | 5700 | 5130 | 5500 |   |
-|          |      |      |      |   |
 
 Now we are left with courses that are presented in every semester. Since semester 4 is empty we start packing it:
 | Semester |    1 |    2 |    3 |    4 |
 |----------+------+------+------+------|
 |          | 5320 | 5420 | 6420 | 4250 |
 |          | 5700 | 5130 | 5500 |      |
-|          |      |      |      |      |
 
 We continue packing semester 4 intil it reaches the level of the next most empty semester.
 
@@ -102,7 +99,6 @@ We continue packing semester 4 intil it reaches the level of the next most empty
 |----------+------+------+------+------|
 |          | 5320 | 5420 | 6420 | 4250 |
 |          | 5700 | 5130 | 5500 | 4280 |
-|          |      |      |      |      |
 
 Since the most empty semester is now 2 we can place the next course in any semester. Maybe we make it as early as possible.
 
@@ -111,7 +107,7 @@ Since the most empty semester is now 2 we can place the next course in any semes
 |          | 5320 | 5420 | 6420 | 4250 |
 |          | 5700 | 5130 | 5500 | 4280 |
 |          | 4760 |      |      |      |
-\\
+
 | Semester |    1 |    2 |    3 |    4 |
 |----------+------+------+------+------|
 |          | 5320 | 5420 | 6420 | 4250 |
