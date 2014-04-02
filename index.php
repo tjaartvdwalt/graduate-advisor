@@ -17,6 +17,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="assets/icons/favicon.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     
     <script>
@@ -24,82 +25,125 @@
       var MAX_PER_SEM = 4;
     </script>
     <!-- importing everything here is not great. We should think about using include.js -->
+    <!-- import frameworks -->
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/bootstrap-select.min.js"></script>
+    <script src="js/lib/jquery.bootstrap.wizard.min.js"></script>
+    
+    <!-- import our code -->
     <script src="js/control/CoursesController.js"></script>
     <script src="js/model/Courses.js"></script>
     <script src="js/model/JSONParser.js"></script>
+    <!-- <script src="js/model/Rotation.js"></script> -->
     <script src="js/model/Rules.js"></script>
     <script src="js/model/UserCourses.js"></script>
-    <script src="js/view/CourseRenderer.js"></script>
+    <script src="js/view/ConfigureRenderer.js"></script>
+    <script src="js/view/ScheduleRenderer.js"></script>
+    <script src="js/view/SelectedRenderer.js"></script>
+    <script src="js/view/TakenRenderer.js"></script>
+    <script src="js/view/WaivedRenderer.js"></script>
     <script src="js/CourseParser.js"></script>
     <script src="js/Validate_Course_List.js"></script>
-    
+    <script src="js/wizard.js"></script>
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Advisor</a>
+    <div id="rootwizard">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul>
+              <li><a href="#configure" data-toggle="tab">Configure</a></li>
+              <li><a href="#waived" data-toggle="tab">Waived</a></li>
+              <li><a href="#taken" data-toggle="tab">Taken</a></li>
+              <li><a href="#selected" data-toggle="tab">Selected</a></li>
+              <li><a href="#schedule" data-toggle="tab">Schedule</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#">Configure</a></li>
-            <li><a href="#">Taken</a></li>
-            <li><a href="#">Waived</a></li>
-            <li class="active"><a href="#">Select</a></li>
-            <li><a href="#contact">Schedule</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane" id="configure">
+          <div class="container-fluid ">
+            <div class="row">
+              <div class="col-xs-2">
+                Number of semesters
+              </div>
+              <div id="nr-of-semesters" class="col-md-offset-1 col-xs-1">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane" id="waived">
+          <div class="container-fluid ">
+            <div class="row-fluid">
+              <div id="waived-available" class="col-xs-1"></div>
+              <div id="waived" class="col-xs-1"></div>
+              <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
+              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane" id="taken">
+          <div class="container-fluid ">
+            <div class="row-fluid">
+              <div id="taken-available" class="col-xs-2">
+                <div class="row-fluid"></div>
+
+              </div>
+              <div id="waived" class="col-xs-1"></div>
+              <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
+              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="selected">
+          <div class="container-fluid ">
+            <div class="row">
+              <div class="col-xs-1">
+                <b>Available</b>
+              </div>
+              <!-- <div class="col-md-offset-1 col-xs-1"> -->
+              <!--   <b>Core</b> -->
+              <!-- </div> -->
+              <div class="col-md-offset-1 col-xs-1">
+                <b>6000</b>
+              </div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>5000</b>
+              </div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>4000</b>
+              </div>
+            </div>
+            <div class="row-fluid">
+              <div id="selected-available" class="col-xs-2">
+                <div class="row-fluid"></div>
+              </div>
+              <div class="clearfix visible-xs"></div>
+              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
+              <div class="col-xs-1 bucket selected 6000"></div>
+              <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
+              <div class="col-md-offset-1 col-xs-1 bucket selected 4000"></div>
+            </div>
+            <div class="row">
+              <div id ="description" class="col-md-offset-2 col-xs-7"></div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="tab-pane" id="schedule">
+        </div>
+        <ul class="pager wizard">
+          <li class="previous first" style="display:none;"><a href="#">First</a></li>
+          <li class="previous"><a href="#">Previous</a></li>
+          <li class="next last" style="display:none;"><a href="#">Last</a></li>
+          <li class="next"><a href="#">Next</a></li>
+        </ul>
       </div>
     </div>
-    
-    <div class="container-fluid ">
-      <div class="row">
-        <button id="available-6000">6000</button>
-        <button id="available-5000">5000</button>
-        <button id="available-4000">4000</button>
-      </div>
-      <div class="row">
-        <div class="col-xs-1">
-          <b>Available</b>
-        </div>
-        <div class="col-md-offset-1 col-xs-1">
-          <b>Core</b>
-        </div>
-        <div class="col-md-offset-1 col-xs-1">
-          <b>6000</b>
-        </div>
-        <div class="col-md-offset-1 col-xs-1">
-          <b>5000</b>
-        </div>
-        <div class="col-md-offset-1 col-xs-1">
-          <b>4000</b>
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div id="available" class="col-xs-1"></div>
-        <div class="clearfix visible-xs"></div>
-        <div class="col-md-offset-1 col-xs-1 bucket selected core"></div>
-        <div class="col-md-offset-1 col-xs-1 bucket selected 6000"></div>
-        <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
-        <div class="col-md-offset-1 col-xs-1 bucket selected 4000"></div>
-      </div>
-      <div class="row">
-        <div id ="description" class="col-md-offset-2 col-xs-7"></div>
-      </div>
-    </div>
-    <!-- We really need to make the import of the controller unobtrusive -->
-    <!-- as everything else in the gui use unobtrusive js -->
-    <script language="javascript">
-      controller = new CoursesController();
-    </script>
-    
   </body>
 </html>
