@@ -55,7 +55,7 @@
             <ul>
               <li><a href="#configure" data-toggle="tab">Configure</a></li>
               <li><a href="#waived" data-toggle="tab">Waived</a></li>
-              <li><a href="#taken" data-toggle="tab">Taken</a></li>
+              <li><a href="#taken" data-toggle="tab">Completed</a></li>
               <li><a href="#selected" data-toggle="tab">Selected</a></li>
               <li><a href="#schedule" data-toggle="tab">Schedule</a></li>
             </ul>
@@ -76,10 +76,10 @@
         </div>
         
         <div class="tab-pane" id="waived">
-          <div class="container-fluid ">
+          <div class="container-fluid">
             <div class="row-fluid">
               <div id="waived-available" class="col-xs-1"></div>
-              <div id="waived" class="col-xs-1"></div>
+              <div id="waived-waived" class="col-xs-1"></div>
               <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
               <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
             </div>
@@ -88,18 +88,39 @@
         
         <div class="tab-pane" id="taken">
           <div class="container-fluid ">
+            <div class="row">
+              <div class="col-xs-1">
+                <b>Available</b>
+              </div>
+              <!-- <div class="col-md-offset-1 col-xs-1"> -->
+              <!--   <b>Core</b> -->
+              <!-- </div> -->
+              <div class="col-md-offset-1 col-xs-1">
+                <b>6000</b>
+              </div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>5000</b>
+              </div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>4000</b>
+              </div>
+            </div>
             <div class="row-fluid">
               <div id="taken-available" class="col-xs-2">
                 <div class="row-fluid"></div>
-
               </div>
-              <div id="waived" class="col-xs-1"></div>
-              <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
-              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
+              <div class="clearfix visible-xs"></div>
+              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
+              <div class="col-xs-1 bucket taken 6000"></div>
+              <div class="col-md-offset-1 col-xs-1 bucket taken 5000"></div>
+              <div class="col-md-offset-1 col-xs-1 bucket taken 4000"></div>
+            </div>
+            <div class="row">
+              <div id ="description" class="col-md-offset-2 col-xs-7"></div>
             </div>
           </div>
         </div>
-
+        
         <div class="tab-pane" id="selected">
           <div class="container-fluid ">
             <div class="row">
@@ -133,8 +154,8 @@
               <div id ="description" class="col-md-offset-2 col-xs-7"></div>
             </div>
           </div>
-          
         </div>
+        
         <div class="tab-pane" id="schedule">
         </div>
         <ul class="pager wizard">

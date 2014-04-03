@@ -7,7 +7,7 @@ function CoursesController() {
 
         // Initialize the different renderers
         this.configure =   new ConfigureRenederer(this.userCourses);
-        this.waived =      new WaivedRenederer(this.userCourses);
+        this.waived =      new WaivedRenederer(this.userCourses, this.rules);
         this.taken =       new TakenRenederer(this.userCourses);
         this.selected =    new SelectedRenederer(this.userCourses, this.rules);
 
@@ -24,11 +24,28 @@ function CoursesController() {
     this.handleEvent = function (event) {
 
         var currentTab = $('.tab-pane.active')[0].id;
-        switch(currentTab) {
+        switch(currentTab) { 
         case "waived":
-
+                var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
+                var src = this.userCourses.getCourseBucket(event.currentTarget.id);
+                if(src == this.userCourses.waived) {
+                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
+                }
+                else {
+                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.waived);
+                }
+            this.waived.renderAll();
             break;
         case "taken":
+                var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
+                var src = this.userCourses.getCourseBucket(event.currentTarget.id);
+                if(src == this.userCourses.taken) {
+                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
+                }
+                else {
+                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.taken);
+                }
+            this.selected.renderAll();
             break;
         case "selected":
             if(this.currentClicked == event.currentTarget.id) {
@@ -67,14 +84,15 @@ function CoursesController() {
             break;
         case 1:
             // waived
+            this.waived.renderAll();
             break;
         case 2:
             // taken
-            this.selected.renderAvailable();
+            this.selected.renderAll();
             break;
         case 3:
             // selected
-            this.selected.renderAvailable();
+            this.selected.renderAll();
             break;
         case 4:
             // schedule

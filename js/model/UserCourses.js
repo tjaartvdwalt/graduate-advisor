@@ -72,7 +72,6 @@ function UserCourses(courses, rules) {
     this.moveCourse = function (course, src, dest) {
         // move the prerequisite recursively
         var prereq = this.findPrereq(course);
-        console.log(prereq);
         if(prereq != undefined) {
             this.moveCourse(prereq, src, dest);
         }

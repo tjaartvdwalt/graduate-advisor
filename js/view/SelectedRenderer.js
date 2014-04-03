@@ -74,11 +74,10 @@ function SelectedRenederer(userCourses, rules){
     }
 
     this.renderAll = function(currentAvailable) {
-        this.renderAvailable("select-available", this.userCourses["available"], currentAvailable);
-
-        this.renderSelected(this.userCourses["selected"], '6000');
-        this.renderSelected(this.userCourses["selected"], '5000');
-        this.renderSelected(this.userCourses["selected"], '4000');
+        this.renderAvailable();
+        this.renderSelected('6000');
+        this.renderSelected('5000');
+        this.renderSelected('4000');
     }
 
     /*
@@ -95,7 +94,7 @@ function SelectedRenederer(userCourses, rules){
      */
     this.renderAvailable = function () {
         var activeTab = $('.tab-pane.active').attr('id');
-
+        console.log(activeTab);
 
         var available = $("#" + activeTab + "-available");
         var availableGroups = $("#" + activeTab + "-available" + "> .row-fluid");
@@ -133,7 +132,9 @@ function SelectedRenederer(userCourses, rules){
 
     }
 
-    this.renderSelected = function (courses, filter) {
+    this.renderSelected = function (filter) {
+        var activeTab = $('.tab-pane.active').attr('id');
+
         //console.log(filter);
         displayRules = this.rules.rules[filter];
         if(displayRules != null) {
@@ -144,7 +145,7 @@ function SelectedRenederer(userCourses, rules){
 
         var j = 0;
         // JQuery select based on multiple class values
-        var selected = $('.selected.' + filter);
+        var selected = $('.' + activeTab + '.' + filter);
         var spacers =  $('.selected.' + filter + " > .spacer");
         spacers.remove();
         var minRules =  $('.min');
@@ -152,9 +153,14 @@ function SelectedRenederer(userCourses, rules){
         var maxRules =  $('.max');
         maxRules.remove();
 
-        for(var i in courses) {
+        var renderData = this.userCourses.selected;
+        if(activeTab == "taken") {
+            renderData = this.userCourses.taken;
+        }
+        
+        for(var i in renderData) {
             var button = $("#" + i);
-
+            
             // Add a class to the button if it has a dependency
             // we can then colorize the buttons in the css
             var course = this.userCourses.getCourse(i);
