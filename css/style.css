@@ -1,9 +1,15 @@
+button{
+    height: 100%;
+}
 body {
   padding-top: 50px;
 }
 
 .bucket {
     padding-top: 20px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
     border-right-style:solid;
     border-bottom-style:solid;
     border-left-style:solid;
@@ -21,3 +27,12 @@ body {
 .spacer {
     visibility:hidden;
 }
+
+.core {
+    background-color:#00FFFF;
+}
+
+.prereq {
+    background-color:#FFFF00;
+}
+

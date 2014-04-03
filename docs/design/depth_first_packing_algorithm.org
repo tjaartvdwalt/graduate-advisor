@@ -1,0 +1,120 @@
+<2014-03-20 Thu>
+* Current state of affairs
+We tested our schedule generation approach last night in the lab but it did not yield satisfactory results. I have been thinking about an alternative approach which I call "depth first generation" for a while and I decided to give a detailed design here so that we can discuss it.
+
+* A change in approach
+What I am proposing is a big change in paradigm from our current approach. We need to accept that we cannot generate exhaustive solutions to the problem in any reasonable amount of time. Then we can think about how we can use the information we have to generate some viable solutions quickly.
+
+* The depth first approach
+** Rules
+The user can provide some rules to guide the schedule generation.
+
+One way of doing this is to ask some configuration questions before we start packing the schedule, for example:
+- number of semesters
+- evening class preference/day class preference
+ 
+Another way would be to be to add priority to certain courses so that they can be packed early (or late) in the schedule.
+
+** Course categories
+The most important part of making this algorithm work is to classify the selected courses into groups of when they are presented. The groups I see are:
+- Arbitrary semester
+- Spring (even) semester
+- Fall (odd) semester
+- All semesters
+
+** Putting it all together
+The algorithm follows these steps: 
+- We pack the courses that are presented in arbitrary semesters. These will include the 6000 level courses, so we also pack any prerequisites for these courses at this point. (For simplicity we will pack the prereq to the closest time it is presented before the 6000 course)
+
+- Then we start packing courses from the even and odd categories. We pack them consecutively in each semester. (The ordering of these courses does not matter, but we can possibly use some rules to decide which to pick first)
+
+- Lastly we fill any gaps in our schedule with the courses that are presented in all semester.
+
+* An example 
+To make this approach concrete I decided to show with an example how this can be done. I will pack the schedule into 4 semesters and use my own course list as example. Here it is divided into course types. (Interesting to note: 5880 is the independant project that may be taken twice which is something we should take into account)
+
+ #+ATTR_HTML: :border 2 :rules all :frame border
+| course type |                              |
+|-------------+------------------------------|
+|        core | 4250, 4760, 5130, 5500, 5700 |
+|        6000 | 6420                         |
+| 6000 prereq | 5420                         |
+|        5000 | 5880, 5320                   |
+|        4000 | 4280                         |
+
+
+From this schedule we classify the courses into the times they are presented
+| which semester |                                                                   |
+|----------------+-------------------------------------------------------------------|
+| arbitrary      | 6420 (Spring 2015 and Spring 2017) 5420 (Fall 2014 and Fall 2016) |
+| spring         | 5320, 5500, 5700                                                  |
+| fall           | 5130                                                              |
+| all            | 4250, 4280, 4760, 5880                                            |
+
+We start packing from Spring 2014 for 4 semesters. We consider a semester full when it contains 3 courses.
+
+First we pick the arbitrary courses. We take 6420 in Spring 2015 since 2017 is outside our time frame
+
+| Semester | 1 | 2 |    3 | 4 |
+|----------+---+---+------+---|
+|          |   |   | 6420 |   |
+
+Next we pick the prerequisite it has to be Fall 2014 because it must be fore the 6000
+| Semester | 1 |    2 |    3 | 4 |
+|----------+---+------+------+---|
+|          |   | 5420 | 6420 |   |
+
+Now we start alternating between the Spring and Fall semesters. We will pack them in ascending order as given above but it is important to note that it can be done in any order. Possibly we could have used some rules to order them.
+
+| Semester |    1 |    2 |    3 | 4 |
+|----------+------+------+------+---|
+|          | 5320 | 5420 | 6420 |   |
+
+
+
+| Semester |    1 |    2 |    3 | 4 |
+|----------+------+------+------+---|
+|          | 5320 | 5420 | 6420 |   |
+|          |      | 5130 |      |   | 
+
+
+
+| Semester |    1 |    2 |    3 | 4 |
+|----------+------+------+------+---|
+|          | 5320 | 5420 | 6420 |   |
+|          |      | 5130 | 5500 |   |
+
+Since there is now no more Fall semesters left we pack the rest of the Spring semesters
+| Semester |    1 |    2 |    3 | 4 |
+|----------+------+------+------+---|
+|          | 5320 | 5420 | 6420 |   |
+|          | 5700 | 5130 | 5500 |   |
+
+Now we are left with courses that are presented in every semester. Since semester 4 is empty we start packing it:
+| Semester |    1 |    2 |    3 |    4 |
+|----------+------+------+------+------|
+|          | 5320 | 5420 | 6420 | 4250 |
+|          | 5700 | 5130 | 5500 |      |
+
+We continue packing semester 4 intil it reaches the level of the next most empty semester.
+
+| Semester |    1 |    2 |    3 |    4 |
+|----------+------+------+------+------|
+|          | 5320 | 5420 | 6420 | 4250 |
+|          | 5700 | 5130 | 5500 | 4280 |
+
+Since the most empty semester is now 2 we can place the next course in any semester. Maybe we make it as early as possible.
+
+| Semester |    1 |    2 |    3 |    4 |
+|----------+------+------+------+------|
+|          | 5320 | 5420 | 6420 | 4250 |
+|          | 5700 | 5130 | 5500 | 4280 |
+|          | 4760 |      |      |      |
+
+
+
+| Semester |    1 |    2 |    3 |    4 |
+|----------+------+------+------+------|
+|          | 5320 | 5420 | 6420 | 4250 |
+|          | 5700 | 5130 | 5500 | 4280 |
+|          | 4760 | 5880 |      |      |
