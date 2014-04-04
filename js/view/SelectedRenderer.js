@@ -102,7 +102,6 @@ function SelectedRenederer(userCourses, rules){
         // render the category buttons first
         for(var i in this.availableButtons) {
             var button = $("#" + this.availableButtons[i]);
-            console.log(button);
             button.detach().prependTo(availableGroups);
             button.show();
         }
@@ -113,9 +112,8 @@ function SelectedRenederer(userCourses, rules){
             var button = $("#" + i);
             // remove the prereq class if its set
             button.removeClass("prereq");
-            console.log(button);
             if((button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter)) {
-                button.detach().prependTo(available);
+                button.detach().appendTo(available);
                 button.show();
                 j++
             }
@@ -124,11 +122,11 @@ function SelectedRenederer(userCourses, rules){
             }
         }
 
-        for(var k=0;k<7-j;k++) {
-            $('<button>Spacer</button>').attr({
-                'class' : 'spacer'
-            }).appendTo(available);
-        }
+        // for(var k=0;k<7-j;k++) {
+        //     $('<button>Spacer</button>').attr({
+        //         'class' : 'spacer'
+        //     }).appendTo(available);
+        // }
 
     }
 

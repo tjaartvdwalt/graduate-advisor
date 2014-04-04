@@ -10,8 +10,8 @@ function CoursesController() {
         this.waived =      new WaivedRenederer(this.userCourses, this.rules);
         this.taken =       new TakenRenederer(this.userCourses);
         this.selected =    new SelectedRenederer(this.userCourses, this.rules);
-
-        //this.rotation = new JSONParser().getJSON('rotation');
+        this.rotation = new JSONParser().getJSON('rotation');
+        
         //console.log(this.rotation);
         //this.configure.render();
         this.addButtonListeners();
@@ -96,6 +96,8 @@ function CoursesController() {
             break;
         case 4:
             // schedule
+            var schedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation);
+            console.log(schedule);
             break;
         }
 

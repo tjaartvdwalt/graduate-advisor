@@ -4,13 +4,26 @@
  *
  * We need the Rotations JSON object as "jo"
  */
+function Scheduler() {
+    var MAX_PER_SEMESTER = 4;
+    var ATTEMPTS = 100000;
+    var NEEDED_FIVES = 6;
+    var NEEDED_SIXES = 1;
+    var NEEDED_COURSES = 10;
+    var jo;
 
-var MAX_PER_SEMESTER = 4;
-var ATTEMPTS = 100000;
-var NEEDED_FIVES = 6;
-var NEEDED_SIXES = 1;
-var NEEDED_COURSES = 10;
-var jo;
+    //Takes an array of Course object and number of semesters, returns
+    //an array of Rotation objects
+    function MakeSchedule(selection, semesters, needed, JOi) {
+        NEEDED_COURSES = needed;
+        jo = JOi;
+        var error_type = -1; //-1 no error, 0 semester overload, 1 prereq order
+        var sem_density = [];
+        var i, remaining_fives, num_courses = 0, crash_counter = 0;
+        var Options = new Array();
+        var Order = new Array();
+        var Final = new Array();
+        var Core_Courses = [4760, 4250, 5700, 5500, 5130];
 
 //Takes an array of Course object and number of semesters, returns
 //an array of Rotation objects

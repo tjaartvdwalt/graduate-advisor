@@ -43,7 +43,7 @@
     <script src="js/view/SelectedRenderer.js"></script>
     <script src="js/view/TakenRenderer.js"></script>
     <script src="js/view/WaivedRenderer.js"></script>
-    <script src="js/CourseParser.js"></script>
+    <script src="js/Scheduler.js"></script>
     <script src="js/Validate_Course_List.js"></script>
     <script src="js/wizard.js"></script>
   </head>
@@ -106,7 +106,7 @@
               </div>
             </div>
             <div class="row-fluid">
-              <div id="taken-available" class="col-xs-2">
+              <div id="taken-available" class="col-xs-1">
                 <div class="row-fluid"></div>
               </div>
               <div class="clearfix visible-xs"></div>
