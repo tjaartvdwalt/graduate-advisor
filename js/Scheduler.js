@@ -22,7 +22,7 @@ function MakeSchedule(selection, semesters, needed, JOi) {
 	var i, remaining_fives, num_courses = 0, crash_counter = 0;
 	var Options = new Array();
 	var Order = new Array();
-	var Final = new Array();
+	var Finished = new Array();
 	var Core_Courses = [4760, 4250, 5700, 5500, 5130];
 
 	for(i = 0; i < semesters; i++)
@@ -70,7 +70,7 @@ function MakeSchedule(selection, semesters, needed, JOi) {
 	}
 	//Fill random courses to get to course limit if we need it
 	while(num_courses < NEEDED_COURSES) {
-		var result = FindRandomCourse(0, semesters, Options);
+		var result = FindMaxOption(3, semesters, Options);
 		if(result == -1) return "Can't Fill a Random Course";
 		Options[result.number] = result.arr;
 		num_courses++;
@@ -80,24 +80,24 @@ function MakeSchedule(selection, semesters, needed, JOi) {
 		Order[i] = FindMin(Options, Order);
 	}
 	for(i = 0; i < NEEDED_COURSES; i++) {
-		Final[Order[i]] = PickAppropriate(Order[i])
+		Finished[Order[i]] = PickAppropriate(Order[i])
 	}
 	//Build a schedule according to the algorith; modify if necessary
-	while(!Valid(Final) && crash_counter < ATTEMPTS) {
+	while(!Valid(Finished) && crash_counter < ATTEMPTS) {
 		crash_counter++;
 		if(error_type == 0) {   //semester overload error
 			for(i = 0; i < semesters; i++) {
 				if(sem_density[i] > MAX_PER_SEM) {
-					MoveMax(Final, Order);
+					MoveMax(Finished, Order);
 				}
 			}
 		}
 		if(error_type == 1) {   //prerequisite order error
-			ReOrderPreReq(Final, Order);
+			ReOrderPreReq(Finished, Order);
 		}
 	}
 	if(crash_counter >= ATTEMPTS) return "Exhausted Attempts";
-	return Final;
+	return Finished;
 }
 
 //Search the XML for all Rotation Object occurrences within a semester threshold
@@ -121,6 +121,7 @@ function FindOptions(course_number, semesters, jo) {
                 	temp.sem = 2*i+1;
                 else 
                         temp.sem = 2*i+2;
+		if(temp.sem > semesters)  continue; //threshold at a semester limit
 		result.push(temp);
 	}	
 	}
@@ -129,13 +130,14 @@ function FindOptions(course_number, semesters, jo) {
 
 //Returns the course option that satisfies the provided "type" and has the 
 //most occurrences of any other similarly-fulfilling course. Avoids picking
-//already selected courses. type 1 picks a 6000, 2 picks a 5000
+//already selected courses. type 1 picks a 6000, 2 picks a 5000, 3 picks a 4000
 function FindMaxOption(type, semesters, filled) {
 	var course_numbers = [];
+	var temp_sem;
 	var variety = new Array();
 	var skipflag = false;
 	var max_opts = 0, max_ind = -1;
-	//Create a list of courses that potentially satisfy the requirements
+	//Create a list of courses that potentially satisfy the requirements and their occurrences
 	for(var i = 0; i < jo.rotation_year.length; i++)
 	for(var k = 0; k < jo.rotation_year[i].course.length; k++) {
 		skipflag = false;
@@ -148,18 +150,59 @@ function FindMaxOption(type, semesters, filled) {
 		}
 		if(skipflag) continue;
 		for(var l = 0; l < jo.rotation_year[i].course[k].rotation_term.length; l++) {
+			if(jQuery.isEmptyObject(jo.rotation_year[i].course[k].rotation_term[l].time_code)) continue;
+			//Threshold at a semester limit
+			if(jo.rotation_year[i].course[k].rotation_term[l].term == "Fall")
+				temp_sem = 2*i+1;
+			else temp_sem = 2*i+2;
+			if(temp_sem > semesters) continue;
+ 	
 			if(type == 1) {
 				if(jo.rotation_year[i].course[k].course_number >= 6000) {
-					if(jQuery.isEmptyObject(jo.rotation_year[i].course[k].ro	
+					variety[jo.rotation_year[i].course[k].course_number]++;	
 				}
 			if(type == 2) {
+				//Check to make sure the 6000 pre-requisite exists before first
+				if(!HasOccurrence(GetPrereqs(jo.rotation_year[i].course[k].course_number), temp_sem)) continue;
 				if(jo.rotation_year[i].course[k].course_number < 6000 &&
-					jo.rotation_year[i].course[k].course_number >= 5000) {
-					course_numbers.push(jo.rotation_year[i].course[k].course_number);
+					variety[jo.rotation_year[i].course[k].course_number]++;	
 				}
-
+			}
+			if(type == 3) {
+				if(jo.rotation_year[i].course[k].course_number < 5000 && 
+					jo.rotation_year[i].course[k].course_number >= 4000) {
+					variety[jo.rotation_year[i].course[k].course_number]++;	
+				}
 			}
 		}	
 	}
 	//Determine which of the courses stored above have the highest number of options
+	for(var i in variety) {
+		if(variety[i] > max_opts) {
+			max_ind = i;
+			max_opts = variety[i];
+		}
+	}
+	if(max_ind == -1) return -1;
+	return FindOptions(max_ind, semesters);
+}
+
+function FindMin(Options, Order) {
+
+}
+
+function HasOccurrence(course_number, sem) {
+
+}
+
+function PickAppropriate(course_number) {
+
+}
+
+function MoveMax(Finished, Order) {
+
+}
+
+function ReOrderPrereq(Finished, Order) {
+
 }
