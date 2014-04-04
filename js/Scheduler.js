@@ -124,13 +124,13 @@ function FindOptions(course_number, semesters, jo) {
 		if(jo.rotation_year[i].course[k].subject != "CMP SCI" ||
 			jo.rotation_year[i].course[k].course_number != course_number) continue;
 	for(var j = 0; j < jo.rotation_year[i].course[k].rotation_term.length; j++) {
-		if(jQuery.isEmptyObject(jo.rotation_year[i].course[k].rotation_term[l].time_code))
+		if(jQuery.isEmptyObject(jo.rotation_year[i].course[k].rotation_term[j].time_code))
 			continue;
 		var temp = new Object();	
-		var temp.course = jo.rotation_year[i].course[k];
-		var temp.year = jo.rotation_year[i].year;
-		var temp.sem = jo.rotation_year[i].course[k]
-		if(jo.rotation_year[i].course[k].rotation_term[l].term == "Fall")
+		temp.course = jo.rotation_year[i].course[k];
+		temp.year = jo.rotation_year[i].year;
+		temp.sem = jo.rotation_year[i].course[k]
+		if(jo.rotation_year[i].course[k].rotation_term[j].term == "Fall")
                 	temp.sem = 2*i+1;
                 else 
                         temp.sem = 2*i+2;
