@@ -50,7 +50,7 @@ function MakeSchedule(selection, semesters, needed, JOi) {
     }
     //Fill 5000s if we need them
     if(five_req < NEEDED_FIVES) {
-        remaining_fives = NEEDED_FIVES - fives_req;
+        remaining_fives = NEEDED_FIVES - five_req;
         for(i = 0; i < remaining_fives; i++) {
             var result = FindMaxOption(1, semesters, Options);
             if(result == -1) return "Can't Fill a 5000";
