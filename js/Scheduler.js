@@ -177,7 +177,7 @@ function FindMaxOption(type, semesters, filled) {
 			if(type == 2) {
 				//Check to make sure the 6000 pre-requisite exists before first
 				if(!HasOccurrence(GetPrereqs(jo.rotation_year[i].course[k].course_number), temp_sem)) continue;
-				if(jo.rotation_year[i].course[k].course_number < 6000 &&
+				if(jo.rotation_year[i].course[k].course_number < 6000)
 					variety[jo.rotation_year[i].course[k].course_number]++;	
 				}
 			}
