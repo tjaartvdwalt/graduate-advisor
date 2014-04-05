@@ -44,6 +44,7 @@
     <script src="js/view/TakenRenderer.js"></script>
     <script src="js/view/WaivedRenderer.js"></script>
     <script src="js/Scheduler.js"></script>
+    <script src="js/CourseParser.js"></script>
     <script src="js/Validate_Course_List.js"></script>
     <script src="js/wizard.js"></script>
   </head>
