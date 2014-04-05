@@ -1,0 +1,21 @@
+* Graduate Advisor Product Backlog
+** courses with variable credit hours
+Some courses have a range of credit hours. 
+For example the personal projects CS5880 can be taken between 1-6 credit hours.
+
+Prof Janikow stated 2 important requirements in this regard:
+- They do not present this course in less than 3 hour increments.
+- Your advisor will probably not allow you to complete all 6 hours in the same semester.
+
+I think the easiest solution is to have 2 buttons for these types of courses in the gui, maybe with the title: 5880(A), 5880(B) each with 3 hours.
+
+Otherwise we should allow the user to select the number of credit hours, but he should be able to repeat the course for a max of 6 hours. 
+
+** optional prerequisites
+Currently we only allow for a single prerequisite per 6000 level course. There are courses that have multiple options, and we should allow the user to choose, but sometimes one of the options does not get presented in the users time frame, then we should not provide this option.
+
+** context sensitive help
+Create an "overlay" like tutorial for every page in the gui that explains the usage. The idea is similar to when you start using your new smart phone when you get a quick tutorial of how things work.
+
+** Saving user data
+In our design it should be almost trivial to save the data model to JSON and allow the user to load the JSON back in a new session. 

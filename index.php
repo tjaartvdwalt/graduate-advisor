@@ -18,6 +18,7 @@
     <link rel="shortcut icon" href="assets/icons/favicon.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/introjs.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     
     <script>
@@ -29,6 +30,7 @@
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/bootstrap-select.min.js"></script>
+    <script src="js/lib/intro.min.js"></script>
     <script src="js/lib/jquery.bootstrap.wizard.min.js"></script>
     
     <!-- import our code -->
