@@ -19,3 +19,6 @@ Create an "overlay" like tutorial for every page in the gui that explains the us
 
 ** Saving user data
 In our design it should be almost trivial to save the data model to JSON and allow the user to load the JSON back in a new session. 
+
+** Keep courses ordered after moving
+   Currently if you move a course from "Available" to "Selected" and then move it back to available the course gets appended to the available list. Maybe the courses should be kept in chronological order (as it is initially).
