@@ -139,7 +139,7 @@ function SelectedRenederer(userCourses, rules){
         var j = 0;
         // JQuery select based on multiple class values
         var selected = $('.' + activeTab + '.' + filter);
-        var spacers =  $('.selected.' + filter + " > .spacer");
+        var spacers =  $('.'+ activeTab + '.' + filter + " > .spacer");
         spacers.remove();
         var minRules =  $('.min');
         minRules.remove();
@@ -172,7 +172,6 @@ function SelectedRenederer(userCourses, rules){
                 }
 
             }
-            // }
         }
 
         // fill the rest of the bucket with empty buttons

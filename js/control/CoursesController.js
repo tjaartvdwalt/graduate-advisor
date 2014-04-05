@@ -21,19 +21,20 @@ function CoursesController() {
     this.handleEvent = function (event) {
 
         var currentTab = $('.tab-pane.active')[0].id;
-        switch(currentTab) { 
+        switch(currentTab) {
         case "waived":
-                var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
-                var src = this.userCourses.getCourseBucket(event.currentTarget.id);
-                if(src == this.userCourses.waived) {
-                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
-                }
-                else {
-                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.waived);
-                }
+            var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
+            var src = this.userCourses.getCourseBucket(event.currentTarget.id);
+            if(src == this.userCourses.waived) {
+                this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
+            }
+            else {
+                this.userCourses.moveCourse(clickedCourse, src, this.userCourses.waived);
+            }
             this.waived.renderAll();
             break;
         case "taken":
+            if(this.currentClicked == event.currentTarget.id) {
                 var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
                 var src = this.userCourses.getCourseBucket(event.currentTarget.id);
                 if(src == this.userCourses.taken) {
@@ -42,8 +43,16 @@ function CoursesController() {
                 else {
                     this.userCourses.moveCourse(clickedCourse, src, this.userCourses.taken);
                 }
-            this.selected.renderAll();
+                this.selected.renderAll();
+                this.currentClicked = "";
+            }
+            else {
+                var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
+                this.selected.renderDescription(clickedCourse);
+                this.currentClicked = event.currentTarget.id;
+            }
             break;
+
         case "selected":
             if(this.currentClicked == event.currentTarget.id) {
                 var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
@@ -57,7 +66,6 @@ function CoursesController() {
                     this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
                 }
                 this.selected.renderAll();
-
                 this.currentClicked = "";
             }
             else {
