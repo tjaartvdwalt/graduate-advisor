@@ -81,8 +81,14 @@
         <div class="tab-pane" id="waived">
           <div class="container-fluid">
             <div class="row-fluid">
-              <div id="waived-available" class="col-xs-1"></div>
-              <div id="waived-waived" class="col-xs-1"></div>
+              <div id="waived-available" class="col-xs-1">
+                <b>Not Waived</b>
+              </div>
+              <div class="col-xs-1 right-border"></div>
+              <div class="col-xs-1"></div>
+              <div id="waived-waived" class="col-xs-1">
+                <b>Waived</b>
+              </div>
               <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
               <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
             </div>
