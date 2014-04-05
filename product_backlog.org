@@ -22,3 +22,6 @@ In our design it should be almost trivial to save the data model to JSON and all
 
 ** Keep courses ordered after moving
    Currently if you move a course from "Available" to "Selected" and then move it back to available the course gets appended to the available list. Maybe the courses should be kept in chronological order (as it is initially).
+
+** Test mobile version
+Twitter Bootstrap /should/ handle the display for tablet/phone, but we need to test this thouroughly
