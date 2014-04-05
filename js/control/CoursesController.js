@@ -11,9 +11,6 @@ function CoursesController() {
         this.taken =       new TakenRenederer(this.userCourses);
         this.selected =    new SelectedRenederer(this.userCourses, this.rules);
         this.rotation = new JSONParser().getJSON('rotation');
-        
-        //console.log(this.rotation);
-        //this.configure.render();
         this.addButtonListeners();
     }
 
@@ -97,12 +94,8 @@ function CoursesController() {
         case 4:
             // schedule
             var schedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation);
-            console.log(schedule);
             break;
         }
-
-        console.log(index)
-        //this.selected.renderAll('6000');
     }
 
     /*

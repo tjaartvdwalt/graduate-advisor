@@ -56,7 +56,6 @@ function SelectedRenederer(userCourses, rules){
                 'class': 'btn-xs'
             });
             button[0].addEventListener("click", this, false);
-            console.log(button);
             $("#buttons").append(button).hide();
         }
         // Set the 6000 button to be the active filter initially
@@ -94,7 +93,6 @@ function SelectedRenederer(userCourses, rules){
      */
     this.renderAvailable = function () {
         var activeTab = $('.tab-pane.active').attr('id');
-        console.log(activeTab);
 
         var available = $("#" + activeTab + "-available");
         var availableGroups = $("#" + activeTab + "-available" + "> .row-fluid");
@@ -133,12 +131,9 @@ function SelectedRenederer(userCourses, rules){
     this.renderSelected = function (filter) {
         var activeTab = $('.tab-pane.active').attr('id');
 
-        //console.log(filter);
         displayRules = this.rules.rules[filter];
         if(displayRules != null) {
             var keys = Object.keys(displayRules);
-            //console.log(keys[0]);
-            //console.log(displayRules[keys[0]]);
         }
 
         var j = 0;
@@ -168,11 +163,6 @@ function SelectedRenederer(userCourses, rules){
                 $("#" + prereq.course_number).addClass("prereq");
             }
 
-            //            console.log(i);
-            //console.log(button);
-            // if(button.length > 0) {
-            //     console.log("success");
-            // }
             if((button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter)) {
                 button.detach().prependTo(selected);
                 button.show();

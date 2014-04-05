@@ -22,7 +22,6 @@ function WaivedRenederer(userCourses, rules){
         for(var j in notWaived) {
             for(var i in notWaived[j]) {
                 if(jQuery.inArray(i, this.rules.rules.core) >= 0) {
-                    console.log("in if");
                     var button = $("#" + i);
                     button.detach().appendTo(waivedAvailable);
                     button.show();
