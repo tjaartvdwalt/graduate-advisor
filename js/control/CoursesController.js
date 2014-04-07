@@ -101,9 +101,7 @@ function CoursesController() {
             break;
         case 4:
             // schedule
-            var calcSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation);
-            this.schedule.renderSchedule(calcSchedule);
-            //console.log(calcSchedule);
+            var schedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation, this.courses);
             break;
         }
     }
