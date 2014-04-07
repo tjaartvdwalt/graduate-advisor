@@ -28,7 +28,7 @@ function ScheduleRenderer(userCourses){
 
 
         for(var i = 0; i < userCourses.semesters; i++) {
-            var year = parseInt(startYear) + Math.floor(i/2) + startSemester;
+            var year = parseInt(startYear) + Math.floor((i + startSemester)/2);
             table.append($('<th>').html(semesterName[(i + startSemester) % 2] + ' ' + year));
         }
 
