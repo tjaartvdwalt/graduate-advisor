@@ -5,7 +5,9 @@ function ScheduleRenederer(userCourses){
 
     this.renderSchedule = function(schedule) {
         var semesterArray = [userCourses.semesters];
-        var table = $('<table>').addClass('table').addClass('table-striped');
+        // Remove the previous schedule
+        $('#schedtable').remove();
+        var table = $('<table>').attr('id', 'schedtable').addClass('table').addClass('table-striped');
 
         for(var i = 0; i < userCourses.semesters; i++) {
             semesterArray[i] = new Array();
