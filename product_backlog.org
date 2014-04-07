@@ -1,3 +1,5 @@
+#+bind: org-export-publishing-directory "./product_backlog"
+
 * Graduate Advisor Product Backlog
 ** courses with variable credit hours
 Some courses have a range of credit hours. 
@@ -17,11 +19,16 @@ Currently we only allow for a single prerequisite per 6000 level course. There a
 ** context sensitive help
 Create an "overlay" like tutorial for every page in the gui that explains the usage. The idea is similar to when you start using your new smart phone when you get a quick tutorial of how things work.
 
-** Saving user data
+** saving user data
 In our design it should be almost trivial to save the data model to JSON and allow the user to load the JSON back in a new session. 
 
-** Keep courses ordered after moving
+** keep courses ordered after moving
    Currently if you move a course from "Available" to "Selected" and then move it back to available the course gets appended to the available list. Maybe the courses should be kept in chronological order (as it is initially).
 
-** Test mobile version
+** test mobile version
 Twitter Bootstrap /should/ handle the display for tablet/phone, but we need to test this thouroughly
+
+** allow modifications to generated schedule
+If you have 2 courses that are presented in similar semesters, you might want to swap them around once your schedule has been generated.
+
+** manual test like crazy
