@@ -7,6 +7,8 @@ function CoursesController() {
 
         // Initialize the different renderers
         this.configure =   new ConfigureRenederer(this.userCourses);
+        this.configure.renderAll();
+
         this.waived =      new WaivedRenederer(this.userCourses, this.rules);
         this.selected =    new SelectedRenederer(this.userCourses, this.rules);
         this.schedule =    new ScheduleRenederer(this.userCourses);
@@ -85,7 +87,7 @@ function CoursesController() {
 
         switch(index) {
         case 0:
-            this.configure.renderAll();
+            // Configuration page only needs to be rendered once
             break;
         case 1:
             // waived
