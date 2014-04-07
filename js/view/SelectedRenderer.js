@@ -4,10 +4,11 @@
  * methods to change visibility.
  *
  */
-function SelectedRenederer(userCourses, rules){
+function SelectedRenederer(userCourses, rotation, rules){
     this.init = function() {
         this.userCourses = userCourses;
         this.bucketSize = 6;
+        this.rotation = rotation;
         this.rules = rules;
 
         this.addCourseButtons();
@@ -110,12 +111,13 @@ function SelectedRenederer(userCourses, rules){
             var button = $("#" + i);
             // remove the prereq class if its set
             button.removeClass("prereq");
-            if((button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter)) {
+            if(this.inRange(button.get(0).id) && button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter) {
                 button.detach().appendTo(available);
                 button.show();
                 j++
             }
             else {
+                button.detach().prependTo("#buttons");
                 button.hide();
             }
         }
@@ -150,10 +152,10 @@ function SelectedRenederer(userCourses, rules){
         if(activeTab == "taken") {
             renderData = this.userCourses.taken;
         }
-        
+
         for(var i in renderData) {
             var button = $("#" + i);
-            
+
             // Add a class to the button if it has a dependency
             // we can then colorize the buttons in the css
             var course = this.userCourses.getCourse(i);
@@ -163,14 +165,14 @@ function SelectedRenederer(userCourses, rules){
                 $("#" + prereq.course_number).addClass("prereq");
             }
 
-            if((button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter)) {
+            if(button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter) {
+                
                 button.detach().prependTo(selected);
                 button.show();
                 j++;
                 if(keys != null && j == displayRules[keys[0]]) {
                     $("<div>").addClass(keys[0]).prependTo(selected);
                 }
-
             }
         }
 
@@ -186,6 +188,18 @@ function SelectedRenederer(userCourses, rules){
                 $("<div>").addClass(keys[0]).prependTo(selected);
             }
         }
+    }
+
+    this.inRange = function(course) {
+        console.log(course);
+        console.log(this.userCourses.semesters);
+        console.log(this.rotation);
+        var options = FindOptions(course, this.userCourses.semesters, this.rotation);
+        console.log(options.length);
+        if(options.length > 0) {
+            return true;
+        }
+        return false;
     }
 
     this.renderDescription = function (course) {

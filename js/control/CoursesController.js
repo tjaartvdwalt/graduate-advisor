@@ -9,10 +9,10 @@ function CoursesController() {
         this.configure =   new ConfigureRenederer(this.userCourses);
         this.configure.renderAll();
 
-        this.waived =      new WaivedRenederer(this.userCourses, this.rules);
-        this.selected =    new SelectedRenederer(this.userCourses, this.rules);
-        this.schedule =    new ScheduleRenederer(this.userCourses);
         this.rotation = new JSONParser().getJSON('rotation');
+        this.waived =      new WaivedRenederer(this.userCourses,  this.rules);
+        this.selected =    new SelectedRenederer(this.userCourses, this.rotation, this.rules);
+        this.schedule =    new ScheduleRenederer(this.userCourses);
         this.addButtonListeners();
     }
 

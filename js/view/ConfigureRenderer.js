@@ -3,16 +3,38 @@ function ConfigureRenederer(userCourses){
         self = this;
         this.userCourses = userCourses;
     }
-    this.SemestersRenderer = function() {
+    this.semestersRenderer = function() {
         // Add the select list
-        $('#nr-of-semesters').append($('<select>').attr('id', 'semesters-list')
-                                     .addClass('selectpicker'))
+        var semesterList = $('<select>').addClass('selectpicker');
+        $('#nr-of-semesters').append(semesterList)
             .change(function(event) {
                 self.userCourses.semesters = event.target.value;
             });
         for(var i=3; i <= 6; i++) {
-            $('#semesters-list').append($('<option>').html(i));
+            semesterList.append($('<option>').html(i));
         }
+        // TODO set the default semesters to the default of the list.
+        // need to find a better solution here
+        this.userCourses.semesters = 3;
+    }
+    this.startingSemesterRenderer = function() {
+        var startYear = $('<select>').addClass('selectpicker')
+        $('#starting-year').append(startYear)
+        startYear.change(function(event) {
+            //self.userCourses.semesters = event.target.value;
+        });
+        for(var i=2014; i <= 2017; i++) {
+            startYear.append($('<option>').html(i));
+        }
+
+        var startSemester = $('<select>').addClass('selectpicker')
+        startSemester.append($('<option>').html("Fall"));
+        startSemester.append($('<option>').html("Spring"));
+        startSemester.change(function(event) {
+            //self.userCourses.semesters = event.target.value;
+        });
+        $('#starting-semester').append(startSemester)
+
     }
 
     this.exportRenderer = function() {
@@ -32,7 +54,8 @@ function ConfigureRenederer(userCourses){
     }
 
     this.renderAll = function() {
-        this.SemestersRenderer();
+        this.semestersRenderer();
+        this.startingSemesterRenderer();
         this.exportRenderer();
     }
 

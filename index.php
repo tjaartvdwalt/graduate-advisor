@@ -72,18 +72,27 @@
               <div class="col-xs-2">
                 Number of semesters
               </div>
-              <div id="nr-of-semesters" class="col-md-offset-1 col-xs-1">
+              <div id="nr-of-semesters" class="col-md-offset-1 col-xs-2">
               </div>
             </div>
             <div class="row">
               <div class="col-xs-2">
-                Export current selection
+                Starting semester
+              </div>
+              <div class="col-md-offset-1 col-xs-1">
+                <div id="starting-semester"></div>
+                <div id="starting-year"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-2">
+              Export
               </div>
               <div id="export" class="col-md-offset-1 col-xs-1"></div>
             </div>
             <div class="row">
               <div class="col-xs-2">
-                Import a JSON file
+                Import
               </div>
               <div id="import" class="col-md-offset-1 col-xs-1"></div>
             </div>
