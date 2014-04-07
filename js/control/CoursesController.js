@@ -6,13 +6,15 @@ function CoursesController() {
         this.userCourses = new UserCourses(this.courses.courses, this.rules);
 
         // Initialize the different renderers
-        this.configure =   new ConfigureRenederer(this.userCourses);
+        this.configure =   new ConfigureRenderer(this.userCourses);
         this.configure.renderAll();
 
         this.rotation = new JSONParser().getJSON('rotation');
-        this.waived =      new WaivedRenederer(this.userCourses,  this.rules);
-        this.selected =    new SelectedRenederer(this.userCourses, this.rotation, this.rules);
-        this.schedule =    new ScheduleRenederer(this.userCourses);
+        this.waived =      new WaivedRenderer(this.userCourses,  this.rules);
+        this.scoreboard =  new ScoreboardRenderer(this.userCourses);
+        this.scoreboard.renderAll();
+        this.selected =    new SelectedRenderer(this.userCourses, this.rotation, this.rules);
+        this.schedule =    new ScheduleRenderer(this.userCourses);
         this.addButtonListeners();
     }
 
@@ -33,6 +35,8 @@ function CoursesController() {
             else {
                 this.userCourses.moveCourse(clickedCourse, src, this.userCourses.waived);
             }
+            console.log("here");
+            this.scoreboard.renderAll();
             this.waived.renderAll();
             break;
         case "taken":
@@ -45,6 +49,7 @@ function CoursesController() {
                 else {
                     this.userCourses.moveCourse(clickedCourse, src, this.userCourses.taken);
                 }
+                this.scoreboard.renderAll();
                 this.selected.renderAll();
                 this.currentClicked = "";
             }
@@ -67,6 +72,7 @@ function CoursesController() {
                 else {
                     this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
                 }
+                this.scoreboard.renderAll();
                 this.selected.renderAll();
                 this.currentClicked = "";
             }

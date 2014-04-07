@@ -42,6 +42,7 @@
     <script src="js/model/UserCourses.js"></script>
     <script src="js/view/ConfigureRenderer.js"></script>
     <script src="js/view/ScheduleRenderer.js"></script>
+    <script src="js/view/ScoreboardRenderer.js"></script>
     <script src="js/view/SelectedRenderer.js"></script>
     <script src="js/view/TakenRenderer.js"></script>
     <script src="js/view/WaivedRenderer.js"></script>
@@ -52,18 +53,18 @@
   </head>
   <body>
     <div id="rootwizard">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <ul>
-              <li><a href="#configure" data-toggle="tab">Configure</a></li>
-              <li><a href="#waived" data-toggle="tab">Waived</a></li>
-              <li><a href="#taken" data-toggle="tab">Completed</a></li>
-              <li><a href="#selected" data-toggle="tab">Selected</a></li>
-              <li><a href="#schedules" data-toggle="tab">Schedule</a></li>
-            </ul>
-          </div>
-        </div>
+      <div class="navbar-collapse collapse">
+        <!-- <div id="scoreboard" class="navbar-form"> -->
+        <ul class="nav navbar-nav">
+          <li><a href="#configure" data-toggle="tab">Configure</a></li>
+          <li><a href="#waived" data-toggle="tab">Waived</a></li>
+          <li><a href="#taken" data-toggle="tab">Completed</a></li>
+          <li><a href="#selected" data-toggle="tab">Selected</a></li>
+          <li><a href="#schedules" data-toggle="tab">Schedule</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <div id="scoreboard" ></div>
+        </ul>
       </div>
       <div class="tab-content">
         <div class="tab-pane" id="configure">
@@ -84,18 +85,18 @@
                 <div id="starting-year"></div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-xs-2">
-              Export
-              </div>
-              <div id="export" class="col-md-offset-1 col-xs-1"></div>
-            </div>
-            <div class="row">
-              <div class="col-xs-2">
-                Import
-              </div>
-              <div id="import" class="col-md-offset-1 col-xs-1"></div>
-            </div>
+            <!-- <div class="row"> -->
+            <!--   <div class="col-xs-2"> -->
+            <!--     Export -->
+            <!--   </div> -->
+            <!--   <div id="export" class="col-md-offset-1 col-xs-1"></div> -->
+            <!-- </div> -->
+            <!-- <div class="row"> -->
+              <!-- <div class="col-xs-2"> -->
+              <!--   Import -->
+              <!-- </div> -->
+              <!-- <div id="import" class="col-md-offset-1 col-xs-1"></div> -->
+            <!-- </div> -->
           </div>
         </div>
         <div class="tab-pane" id="waived">
