@@ -126,7 +126,7 @@
               </div>
             </div>
             <div class="row-fluid">
-              <div id="taken-available" class="col-xs-1">
+              <div id="taken-available" class="col-xs-2">
                 <div class="row-fluid"></div>
               </div>
               <div class="clearfix visible-xs"></div>
