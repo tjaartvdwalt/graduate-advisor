@@ -38,7 +38,6 @@ function MakeSchedule(selection, semesters, needed, JOi, CJOi) {
     // for(var x in Options) {
     //     if(x >= 6000) {
     //         six_req++;
-    //         console.log("here")
     //         pre_num = GetPrereqs(Options[x], cjo);
     //     }
     //     else if(x >= 5000) {
@@ -66,7 +65,6 @@ function MakeSchedule(selection, semesters, needed, JOi, CJOi) {
     //     var result = FindMaxOption(2, semesters, Options);
     //     if(result == -1) return "Can't Fill a 6000";
     //     Options[result.number] = results.arr;
-    //     console.log("444444")
     //     Options[GetPrereqs(result.number, cjo)] =
     //         FindOptions(GetPrereqs(result.number, cjo), semesters);
     //     num_courses++;
@@ -248,7 +246,6 @@ function PickAppropriate(course_number, Options, semesters) {
     for(var i=0; i< semesters; i++) {
         density[i] = 0;
     }
-    console.log(density)
 
     for(var i in Finished) {
         density[Finished[i].sem - 1]++;
@@ -303,7 +300,6 @@ function PickAppropriate(course_number, Options, semesters) {
 //     var old_sem;
 //     for(var i in Finished) {
 //         if(i >= 6000) {
-//             console.log("111111");
 //             pn = GetPrereqs(i, cjo);
 //             six = i;
 //             break;
