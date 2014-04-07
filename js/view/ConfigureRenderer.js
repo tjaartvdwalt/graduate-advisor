@@ -1,4 +1,4 @@
-function ConfigureRenederer(userCourses){
+function ConfigureRenderer(userCourses){
     this.init = function() {
         self = this;
         this.userCourses = userCourses;
@@ -56,7 +56,7 @@ function ConfigureRenederer(userCourses){
     this.renderAll = function() {
         this.semestersRenderer();
         this.startingSemesterRenderer();
-        this.exportRenderer();
+        //this.exportRenderer();
     }
 
     this.init();

@@ -1,4 +1,4 @@
-function ScheduleRenederer(userCourses){
+function ScheduleRenderer(userCourses){
     this.init = function() {
         this.userCourses = userCourses;
     }

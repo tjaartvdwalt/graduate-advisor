@@ -1,4 +1,4 @@
-function WaivedRenederer(userCourses, rules){
+function WaivedRenderer(userCourses, rules){
     this.init = function() {
         this.userCourses = userCourses;
         this.rules = rules;

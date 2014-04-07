@@ -2,7 +2,7 @@ button{
     height: 100%;
 }
 body {
-  padding-top: 50px;
+    padding-top: 50px;
 }
 
 .bucket {
@@ -21,12 +21,12 @@ body {
 
 .min {
     border-top-style:solid;
-    border-color: green;    
-    }
+    border-color: green;
+}
 .max {
     border-top-style:solid;
-    border-color: red;    
-    }
+    border-color: red;
+}
 
 .spacer {
     visibility:hidden;
@@ -39,4 +39,7 @@ body {
 .prereq {
     background-color:#FFFF00;
 }
-
+.small-font {
+    margin-top: 0px;
+    font-size: 3pt;
+}

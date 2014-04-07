@@ -4,7 +4,7 @@
  * methods to change visibility.
  *
  */
-function SelectedRenederer(userCourses, rotation, rules){
+function SelectedRenderer(userCourses, rotation, rules){
     this.init = function() {
         this.userCourses = userCourses;
         this.bucketSize = 6;
@@ -191,11 +191,7 @@ function SelectedRenederer(userCourses, rotation, rules){
     }
 
     this.inRange = function(course) {
-        console.log(course);
-        console.log(this.userCourses.semesters);
-        console.log(this.rotation);
         var options = FindOptions(course, this.userCourses.semesters, this.rotation);
-        console.log(options.length);
         if(options.length > 0) {
             return true;
         }
