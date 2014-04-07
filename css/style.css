@@ -15,6 +15,10 @@ body {
     border-left-style:solid;
 }
 
+.right-border {
+    border-right-style:solid;
+}
+
 .min {
     border-top-style:solid;
     border-color: green;    

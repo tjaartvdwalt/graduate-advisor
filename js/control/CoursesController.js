@@ -8,12 +8,9 @@ function CoursesController() {
         // Initialize the different renderers
         this.configure =   new ConfigureRenederer(this.userCourses);
         this.waived =      new WaivedRenederer(this.userCourses, this.rules);
-        this.taken =       new TakenRenederer(this.userCourses);
         this.selected =    new SelectedRenederer(this.userCourses, this.rules);
+        this.schedule =    new ScheduleRenederer(this.userCourses);
         this.rotation = new JSONParser().getJSON('rotation');
-        
-        //console.log(this.rotation);
-        //this.configure.render();
         this.addButtonListeners();
     }
 
@@ -24,19 +21,20 @@ function CoursesController() {
     this.handleEvent = function (event) {
 
         var currentTab = $('.tab-pane.active')[0].id;
-        switch(currentTab) { 
+        switch(currentTab) {
         case "waived":
-                var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
-                var src = this.userCourses.getCourseBucket(event.currentTarget.id);
-                if(src == this.userCourses.waived) {
-                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
-                }
-                else {
-                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.waived);
-                }
+            var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
+            var src = this.userCourses.getCourseBucket(event.currentTarget.id);
+            if(src == this.userCourses.waived) {
+                this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
+            }
+            else {
+                this.userCourses.moveCourse(clickedCourse, src, this.userCourses.waived);
+            }
             this.waived.renderAll();
             break;
         case "taken":
+            if(this.currentClicked == event.currentTarget.id) {
                 var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
                 var src = this.userCourses.getCourseBucket(event.currentTarget.id);
                 if(src == this.userCourses.taken) {
@@ -45,8 +43,16 @@ function CoursesController() {
                 else {
                     this.userCourses.moveCourse(clickedCourse, src, this.userCourses.taken);
                 }
-            this.selected.renderAll();
+                this.selected.renderAll();
+                this.currentClicked = "";
+            }
+            else {
+                var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
+                this.selected.renderDescription(clickedCourse);
+                this.currentClicked = event.currentTarget.id;
+            }
             break;
+
         case "selected":
             if(this.currentClicked == event.currentTarget.id) {
                 var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
@@ -60,7 +66,6 @@ function CoursesController() {
                     this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
                 }
                 this.selected.renderAll();
-
                 this.currentClicked = "";
             }
             else {
@@ -80,7 +85,7 @@ function CoursesController() {
 
         switch(index) {
         case 0:
-            // configuration
+            this.configure.renderAll();
             break;
         case 1:
             // waived
@@ -97,12 +102,8 @@ function CoursesController() {
         case 4:
             // schedule
             var schedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation, this.courses);
-            console.log(schedule);
             break;
         }
-
-        console.log(index)
-        //this.selected.renderAll('6000');
     }
 
     /*
