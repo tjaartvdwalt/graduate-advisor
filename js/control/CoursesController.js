@@ -96,7 +96,7 @@ function CoursesController() {
             break;
         case 4:
             // schedule
-            var schedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation);
+            var schedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation, this.courses);
             console.log(schedule);
             break;
         }
