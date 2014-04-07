@@ -69,22 +69,25 @@
       <div class="tab-content">
         <div class="tab-pane" id="configure">
           <div class="container-fluid ">
-            <div class="row">
-              <div class="col-xs-2">
-                Number of semesters
-              </div>
-              <div id="nr-of-semesters" class="col-md-offset-1 col-xs-2">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-2">
-                Starting semester
-              </div>
-              <div class="col-md-offset-1 col-xs-1">
-                <div id="starting-semester"></div>
-                <div id="starting-year"></div>
-              </div>
-            </div>
+            <!-- <div class="row"> -->
+              <table class="table table-striped">
+                <tr>
+                  <td>Number of semesters</td>
+                  <td><div id="nr-of-semesters"></td>
+                </tr>
+                <tr>
+                  <td>Starting semester</td>
+                  <td>
+                    <div id="starting-semester"></div>
+                    <div id="starting-year"></div>
+                    
+                  </td>
+                </tr>
+                
+              </table>
+              <!-- </div> -->
+              
+            <!-- </div> -->
             <!-- <div class="row"> -->
             <!--   <div class="col-xs-2"> -->
             <!--     Export -->
@@ -92,10 +95,10 @@
             <!--   <div id="export" class="col-md-offset-1 col-xs-1"></div> -->
             <!-- </div> -->
             <!-- <div class="row"> -->
-              <!-- <div class="col-xs-2"> -->
-              <!--   Import -->
-              <!-- </div> -->
-              <!-- <div id="import" class="col-md-offset-1 col-xs-1"></div> -->
+            <!-- <div class="col-xs-2"> -->
+            <!--   Import -->
+            <!-- </div> -->
+            <!-- <div id="import" class="col-md-offset-1 col-xs-1"></div> -->
             <!-- </div> -->
           </div>
         </div>
