@@ -8,8 +8,8 @@ function CoursesController() {
         // Initialize the different renderers
         this.configure =   new ConfigureRenederer(this.userCourses);
         this.waived =      new WaivedRenederer(this.userCourses, this.rules);
-        this.taken =       new TakenRenederer(this.userCourses);
         this.selected =    new SelectedRenederer(this.userCourses, this.rules);
+        this.schedule =    new ScheduleRenederer(this.userCourses);
         this.rotation = new JSONParser().getJSON('rotation');
         this.addButtonListeners();
     }
@@ -85,7 +85,7 @@ function CoursesController() {
 
         switch(index) {
         case 0:
-            // configuration
+            this.configure.renderAll();
             break;
         case 1:
             // waived
@@ -101,7 +101,9 @@ function CoursesController() {
             break;
         case 4:
             // schedule
-            var schedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation);
+            var calcSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation);
+            this.schedule.renderSchedule(calcSchedule);
+            //console.log(calcSchedule);
             break;
         }
     }

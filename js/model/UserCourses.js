@@ -20,6 +20,11 @@ function UserCourses(courses, rules) {
         }
     }
 
+    this.export = function() {
+        var json = JSON.stringify(this);
+        console.log(json);
+    }
+
     this.addCourse = function (course, dest) {
         dest[course.course_number] = course;
     }

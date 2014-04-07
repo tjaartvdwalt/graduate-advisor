@@ -60,7 +60,7 @@
               <li><a href="#waived" data-toggle="tab">Waived</a></li>
               <li><a href="#taken" data-toggle="tab">Completed</a></li>
               <li><a href="#selected" data-toggle="tab">Selected</a></li>
-              <li><a href="#schedule" data-toggle="tab">Schedule</a></li>
+              <li><a href="#schedules" data-toggle="tab">Schedule</a></li>
             </ul>
           </div>
         </div>
@@ -75,9 +75,20 @@
               <div id="nr-of-semesters" class="col-md-offset-1 col-xs-1">
               </div>
             </div>
+            <div class="row">
+              <div class="col-xs-2">
+                Export current selection
+              </div>
+              <div id="export" class="col-md-offset-1 col-xs-1"></div>
+            </div>
+            <div class="row">
+              <div class="col-xs-2">
+                Import a JSON file
+              </div>
+              <div id="import" class="col-md-offset-1 col-xs-1"></div>
+            </div>
           </div>
         </div>
-        
         <div class="tab-pane" id="waived">
           <div class="container-fluid">
             <div class="row-fluid">
@@ -165,7 +176,9 @@
           </div>
         </div>
         
-        <div class="tab-pane" id="schedule">
+        <div class="tab-pane" id="schedules">
+          <div class="container-fluid ">
+          </div>
         </div>
         <ul class="pager wizard">
           <li class="previous first" style="display:none;"><a href="#">First</a></li>
