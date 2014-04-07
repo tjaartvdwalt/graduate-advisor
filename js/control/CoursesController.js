@@ -28,7 +28,7 @@ function CoursesController() {
             var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
             var src = this.userCourses.getCourseBucket(event.currentTarget.id);
             if(src == this.userCourses.waived) {
-                this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
+                this.userCourses.moveCourse(clickedCourse, src, this.userCourses.selected);
             }
             else {
                 this.userCourses.moveCourse(clickedCourse, src, this.userCourses.waived);
