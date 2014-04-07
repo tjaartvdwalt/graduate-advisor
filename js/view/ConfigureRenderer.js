@@ -38,25 +38,19 @@ function ConfigureRenderer(userCourses){
     }
 
     this.exportRenderer = function() {
-        var file = $('#export').append($('<input>').attr({
-            type : 'file',
-            id: 'files'
-        }));
-
-        file[0].addEventListener('change', function (evt) {
-            console.log("hoora");
+        var button = $('<button>').html('export');
+        $('#export').append(button);
+        button[0].addEventListener("click", function (evt) {
+            var myJSONText = JSON.stringify(self.userCourses);
+            console.log(myJSONText);
+            window.open("data:text/json;charset=utf-8," + escape(myJSONText))
         }, false);
-        // var reader = new FileReader();
-        // reader.onload = function (e) {
-        //     //$('#source-image').attr('src', e.target.result);
-        // };
-        // append(reader);
     }
 
     this.renderAll = function() {
         this.semestersRenderer();
         this.startingSemesterRenderer();
-        //this.exportRenderer();
+        this.exportRenderer();
     }
 
     this.init();

@@ -32,6 +32,7 @@
     <script src="js/lib/bootstrap-select.min.js"></script>
     <script src="js/lib/intro.min.js"></script>
     <script src="js/lib/jquery.bootstrap.wizard.min.js"></script>
+    <script src="js/lib/jQuery.download.js"></script>
     
     <!-- import our code -->
     <script src="js/control/CoursesController.js"></script>
@@ -70,29 +71,40 @@
         <div class="tab-pane" id="configure">
           <div class="container-fluid ">
             <!-- <div class="row"> -->
-              <table class="table table-striped">
-                <tr>
-                  <td>Number of semesters</td>
-                  <td><div id="nr-of-semesters"></td>
-                </tr>
-                <tr>
-                  <td>Starting semester</td>
-                  <td>
-                    <div id="starting-semester"></div>
-                    <div id="starting-year"></div>
-                    
-                  </td>
-                </tr>
-                
-              </table>
-              <!-- </div> -->
+            <table class="table table-striped">
+              <tr>
+                <td>Number of semesters</td>
+                <td><div id="nr-of-semesters"></td>
+              </tr>
+              <tr>
+                <td>Starting semester</td>
+                <td>
+                  <div id="starting-semester"></div>
+                  <div id="starting-year"></div>
+                  
+                </td>
+              </tr>
+              <tr>
+                <td>Import</td>
+                <td>
+                  <div id="import"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Export</td>
+                <td>
+                  <div id="export"></div>
+                </td>
+              </tr>
               
+            </table>
+            <!-- </div> -->
+            
             <!-- </div> -->
             <!-- <div class="row"> -->
             <!--   <div class="col-xs-2"> -->
             <!--     Export -->
             <!--   </div> -->
-            <!--   <div id="export" class="col-md-offset-1 col-xs-1"></div> -->
             <!-- </div> -->
             <!-- <div class="row"> -->
             <!-- <div class="col-xs-2"> -->
@@ -100,106 +112,106 @@
             <!-- </div> -->
             <!-- <div id="import" class="col-md-offset-1 col-xs-1"></div> -->
             <!-- </div> -->
-          </div>
-        </div>
-        <div class="tab-pane" id="waived">
-          <div class="container-fluid">
-            <div class="row-fluid">
-              <div id="waived-available" class="col-xs-1">
-                <b>Not Waived</b>
-              </div>
-              <div class="col-xs-1 right-border"></div>
-              <div class="col-xs-1"></div>
-              <div id="waived-waived" class="col-xs-1">
-                <b>Waived</b>
-              </div>
-              <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
-              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
             </div>
           </div>
-        </div>
-        
-        <div class="tab-pane" id="taken">
-          <div class="container-fluid ">
-            <div class="row">
-              <div class="col-xs-1">
-                <b>Available</b>
+          <div class="tab-pane" id="waived">
+            <div class="container-fluid">
+              <div class="row-fluid">
+                <div id="waived-available" class="col-xs-1">
+                  <b>Not Waived</b>
+                </div>
+                <div class="col-xs-1 right-border"></div>
+                <div class="col-xs-1"></div>
+                <div id="waived-waived" class="col-xs-1">
+                  <b>Waived</b>
+                </div>
+                <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
+                <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
               </div>
-              <!-- <div class="col-md-offset-1 col-xs-1"> -->
-              <!--   <b>Core</b> -->
-              <!-- </div> -->
-              <div class="col-md-offset-1 col-xs-1">
-                <b>6000</b>
-              </div>
-              <div class="col-md-offset-1 col-xs-1">
-                <b>5000</b>
-              </div>
-              <div class="col-md-offset-1 col-xs-1">
-                <b>4000</b>
-              </div>
-            </div>
-            <div class="row-fluid">
-              <div id="taken-available" class="col-xs-2">
-                <div class="row-fluid"></div>
-              </div>
-              <div class="clearfix visible-xs"></div>
-              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
-              <div class="col-xs-1 bucket taken 6000"></div>
-              <div class="col-md-offset-1 col-xs-1 bucket taken 5000"></div>
-              <div class="col-md-offset-1 col-xs-1 bucket taken 4000"></div>
-            </div>
-            <div class="row">
-              <div id ="description" class="col-md-offset-2 col-xs-7"></div>
             </div>
           </div>
-        </div>
-        
-        <div class="tab-pane" id="selected">
-          <div class="container-fluid ">
-            <div class="row">
-              <div class="col-xs-1">
-                <b>Available</b>
+          
+          <div class="tab-pane" id="taken">
+            <div class="container-fluid ">
+              <div class="row">
+                <div class="col-xs-1">
+                  <b>Available</b>
+                </div>
+                <!-- <div class="col-md-offset-1 col-xs-1"> -->
+                <!--   <b>Core</b> -->
+                <!-- </div> -->
+                <div class="col-md-offset-1 col-xs-1">
+                  <b>6000</b>
+                </div>
+                <div class="col-md-offset-1 col-xs-1">
+                  <b>5000</b>
+                </div>
+                <div class="col-md-offset-1 col-xs-1">
+                  <b>4000</b>
+                </div>
               </div>
-              <!-- <div class="col-md-offset-1 col-xs-1"> -->
-              <!--   <b>Core</b> -->
-              <!-- </div> -->
-              <div class="col-md-offset-1 col-xs-1">
-                <b>6000</b>
+              <div class="row-fluid">
+                <div id="taken-available" class="col-xs-2">
+                  <div class="row-fluid"></div>
+                </div>
+                <div class="clearfix visible-xs"></div>
+                <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
+                <div class="col-xs-1 bucket taken 6000"></div>
+                <div class="col-md-offset-1 col-xs-1 bucket taken 5000"></div>
+                <div class="col-md-offset-1 col-xs-1 bucket taken 4000"></div>
               </div>
-              <div class="col-md-offset-1 col-xs-1">
-                <b>5000</b>
+              <div class="row">
+                <div id ="description" class="col-md-offset-2 col-xs-7"></div>
               </div>
-              <div class="col-md-offset-1 col-xs-1">
-                <b>4000</b>
-              </div>
-            </div>
-            <div class="row-fluid">
-              <div id="selected-available" class="col-xs-2">
-                <div class="row-fluid"></div>
-              </div>
-              <div class="clearfix visible-xs"></div>
-              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
-              <div class="col-xs-1 bucket selected 6000"></div>
-              <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
-              <div class="col-md-offset-1 col-xs-1 bucket selected 4000"></div>
-            </div>
-            <div class="row">
-              <div id ="description" class="col-md-offset-2 col-xs-7"></div>
             </div>
           </div>
-        </div>
-        
-        <div class="tab-pane" id="schedules">
-          <div class="container-fluid ">
+          
+          <div class="tab-pane" id="selected">
+            <div class="container-fluid ">
+              <div class="row">
+                <div class="col-xs-1">
+                  <b>Available</b>
+                </div>
+                <!-- <div class="col-md-offset-1 col-xs-1"> -->
+                <!--   <b>Core</b> -->
+                <!-- </div> -->
+                <div class="col-md-offset-1 col-xs-1">
+                  <b>6000</b>
+                </div>
+                <div class="col-md-offset-1 col-xs-1">
+                  <b>5000</b>
+                </div>
+                <div class="col-md-offset-1 col-xs-1">
+                  <b>4000</b>
+                </div>
+              </div>
+              <div class="row-fluid">
+                <div id="selected-available" class="col-xs-2">
+                  <div class="row-fluid"></div>
+                </div>
+                <div class="clearfix visible-xs"></div>
+                <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
+                <div class="col-xs-1 bucket selected 6000"></div>
+                <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
+                <div class="col-md-offset-1 col-xs-1 bucket selected 4000"></div>
+              </div>
+              <div class="row">
+                <div id ="description" class="col-md-offset-2 col-xs-7"></div>
+              </div>
+            </div>
           </div>
+          
+          <div class="tab-pane" id="schedules">
+            <div class="container-fluid ">
+            </div>
+          </div>
+          <ul class="pager wizard">
+            <li class="previous first" style="display:none;"><a href="#">First</a></li>
+            <li class="previous"><a href="#">Previous</a></li>
+            <li class="next last" style="display:none;"><a href="#">Last</a></li>
+            <li class="next"><a href="#">Next</a></li>
+          </ul>
         </div>
-        <ul class="pager wizard">
-          <li class="previous first" style="display:none;"><a href="#">First</a></li>
-          <li class="previous"><a href="#">Previous</a></li>
-          <li class="next last" style="display:none;"><a href="#">Last</a></li>
-          <li class="next"><a href="#">Next</a></li>
-        </ul>
       </div>
-    </div>
   </body>
 </html>
