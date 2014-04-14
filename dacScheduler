@@ -47,61 +47,171 @@ function permutate(courseToPerm, listToPerm){
 
 //This is the main function of the program
 function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable){
-	//just scheduling fall of 2013 right now
+	//setting the default 
+	var arrayOfReqTitles = ["reqCourseNumbers", "preReqCourseNumbers", "dayOfWeekPreference", "reqPerSemesterCourseNumbers", "reqCourseAtLeast"]
+	var requirements = new Object();
+	requirements.reqCourse = ["4760","4250","5130"];
+	//var reqCourse = ["4760","4250","5700","5500", "5130"];
+	requirements.reqCourse.sort();
+	//requirements.preReqs = [["5340","4300"]];
+	requirements.preReqs = [["4010","5010"],["4250","4010"],["4010","4500"]];
+	//var requirements = [reqCourse, preReq];
+
+	console.log(scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable, [], 0, requirements));
+
+}
+
+function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable, coursesTaken, currentSemesterIndex, requirements){
 	var courseNumberAvailableList = [];
 	var courseNumberTakenList = [];
-
-//	for(var x = 0; x < coursesAvailable.length; x++){
-//		if(coursesAvailable[x].year == 2014 && coursesAvailable[x].semester == "Fall"){
-//			courseNumberAvailableList.push(coursesAvailable[x].courseNumber);
-//		}
-//
 	var seasonList = ["Spring", "Fall"];
-
 	var startDate = [2014, 1]
-
 	var numberOfCoursesToTake = totalCourses;
 
 	var potentialSolutions = [];
 	potentialSolutions.push([]);
 
-	var semesterIndex = 0;
+	var semesterIndex = currentSemesterIndex;
 	var courseLimitCurrentSemester;
 
-	while(potentialSolutions[0].length < numberOfCoursesToTake){
+	//Set unavailable courses. The prereqs aren't filled or you just cant take them this semester
+	var unavailableCourses = [];
+	unavailableCourses = unavailableCourses.concat(doesntCompletePreReqs(coursesTaken,requirements))
 
-		if(numberOfCoursesToTake-potentialSolutions[0].length < coursesPerSemester){
-			courseLimitCurrentSemester = numberOfCoursesToTake-potentialSolutions[0].length;
-		}else{
-			courseLimitCurrentSemester = coursesPerSemester;
-		}
-
-		//reset the coursesAvailable list
-		courseNumberAvailableList = getCoursesAvailableThisSemester(coursesAvailable, startDate, semesterIndex, seasonList);
-		
-
-		if(courseNumberAvailableList.length == 0){
-			break;
-		}
-		var newPotentialSolutions = [];
-
-		for(var y = 0; y < potentialSolutions.length; y++){
-			newPotentialSolutions = newPotentialSolutions.concat(combineTakenAndNew(potentialSolutions[y],scheduleSemesterClasses(courseLimitCurrentSemester, courseNumberAvailableList, 0 , potentialSolutions[y], 0)));
-		}
-		if(newPotentialSolutions.length == 0){
-			newPotentialSolutions.push([]);
-		}else{
-			newPotentialSolutions = removeNonUnique(newPotentialSolutions)
-		}
-		potentialSolutions = newPotentialSolutions;
-
-		semesterIndex++;
+	if(numberOfCoursesToTake-potentialSolutions[0].length < coursesPerSemester){
+		courseLimitCurrentSemester = numberOfCoursesToTake-potentialSolutions[0].length;
+	}else{
+		courseLimitCurrentSemester = coursesPerSemester;
 	}
 
-	console.log(potentialSolutions);
-	//courseNumberAvailableList.sort();
-	//console.log(scheduleSemesterClasses(3, courseNumberAvailableList, 0 , courseNumberTakenList, 0));
+	//set coursesAvailable list
+	courseNumberAvailableList = getCoursesAvailableThisSemester(coursesAvailable, startDate, semesterIndex, seasonList);
+	
 
+	if(courseNumberAvailableList.length == 0){
+		console.log("uhh this shouldn't happen");
+	}
+
+
+	var takenAndNoPreReq =[];
+	if(unavailableCourses.length > 0 ){
+		takenAndNoPreReq = coursesTaken.concat(unavailableCourses);
+		takenAndNoPreReq.sort(function(a,b){
+			return parseInt(a.courseNumber) - parseInt(b.courseNumber);
+		});
+	}else{
+		takenAndNoPreReq = coursesTaken;
+	}
+
+	var solutionPermutationsForIndexY = combineTakenAndNew(coursesTaken,scheduleSemesterClasses(courseLimitCurrentSemester, courseNumberAvailableList, 0 , takenAndNoPreReq, 0))
+	//FILTER FOR REQ'S HERE ( if solutionPermutationsForIndexY has anything left in it, break, we have a solution)
+
+	var filteredSolution = filterRequirements(solutionPermutationsForIndexY, requirements, numberOfCoursesToTake); // This is going to return an array of length 2;
+	if(filteredSolution[0].length > 0){
+		return filteredSolution[0];
+	}
+
+	solutionPermutationsForIndexY = filteredSolution[1];
+	//inductive step
+	for(var y = 0; y < solutionPermutationsForIndexY.length; y++){
+		
+		var returnedAnswer = scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable, solutionPermutationsForIndexY[0], semesterIndex+1, requirements)
+		if(returnedAnswer.length > 0){
+			return returnedAnswer;
+		}
+	}
+	
+	return [];
+}
+
+function doesntCompletePreReqs(coursesIn, requirements){
+	var outList = [];
+	var failList = [];
+	var passedList = []
+	if(requirements.preReqs != undefined && coursesIn.length > 0){
+		//Here we go through each prereq and see if it's been satisfied. If it hasn't it gets added to the outlist
+		for(var reqIndex=0; reqIndex < requirements.preReqs.length; reqIndex++){
+			//now we check 1 particular requirement
+			var preReqsPassed = true;
+			for(var preReqIndex=1; preReqIndex < requirements.preReqs[reqIndex].length; preReqIndex++){
+				if(!courseNumberInCourseList(coursesIn, requirements.preReqs[reqIndex][preReqIndex])){
+					preReqsPassed = false;
+				}
+			}
+			if(preReqsPassed){
+				passedList.push(requirements.preReqs[reqIndex]);
+			}else{
+				failList.push(requirements.preReqs[reqIndex]);
+			}
+		}
+		passedList.sort(function(a,b){
+			return parseInt(a[0]) - parseInt(b[0]);
+		});
+		failList.sort(function(a,b){
+			return parseInt(a[0]) - parseInt(b[0]);
+		});
+		var passedIndex = 0;
+		for(var failListIndex = 0; failListIndex < failList.length; failListIndex++){
+			if(failListIndex == 0 || failList[failListIndex][0] != failList[failListIndex-1][0]){
+				while(passedIndex < passedList.length && failList[failListIndex][0] > passedList[passedIndex][0]){ // make sure that we are comparing the closest higher course taken next
+					passedIndex++;
+				}
+				if(passedIndex >= passedList.length ||  passedList.length == 0 || passedList[passedIndex][0] != failList[failListIndex][0]){
+					var newBlankCourse = new Object();
+					newBlankCourse.courseNumber = failList[failListIndex][0];
+					outList.push(newBlankCourse);
+				}
+			}
+		}
+	}else if(requirements.preReqs != undefined){
+		for(var outListIndex = 0; outListIndex < requirements.preReqs.length; outListIndex++){
+				var newBlankCourse = new Object();
+				newBlankCourse.courseNumber = requirements.preReqs[outListIndex][0];
+				outList.push(newBlankCourse);
+		}
+	}
+
+	return outList;
+}
+
+function filterRequirements(scheduleArrayIn, requirements, numberOfCoursesToTake){
+	var reqCoursePass;
+	var reqCoursePassCount
+	var returnSchedule = [];
+	var returnSolution = [];
+	if(requirements.reqCourse != undefined && requirements.reqCourse.length > 0){
+		for(var scheduleIndex=0; scheduleIndex < scheduleArrayIn.length; scheduleIndex++){
+			reqCoursePassCount = 0;
+			for(var reqCourseIndex=0; reqCourseIndex < requirements.reqCourse.length; reqCourseIndex++){
+				for (var courseIndex =0; courseIndex < scheduleArrayIn[scheduleIndex].length; courseIndex++){
+					if(scheduleArrayIn[scheduleIndex][courseIndex].courseNumber == requirements.reqCourse[reqCourseIndex]){
+						reqCoursePassCount++;
+						break;//look for the next required course
+					}
+				}
+			}
+			if((requirements.reqCourse.length - reqCoursePassCount) + scheduleArrayIn[scheduleIndex].length <= numberOfCoursesToTake){
+					returnSchedule.push(scheduleArrayIn[scheduleIndex]);
+			}
+		}	
+	}else{
+		returnSchedule = scheduleArrayIn;
+	}
+
+	if(returnSchedule.length > 0 && returnSchedule[0].length == numberOfCoursesToTake){
+		returnSolution = returnSchedule[0];
+	}
+
+	return [returnSolution, returnSchedule];
+}
+
+function courseNumberInCourseList(courseList, courseNumberToFind){
+	for(var courseIndex = 0 ; courseIndex < courseList.length; courseIndex++){
+		if(courseList[courseIndex].courseNumber == courseNumberToFind){
+			return true;
+		}
+	}
+	return false;
 }
 
 function combineTakenAndNew(takenCourses, newCourses){
@@ -148,7 +258,7 @@ function removeNonUnique(inList){
 
 function getCoursesAvailableThisSemester(coursesAvailable, startDate, semesterIndex, seasonList){
 	var coursesAvailableReturn =[];
-	var currentYear = startDate[0] + parseInt(semesterIndex/seasonList.length);
+	var currentYear = startDate[0] + parseInt((semesterIndex+startDate[1])/seasonList.length);
 	var currentMonth = seasonList[(semesterIndex+startDate[1])%seasonList.length];
 	for(var x = 0; x < coursesAvailable.length; x++){
 		if(coursesAvailable[x].year == currentYear && coursesAvailable[x].semester == currentMonth){
