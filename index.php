@@ -32,6 +32,7 @@
     <script src="js/lib/bootstrap-select.min.js"></script>
     <script src="js/lib/intro.min.js"></script>
     <script src="js/lib/jquery.bootstrap.wizard.min.js"></script>
+    <script src="js/lib/jquery.liteuploader.min.js"></script>
     <script src="js/lib/jQuery.download.js"></script>
     
     <!-- import our code -->
@@ -58,13 +59,12 @@
         <!-- <div id="scoreboard" class="navbar-form"> -->
         <ul class="nav navbar-nav">
           <li><a href="#configure" data-toggle="tab">Configure</a></li>
-          <li><a href="#waived" data-toggle="tab">Waived</a></li>
-          <li><a href="#taken" data-toggle="tab">Completed</a></li>
-          <li><a href="#selected" data-toggle="tab">Selected</a></li>
-          <li><a href="#schedules" data-toggle="tab">Schedule</a></li>
+          <li><a href="#waived" data-toggle="tab">Waived<span id="waived-badge" class="badge"></span></a></li>
+          <li><a href="#taken" data-toggle="tab">Completed<span id="completed-badge" class="badge"></span></a></li>
+          <li><a href="#selected" data-toggle="tab">Selected<span id="selected-badge" class="badge"></span></a></li>
+          <li><a href="#schedules" data-toggle="tab">Schedule<span id="schedule-badge" class="badge"></span></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <div id="scoreboard" ></div>
         </ul>
       </div>
       <div class="tab-content">

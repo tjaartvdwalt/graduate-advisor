@@ -7,6 +7,9 @@ function UserCourses(courses, rules) {
         this.taken     = {};
         this.waived    = {};
 
+        // The schedule generated for the user.
+        this.schedule  = {};
+
         // We initialise core courses as selected. Everything else goes in available
         core = rules.rules.core;
         for(var i in courses) {
