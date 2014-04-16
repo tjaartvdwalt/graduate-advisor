@@ -37,26 +37,10 @@ function ConfigureRenderer(userCourses){
 
     }
 
-    this.exportRenderer = function() {
-        var file = $('#export').append($('<input>').attr({
-            type : 'file',
-            id: 'files'
-        }));
-
-        file[0].addEventListener('change', function (evt) {
-            console.log("hoora");
-        }, false);
-        // var reader = new FileReader();
-        // reader.onload = function (e) {
-        //     //$('#source-image').attr('src', e.target.result);
-        // };
-        // append(reader);
-    }
 
     this.renderAll = function() {
         this.semestersRenderer();
         this.startingSemesterRenderer();
-        //this.exportRenderer();
     }
 
     this.init();

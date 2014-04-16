@@ -10,9 +10,15 @@ function CoursesController() {
         this.configure.renderAll();
 
         this.rotation = new JSONParser().getJSON('rotation');
-        this.waived =      new WaivedRenderer(this.userCourses,  this.rules);
         this.scoreboard =  new ScoreboardRenderer(this.userCourses);
         this.scoreboard.renderAll();
+        // This breaks the design, but to get the scoreboard reset after a load
+        // we will pass the scoreboard as a parameter for Load renderer.
+        // The proper solution is that the load fires an event to the controller
+        // once it has finished loading the file.
+        this.loadSaveModel = new LoadAndSave(this.userCourses, this.scoreboard);
+        this.loadSave =      new LoadSaveRenderer(this.loadSaveModel);
+        this.waived =      new WaivedRenderer(this.userCourses,  this.rules);
         this.selected =    new SelectedRenderer(this.userCourses, this.rotation, this.rules);
         this.schedule =    new ScheduleRenderer(this.userCourses);
         this.addButtonListeners();
@@ -108,9 +114,15 @@ function CoursesController() {
             this.selected.renderAll();
             break;
         case 4:
+            //if(this.userCourses.schedule) {
+            //    
+            //}
             // schedule
             var takenSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation, this.courses);
-            this.schedule.renderSchedule(takenSchedule);
+            this.userCourses.schedule = takenSchedule;
+
+            console.log(this.userCourses);
+            this.schedule.renderSchedule(this.userCourses.schedule);
             break;
         }
     }
