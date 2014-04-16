@@ -8,10 +8,10 @@ function ScoreboardRenderer(userCourses){
         $('#completed-badge').html(Object.keys(this.userCourses.taken).length);
         $('#selected-badge').html(Object.keys(this.userCourses.selected).length);
 
-        var evt = document.createEvent("Event");
-        evt.initEvent("myEvent",true,true);
-        //invoke
-        document.dispatchEvent(evt);
+        // var evt = document.createEvent("Event");
+        // evt.initEvent("myEvent",true,true);
+        // //invoke
+        // document.dispatchEvent(evt);
 
         // $('.small-table').remove();
         // var table = $("<table>").addClass('table').addClass('table-striped').addClass('small-table');

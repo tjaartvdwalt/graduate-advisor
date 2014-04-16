@@ -37,48 +37,10 @@ function ConfigureRenderer(userCourses){
 
     }
 
-    this.exportRenderer = function() {
-        var button = $('<button>').html('export');
-        $('#export').append(button);
-        button[0].addEventListener("click", function (evt) {
-            var myJSONText = JSON.stringify(self.userCourses);
-            //console.log(myJSONText);
-            window.open("data:text/json;charset=utf-8," + myJSONText)
-        }, false);
-    }
-    this.importRenderer = function() {
-        var file = $('#import').append($('<input>').attr({
-            type : 'file',
-            id: 'files'
-        }));
-
-        var result;
-        file[0].addEventListener('change', function (evt) {
-            //var reader = new FileReader();
-            console.log(evt.target.files[0]);
-
-            var f = evt.target.files[0];
-            var r = new FileReader();
-            var result = r.readAsText(evt.target.files[0]);
-            console.log(result);
-
-            r.onload = function(e) {
-                var contents = e.target.result;
-                var myObject = JSON.parse(contents);
-
-                self.userCourses.selected = myObject.selected;
-                self.userCourses.taken = myObject.taken;
-                self.userCourses.waived = myObject.waived;
-                console.log(myObject);
-            }
-        }, false);
-    }
 
     this.renderAll = function() {
         this.semestersRenderer();
         this.startingSemesterRenderer();
-        this.exportRenderer();
-        this.importRenderer();
     }
 
     this.init();

@@ -19,6 +19,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/introjs.min.css" rel="stylesheet">
+    <!-- <link href="css/jasny-bootstrap.min.css" rel="stylesheet"> -->
     <link href="css/style.css" rel="stylesheet">
     
     <script>
@@ -32,17 +33,17 @@
     <script src="js/lib/bootstrap-select.min.js"></script>
     <script src="js/lib/intro.min.js"></script>
     <script src="js/lib/jquery.bootstrap.wizard.min.js"></script>
-    <script src="js/lib/jquery.liteuploader.min.js"></script>
-    <script src="js/lib/jQuery.download.js"></script>
     
     <!-- import our code -->
     <script src="js/control/CoursesController.js"></script>
+    <script src="js/model/LoadAndSave.js"></script>
     <script src="js/model/Courses.js"></script>
     <script src="js/model/JSONParser.js"></script>
     <!-- <script src="js/model/Rotation.js"></script> -->
     <script src="js/model/Rules.js"></script>
     <script src="js/model/UserCourses.js"></script>
     <script src="js/view/ConfigureRenderer.js"></script>
+    <script src="js/view/LoadSaveRenderer.js"></script>
     <script src="js/view/ScheduleRenderer.js"></script>
     <script src="js/view/ScoreboardRenderer.js"></script>
     <script src="js/view/SelectedRenderer.js"></script>
@@ -56,7 +57,6 @@
   <body>
     <div id="rootwizard">
       <div class="navbar-collapse collapse">
-        <!-- <div id="scoreboard" class="navbar-form"> -->
         <ul class="nav navbar-nav">
           <li><a href="#configure" data-toggle="tab">Configure</a></li>
           <li><a href="#waived" data-toggle="tab">Waived<span id="waived-badge" class="badge"></span></a></li>
@@ -64,7 +64,13 @@
           <li><a href="#selected" data-toggle="tab">Selected<span id="selected-badge" class="badge"></span></a></li>
           <li><a href="#schedules" data-toggle="tab">Schedule<span id="schedule-badge" class="badge"></span></a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav nav-pills navbar-right">
+          
+          <li>
+            <input id="import" type="file" style="display:none">
+            <a class="btn" onclick="$('input[id=import]').click();">Load</a>
+          </li>
+          <li><div id="export"></div></li>
         </ul>
       </div>
       <div class="tab-content">
@@ -84,34 +90,7 @@
                   
                 </td>
               </tr>
-              <tr>
-                <td>Import</td>
-                <td>
-                  <div id="import"></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Export</td>
-                <td>
-                  <div id="export"></div>
-                </td>
-              </tr>
-              
             </table>
-            <!-- </div> -->
-            
-            <!-- </div> -->
-            <!-- <div class="row"> -->
-            <!--   <div class="col-xs-2"> -->
-            <!--     Export -->
-            <!--   </div> -->
-            <!-- </div> -->
-            <!-- <div class="row"> -->
-            <!-- <div class="col-xs-2"> -->
-            <!--   Import -->
-            <!-- </div> -->
-            <!-- <div id="import" class="col-md-offset-1 col-xs-1"></div> -->
-            <!-- </div> -->
             </div>
           </div>
           <div class="tab-pane" id="waived">
@@ -141,13 +120,13 @@
                 <!--   <b>Core</b> -->
                 <!-- </div> -->
                 <div class="col-md-offset-1 col-xs-1">
-                  <b>6000</b>
+                  <b>4000</b>
                 </div>
                 <div class="col-md-offset-1 col-xs-1">
                   <b>5000</b>
                 </div>
                 <div class="col-md-offset-1 col-xs-1">
-                  <b>4000</b>
+                  <b>6000</b>
                 </div>
               </div>
               <div class="row-fluid">
@@ -156,9 +135,9 @@
                 </div>
                 <div class="clearfix visible-xs"></div>
                 <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
-                <div class="col-xs-1 bucket taken 6000"></div>
+                <div class="col-xs-1 bucket taken 4000"></div>
                 <div class="col-md-offset-1 col-xs-1 bucket taken 5000"></div>
-                <div class="col-md-offset-1 col-xs-1 bucket taken 4000"></div>
+                <div class="col-md-offset-1 col-xs-1 bucket taken 6000"></div>
               </div>
               <div class="row">
                 <div id ="description" class="col-md-offset-2 col-xs-7"></div>
@@ -176,13 +155,13 @@
                 <!--   <b>Core</b> -->
                 <!-- </div> -->
                 <div class="col-md-offset-1 col-xs-1">
-                  <b>6000</b>
+                  <b>4000</b>
                 </div>
                 <div class="col-md-offset-1 col-xs-1">
                   <b>5000</b>
                 </div>
                 <div class="col-md-offset-1 col-xs-1">
-                  <b>4000</b>
+                  <b>6000</b>
                 </div>
               </div>
               <div class="row-fluid">
@@ -191,9 +170,9 @@
                 </div>
                 <div class="clearfix visible-xs"></div>
                 <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
-                <div class="col-xs-1 bucket selected 6000"></div>
+                <div class="col-xs-1 bucket selected 4000"></div>
                 <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
-                <div class="col-md-offset-1 col-xs-1 bucket selected 4000"></div>
+                <div class="col-md-offset-1 col-xs-1 bucket selected 6000"></div>
               </div>
               <div class="row">
                 <div id ="description" class="col-md-offset-2 col-xs-7"></div>
