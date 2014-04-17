@@ -56,6 +56,7 @@
   </head>
   <body>
     <div id="rootwizard">
+<h3 class="text-muted">&nbsp;UMSL CS Graduate Advisor</h3>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li><a href="#configure" data-toggle="tab">Configure</a></li>
@@ -78,15 +79,30 @@
           <div class="container-fluid ">
             <!-- <div class="row"> -->
             <table class="table table-striped">
+              <th>Time frame</th>
               <tr>
-                <td>Number of semesters</td>
-                <td><div id="nr-of-semesters"></td>
-              </tr>
+                <td>Maximum number of courses per semesters</td>
+                <td><div id="courses-per-semester"></td>
+                </tr>
+                <tr>
+                <td>Minimum number of semesters left</td>
+                <td><input id="nr-of-semesters" type="text" maxlength="2" disabled style="width:40px"></input></td>
+                </tr>
+
+              <th>Dates</th>
               <tr>
                 <td>Starting semester</td>
                 <td>
                   <div id="starting-semester"></div>
                   <div id="starting-year"></div>
+                  
+                </td>
+                </tr>
+                <tr>
+                <td class="warning">Current semester</td>
+                <td>
+                  <div id="current-semester"></div>
+                  <div id="current-year"></div>
                   
                 </td>
               </tr>
@@ -184,13 +200,14 @@
             <div class="container-fluid ">
             </div>
           </div>
-          <ul class="pager wizard">
-            <li class="previous first" style="display:none;"><a href="#">First</a></li>
-            <li class="previous"><a href="#">Previous</a></li>
-            <li class="next last" style="display:none;"><a href="#">Last</a></li>
-            <li class="next"><a href="#">Next</a></li>
-          </ul>
+          <!-- <ul class="pager wizard"> -->
+          <!--   <li class="previous first" style="display:none;"><a href="#">First</a></li> -->
+          <!--   <li class="previous"><a href="#">Previous</a></li> -->
+          <!--   <li class="next last" style="display:none;"><a href="#">Last</a></li> -->
+          <!--   <li class="next"><a href="#">Next</a></li> -->
+          <!-- </ul> -->
         </div>
       </div>
+    </div>
   </body>
 </html>

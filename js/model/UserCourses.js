@@ -1,7 +1,8 @@
 function UserCourses(courses, rules) {
     this.init = function () {
+        this.rules = rules;
         // Constructor items
-        this.semesters = 0;
+        this.coursesPerSem = 2;
         this.available = {};
         this.selected  = {};
         this.taken     = {};
@@ -11,7 +12,7 @@ function UserCourses(courses, rules) {
         this.schedule  = {};
 
         // We initialise core courses as selected. Everything else goes in available
-        core = rules.rules.core;
+        core = this.rules.rules.core;
         for(var i in courses) {
             if($.inArray(courses[i].course_number, core) < 0) {
                 this.addCourse(courses[i], this.available);
@@ -23,9 +24,12 @@ function UserCourses(courses, rules) {
         }
     }
 
+    this.semestersRemaining = function() {
+        return Math.ceil((this.rules.rules.total - Object.keys(this.taken).length) / this.coursesPerSem);
+    }
+
     this.export = function() {
         var json = JSON.stringify(this);
-        console.log(json);
     }
 
     this.addCourse = function (course, dest) {

@@ -1,46 +1,48 @@
-function ConfigureRenderer(userCourses){
+function ConfigureRenderer(userCourses, rules){
     this.init = function() {
         self = this;
         this.userCourses = userCourses;
+        this.rules = rules;
     }
     this.semestersRenderer = function() {
         // Add the select list
         var semesterList = $('<select>').addClass('selectpicker');
-        $('#nr-of-semesters').append(semesterList)
+        $('#courses-per-semester').append(semesterList)
             .change(function(event) {
-                self.userCourses.semesters = event.target.value;
+                self.userCourses.coursesPerSem = event.target.value;
+                console.log($('#nr-of-semesters'));
+                $('#nr-of-semesters')[0].value = self.userCourses.semestersRemaining();
             });
-        for(var i=3; i <= 6; i++) {
+        for(var i=1; i <= 5; i++) {
             semesterList.append($('<option>').html(i));
         }
-        // TODO set the default semesters to the default of the list.
-        // need to find a better solution here
-        this.userCourses.semesters = 3;
     }
-    this.startingSemesterRenderer = function() {
-        var startYear = $('<select>').addClass('selectpicker')
-        $('#starting-year').append(startYear)
-        startYear.change(function(event) {
+
+    this.semesterRenderer = function(which) {
+        var currentYear = $('<select>').addClass('selectpicker')
+        $('#' + which + '-year').append(currentYear)
+        currentYear.change(function(event) {
             //self.userCourses.semesters = event.target.value;
         });
         for(var i=2014; i <= 2017; i++) {
-            startYear.append($('<option>').html(i));
+            currentYear.append($('<option>').html(i));
         }
 
-        var startSemester = $('<select>').addClass('selectpicker')
-        startSemester.append($('<option>').html("Fall"));
-        startSemester.append($('<option>').html("Spring"));
+        var startSemester = $('<select class="left">').addClass('selectpicker')
+        startSemester.append($('<option class="left">').html("Fall"));
+        startSemester.append($('<option class="left">').html("Spring"));
         startSemester.change(function(event) {
             //self.userCourses.semesters = event.target.value;
         });
-        $('#starting-semester').append(startSemester)
+        $('#' + which + '-semester').append(startSemester)
 
     }
 
 
     this.renderAll = function() {
         this.semestersRenderer();
-        this.startingSemesterRenderer();
+        this.semesterRenderer('starting');
+        this.semesterRenderer('current');
     }
 
     this.init();

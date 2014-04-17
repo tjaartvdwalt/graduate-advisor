@@ -1,12 +1,19 @@
-function ScoreboardRenderer(userCourses){
+function ScoreboardRenderer(userCourses, rules){
     this.init = function() {
         this.userCourses = userCourses;
+        this.rules = rules;
     }
 
     this.renderAll = function() {
-        $('#waived-badge').html(Object.keys(this.userCourses.waived).length);
-        $('#completed-badge').html(Object.keys(this.userCourses.taken).length);
-        $('#selected-badge').html(Object.keys(this.userCourses.selected).length);
+        var waived = Object.keys(this.userCourses.waived).length;
+        var taken = Object.keys(this.userCourses.taken).length;
+        var selected = Object.keys(this.userCourses.selected).length;
+        var total = selected;
+        var required = rules.rules.total - taken;
+        $('#waived-badge').html(waived);
+        $('#completed-badge').html(taken);
+        $('#selected-badge').html(selected);
+        $('#schedule-badge').html(total + "/" + required);
 
         // var evt = document.createEvent("Event");
         // evt.initEvent("myEvent",true,true);

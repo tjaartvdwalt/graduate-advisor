@@ -1,9 +1,9 @@
 button{
     height: 100%;
 }
-body {
-    padding-top: 50px;
-}
+/* body { */
+/*     padding-top: 50px; */
+/* } */
 
 .bucket {
     padding-top: 20px;
@@ -43,3 +43,22 @@ body {
     margin-top: 0px;
     font-size: 5pt;
 }
+
+.inactive {
+    background: repeating-linear-gradient(
+        -45deg,
+        #ffffff,
+        #ffffff 5px,
+        #aaaaaa 5px,
+        #aaaaaa 10px
+    );
+}
+
+.warning {
+    backgroundcolor: red;
+}
+
+.left {
+    float: left;
+}
+

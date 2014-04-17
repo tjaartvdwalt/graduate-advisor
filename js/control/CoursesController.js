@@ -6,11 +6,11 @@ function CoursesController() {
         this.userCourses = new UserCourses(this.courses.courses, this.rules);
 
         // Initialize the different renderers
-        this.configure =   new ConfigureRenderer(this.userCourses);
+        this.configure =   new ConfigureRenderer(this.userCourses, this.rules);
         this.configure.renderAll();
 
         this.rotation = new JSONParser().getJSON('rotation');
-        this.scoreboard =  new ScoreboardRenderer(this.userCourses);
+        this.scoreboard =  new ScoreboardRenderer(this.userCourses, this.rules);
         this.scoreboard.renderAll();
         // This breaks the design, but to get the scoreboard reset after a load
         // we will pass the scoreboard as a parameter for Load renderer.
@@ -76,9 +76,19 @@ function CoursesController() {
                     this.userCourses.moveCourse(clickedCourse, src, this.userCourses.selected);
                 }
                 else {
-                    this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
+                    // If the course was selected, and it was a core course, move it to waived...
+                    // This is a "shortcut" for waiving a course
+                    // else it is now available
+                    console.log(this.rules.rules.core.indexOf(clickedCourse.course_number));
+                    if(this.rules.rules.core.indexOf(clickedCourse.course_number) >= 0) {
+                        this.userCourses.moveCourse(clickedCourse, src, this.userCourses.waived);
+                    }
+                    else {
+                        this.userCourses.moveCourse(clickedCourse, src, this.userCourses.available);
+                    }
                 }
                 this.scoreboard.renderAll();
+                this.waived.renderAll();
                 this.selected.renderAll();
                 this.currentClicked = "";
             }
@@ -114,11 +124,8 @@ function CoursesController() {
             this.selected.renderAll();
             break;
         case 4:
-            //if(this.userCourses.schedule) {
-            //    
-            //}
             // schedule
-            var takenSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semesters, 30, this.rotation, this.courses);
+            var takenSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semestersRemaining(), 30, this.rotation, this.courses);
             this.userCourses.schedule = takenSchedule;
 
             console.log(this.userCourses);

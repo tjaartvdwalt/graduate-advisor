@@ -4,12 +4,12 @@ function ScheduleRenderer(userCourses){
     }
 
     this.renderSchedule = function(schedule) {
-        var semesterArray = [userCourses.semesters];
+        var semesterArray = [userCourses.semestersRemaining()];
         // Remove the previous schedule
         $('#schedtable').remove();
         var table = $('<table>').attr('id', 'schedtable').addClass('table').addClass('table-striped');
 
-        for(var i = 0; i < userCourses.semesters; i++) {
+        for(var i = 0; i < userCourses.semestersRemaining(); i++) {
             semesterArray[i] = new Array();
         }
 
@@ -27,20 +27,20 @@ function ScheduleRenderer(userCourses){
         }
 
 
-        for(var i = 0; i < userCourses.semesters; i++) {
+        for(var i = 0; i < userCourses.semestersRemaining(); i++) {
             var year = parseInt(startYear) + Math.floor((i + startSemester)/2);
             table.append($('<th>').html(semesterName[(i + startSemester) % 2] + ' ' + year));
         }
 
 
         var finished = 0;
-        while(finished < userCourses.semesters) {
+        while(finished < userCourses.semestersRemaining()) {
             console.log("in while");
             console.log(semesterArray);
 
             var row = $('<tr>');
             table.append(row);
-            for(i = 0; i < userCourses.semesters; i++) {
+            for(i = 0; i < userCourses.semestersRemaining(); i++) {
                 var td = $('<td>');
                 row.append(td);
                 if(semesterArray[i].length > 0) {

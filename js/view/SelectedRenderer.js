@@ -109,6 +109,9 @@ function SelectedRenderer(userCourses, rotation, rules){
         var j = 0;
         for(var i in this.userCourses.available) {
             var button = $("#" + i);
+            // remove unavailable class
+            button.removeClass("inactive");
+
             // remove the prereq class if its set
             button.removeClass("prereq");
             if(this.inRange(button.get(0).id) && button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter) {
@@ -132,6 +135,13 @@ function SelectedRenderer(userCourses, rotation, rules){
 
     this.renderSelected = function (filter) {
         var activeTab = $('.tab-pane.active').attr('id');
+        var otherTab = undefined;
+        if(activeTab == "selected") {
+            otherTab = "taken";
+        }
+        else {
+            otherTab = "selected";
+        }
 
         displayRules = this.rules.rules[filter];
         if(displayRules != null) {
@@ -148,30 +158,40 @@ function SelectedRenderer(userCourses, rotation, rules){
         var maxRules =  $('.max');
         maxRules.remove();
 
-        var renderData = this.userCourses.selected;
+        var renderData = [this.userCourses.taken, this.userCourses.selected];
         if(activeTab == "taken") {
-            renderData = this.userCourses.taken;
+            renderData = [undefined, this.userCourses.taken];
         }
 
-        for(var i in renderData) {
-            var button = $("#" + i);
+        for(var l in renderData) {
+            for(var i in renderData[l]) {
+                var button = $("#" + i);
 
-            // Add a class to the button if it has a dependency
-            // we can then colorize the buttons in the css
-            var course = this.userCourses.getCourse(i);
-            var prereq = this.userCourses.findPrereq(course);
-            if(prereq != undefined) {
-                button.addClass("prereq");
-                $("#" + prereq.course_number).addClass("prereq");
-            }
+                // If the button is from the inactive bucket
+                if(l == 0) {
+                    button.addClass("inactive");
+                }
+                else {
+                    button.removeClass("inactive");
+                }
 
-            if(button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter) {
-                
-                button.detach().prependTo(selected);
-                button.show();
-                j++;
-                if(keys != null && j == displayRules[keys[0]]) {
-                    $("<div>").addClass(keys[0]).prependTo(selected);
+                // Add a class to the button if it has a dependency
+                // we can then colorize the buttons in the css
+                var course = this.userCourses.getCourse(i);
+                var prereq = this.userCourses.findPrereq(course);
+                if(prereq != undefined) {
+                    button.addClass("prereq");
+                    $("#" + prereq.course_number).addClass("prereq");
+                }
+
+                if(button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter) {
+
+                    button.detach().prependTo(selected);
+                    button.show();
+                    j++;
+                    // if(keys != null && j == displayRules[keys[0]]) {
+                    //     $("<div>").addClass(keys[0]).prependTo(selected);
+                    // }
                 }
             }
         }
@@ -179,7 +199,7 @@ function SelectedRenderer(userCourses, rotation, rules){
         // fill the rest of the bucket with empty buttons
         for(k=j; k<this.bucketSize; k++) {
             $('<button>Spacer</button>').attr({
-                'class' : 'spacer'
+                'class' : 'spacer btn-block btn-sm'
             }).prependTo(selected);
             j++;
 
@@ -191,7 +211,7 @@ function SelectedRenderer(userCourses, rotation, rules){
     }
 
     this.inRange = function(course) {
-        var options = FindOptions(course, this.userCourses.semesters, this.rotation);
+        var options = FindOptions(course, this.userCourses.semestersRemaining(), this.rotation);
         if(options.length > 0) {
             return true;
         }
