@@ -39,7 +39,7 @@
     <script src="js/model/LoadAndSave.js"></script>
     <script src="js/model/Courses.js"></script>
     <script src="js/model/JSONParser.js"></script>
-    <!-- <script src="js/model/Rotation.js"></script> -->
+    <script src="js/model/Rotation.js"></script>
     <script src="js/model/Rules.js"></script>
     <script src="js/model/UserCourses.js"></script>
     <script src="js/view/ConfigureRenderer.js"></script>
@@ -49,9 +49,8 @@
     <script src="js/view/SelectedRenderer.js"></script>
     <script src="js/view/TakenRenderer.js"></script>
     <script src="js/view/WaivedRenderer.js"></script>
-    <script src="js/Scheduler.js"></script>
-    <script src="js/CourseParser.js"></script>
-    <script src="js/Validate_Course_List.js"></script>
+    <script src="js/scheduler/scheduler.js"></script>
+    <script src="js/scheduler/RotationTranslator.js"></script>
     <script src="js/wizard.js"></script>
   </head>
   <body>

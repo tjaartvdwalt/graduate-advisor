@@ -211,7 +211,7 @@ function SelectedRenderer(userCourses, rotation, rules){
     }
 
     this.inRange = function(course) {
-        var options = FindOptions(course, this.userCourses.semestersRemaining(), this.rotation);
+        var options = this.rotation.findOptions(course, this.userCourses.semestersRemaining());
         if(options.length > 0) {
             return true;
         }

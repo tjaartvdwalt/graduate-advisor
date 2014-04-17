@@ -9,7 +9,9 @@ function CoursesController() {
         this.configure =   new ConfigureRenderer(this.userCourses, this.rules);
         this.configure.renderAll();
 
-        this.rotation = new JSONParser().getJSON('rotation');
+        this.xmlRotation = new Rotation(); //JSONParser().getJSON('rotation');
+        this.rotation = new RotationTranslator(this.xmlRotation.rotation);
+        
         this.scoreboard =  new ScoreboardRenderer(this.userCourses, this.rules);
         this.scoreboard.renderAll();
         // This breaks the design, but to get the scoreboard reset after a load
@@ -19,7 +21,7 @@ function CoursesController() {
         this.loadSaveModel = new LoadAndSave(this.userCourses, this.scoreboard);
         this.loadSave =      new LoadSaveRenderer(this.loadSaveModel);
         this.waived =      new WaivedRenderer(this.userCourses,  this.rules);
-        this.selected =    new SelectedRenderer(this.userCourses, this.rotation, this.rules);
+        this.selected =    new SelectedRenderer(this.userCourses, this.xmlRotation, this.rules);
         this.schedule =    new ScheduleRenderer(this.userCourses);
         this.addButtonListeners();
     }
@@ -125,7 +127,8 @@ function CoursesController() {
             break;
         case 4:
             // schedule
-            var takenSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semestersRemaining(), 30, this.rotation, this.courses);
+            var takenSchedule = scheduleAll(this.rotation, 2, this.userCourses.available, {});
+            //var takenSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semestersRemaining(), 30, this.xmlRotation, this.courses);
             this.userCourses.schedule = takenSchedule;
 
             console.log(this.userCourses);
