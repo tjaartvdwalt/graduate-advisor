@@ -11,7 +11,7 @@ function CoursesController() {
 
         this.xmlRotation = new Rotation(); //JSONParser().getJSON('rotation');
         this.rotation = new RotationTranslator(this.xmlRotation.rotation);
-        
+
         this.scoreboard =  new ScoreboardRenderer(this.userCourses, this.rules);
         this.scoreboard.renderAll();
         // This breaks the design, but to get the scoreboard reset after a load
@@ -127,11 +127,14 @@ function CoursesController() {
             break;
         case 4:
             // schedule
-            var takenSchedule = scheduleAll(this.rotation, 2, this.userCourses.available, {});
+            var requirements = {}
+            requirements.reqCourse = this.userCourses.selected;
+
+            var takenSchedule = scheduleAll(10, this.userCourses.coursesPerSem, this.rotation.rotation, requirements.reqCourse);
             //var takenSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semestersRemaining(), 30, this.xmlRotation, this.courses);
             this.userCourses.schedule = takenSchedule;
 
-            console.log(this.userCourses);
+            console.log(takenSchedule);
             this.schedule.renderSchedule(this.userCourses.schedule);
             break;
         }

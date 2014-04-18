@@ -3,57 +3,39 @@ function ScheduleRenderer(userCourses){
         this.userCourses = userCourses;
     }
 
-    this.renderSchedule = function(schedule) {
+    this.renderSchedule = function() {
         var semesterArray = [userCourses.semestersRemaining()];
         // Remove the previous schedule
         $('#schedtable').remove();
         var table = $('<table>').attr('id', 'schedtable').addClass('table').addClass('table-striped');
-
-        for(var i = 0; i < userCourses.semestersRemaining(); i++) {
-            semesterArray[i] = new Array();
+        var row = []
+        console.log(this.userCourses.coursesPerSem);
+        for(var i=0; i< this.userCourses.coursesPerSem; i++) {
+            row.push($('<tr>'));
         }
 
+        var year = 0;
+        var semester = "";
+        var cur_row = 0;
+        var schedule = this.userCourses.schedule;
+        console.log(schedule);
         for(var j in schedule) {
-            semesterArray[schedule[j].sem - 1].push(schedule[j]);
-        }
-
-        // This is a hack to find out the start year and the start semester
-        var startYear = semesterArray[0][0].year;
-        console.log("start year " + startYear);
-        var startSemester = 0;
-        var semesterName = ['Fall', 'Spring'];
-        if(semesterArray[1][0] != startYear) {
-            startSemester = 1;
-        }
-
-
-        for(var i = 0; i < userCourses.semestersRemaining(); i++) {
-            var year = parseInt(startYear) + Math.floor((i + startSemester)/2);
-            table.append($('<th>').html(semesterName[(i + startSemester) % 2] + ' ' + year));
-        }
-
-
-        var finished = 0;
-        while(finished < userCourses.semestersRemaining()) {
-            console.log("in while");
-            console.log(semesterArray);
-
-            var row = $('<tr>');
-            table.append(row);
-            for(i = 0; i < userCourses.semestersRemaining(); i++) {
-                var td = $('<td>');
-                row.append(td);
-                if(semesterArray[i].length > 0) {
-                    console.log(semesterArray[i][0].course.course_number);
-                    td.html(semesterArray[i][0].course.course_number);
-                    semesterArray[i].splice(0, 1)
-                }
-                else {
-                    finished++;
-
-                }
+            if(schedule[j].year != year || schedule[j].semester != semester) {
+                console.log("in if");
+                table.append($('<th>').html(schedule[j].semester + " " + schedule[j].year));
+                cur_row = 0;
+                year = schedule[j].year;
+                semester = schedule[j].semester;
             }
+            console.log(row);
+            console.log(cur_row);
+            row[cur_row].append($("<td>").html(schedule[j].courseNumber))
+            cur_row++;
         }
+        for(var i=0; i< this.userCourses.coursesPerSem; i++) {
+            table.append(row[i])
+        }
+
         $("#schedules").append(table)
     }
 

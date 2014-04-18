@@ -1,11 +1,35 @@
 function Rotation() {
     this.init = function() {
-       this.rotation = this.getRotationFromJSON();
+        var json = this.getRotationFromJSON();
+        this.rotation = this.getCSCourses(json);
     }
 
     this.getRotationFromJSON = function() {
         var json = new JSONParser();
         return json.getJSON("rotation");
+    }
+
+    // Filter everything so that only the CS courses remain.
+    // This is probably not the ideal way to do this...
+    // We recreate the object, leaving out any unwanted courses
+    this.getCSCourses = function(json) {
+        //        console.log(json);
+        var returnObject = {};
+        returnObject.rotation_year = [];
+        for(var i in json) {
+            for(var j in json[i]) {
+                var yearObject = {};
+                yearObject.year = json[i][j].year;
+                yearObject.course = [];
+                for(var k in json[i][j].course) {
+                    if(json[i][j].course[k].subject == "CMP SCI") {
+                        yearObject.course.push(json[i][j].course[k]);
+                    }
+                }
+                returnObject.rotation_year.push(yearObject);
+            }
+        }
+        return returnObject;
     }
 
     //Search the XML for all Rotation Object occurrences within a semester threshold
