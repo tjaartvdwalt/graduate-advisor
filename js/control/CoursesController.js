@@ -133,7 +133,6 @@ function CoursesController() {
             //var takenSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semestersRemaining(), 30, this.xmlRotation, this.courses);
             this.userCourses.schedule = takenSchedule;
 
-            console.log(takenSchedule);
             this.schedule.renderSchedule(this.userCourses.schedule);
             break;
         }

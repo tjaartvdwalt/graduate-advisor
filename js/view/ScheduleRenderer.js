@@ -9,7 +9,6 @@ function ScheduleRenderer(userCourses){
         $('#schedtable').remove();
         var table = $('<table>').attr('id', 'schedtable').addClass('table').addClass('table-striped');
         var row = []
-        console.log(this.userCourses.coursesPerSem);
         for(var i=0; i< this.userCourses.coursesPerSem; i++) {
             row.push($('<tr>'));
         }
@@ -18,17 +17,13 @@ function ScheduleRenderer(userCourses){
         var semester = "";
         var cur_row = 0;
         var schedule = this.userCourses.schedule;
-        console.log(schedule);
         for(var j in schedule) {
             if(schedule[j].year != year || schedule[j].semester != semester) {
-                console.log("in if");
                 table.append($('<th>').html(schedule[j].semester + " " + schedule[j].year));
                 cur_row = 0;
                 year = schedule[j].year;
                 semester = schedule[j].semester;
             }
-            console.log(row);
-            console.log(cur_row);
             row[cur_row].append($("<td>").html(schedule[j].courseNumber))
             cur_row++;
         }
