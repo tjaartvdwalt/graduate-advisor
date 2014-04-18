@@ -10,12 +10,12 @@ function ConfigureRenderer(userCourses, rules){
         $('#courses-per-semester').append(semesterList)
             .change(function(event) {
                 self.userCourses.coursesPerSem = event.target.value;
-                console.log($('#nr-of-semesters'));
                 $('#nr-of-semesters')[0].value = self.userCourses.semestersRemaining();
             });
         for(var i=1; i <= 5; i++) {
             semesterList.append($('<option>').html(i));
         }
+        semesterList.val("3");
     }
 
     this.semesterRenderer = function(which) {

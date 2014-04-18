@@ -128,9 +128,8 @@ function CoursesController() {
         case 4:
             // schedule
             var requirements = {}
-            requirements.reqCourse = this.userCourses.selected;
-
-            var takenSchedule = scheduleAll(10, this.userCourses.coursesPerSem, this.rotation.rotation, requirements.reqCourse);
+            requirements.reqCourse = this.userCourses.getSortedCoursList();
+            var takenSchedule = scheduleAll(this.userCourses.coursesRequired, this.userCourses.coursesPerSem, this.rotation.rotation, requirements);
             //var takenSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semestersRemaining(), 30, this.xmlRotation, this.courses);
             this.userCourses.schedule = takenSchedule;
 

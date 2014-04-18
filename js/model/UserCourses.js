@@ -2,7 +2,8 @@ function UserCourses(courses, rules) {
     this.init = function () {
         this.rules = rules;
         // Constructor items
-        this.coursesPerSem = 2;
+        this.coursesPerSem = 3;
+        this.coursesRequired = 10;
         this.available = {};
         this.selected  = {};
         this.taken     = {};
@@ -129,22 +130,14 @@ function UserCourses(courses, rules) {
         }
     }
 
-    this.getAvailableCourses = function () {
-        return this.selected;
+    this.getSortedCoursList = function() {
+        var courseList = [];
+        for (var i in this.selected) {
+            courseList.push(this.selected[i].course_number);
+        }
+        courseList.sort();
+        return courseList;
     }
-
-    this.getSelectedCourses = function () {
-        return this.selected;
-    }
-
-    this.getTakenCourses = function () {
-        return this.taken;
-    }
-
-    this.getWaivedCourses = function () {
-        return this.waived;
-    }
-
     // execute the constructor
     this.init();
 }
