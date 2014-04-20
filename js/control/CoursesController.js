@@ -10,8 +10,10 @@ function CoursesController() {
         this.configure.renderAll();
 
         this.xmlRotation = new Rotation(); //JSONParser().getJSON('rotation');
-        this.rotation = new RotationTranslator(this.xmlRotation.rotation);
+        this.rotationTranslator = new RotationTranslator(this.xmlRotation.rotation);
+        this.scheduleTranslator = new ScheduleTranslator();
 
+        this.errors =    new ErrorRenderer();
         this.scoreboard =  new ScoreboardRenderer(this.userCourses, this.rules);
         this.scoreboard.renderAll();
         // This breaks the design, but to get the scoreboard reset after a load
@@ -24,6 +26,7 @@ function CoursesController() {
         this.selected =    new SelectedRenderer(this.userCourses, this.xmlRotation, this.rules);
         this.schedule =    new ScheduleRenderer(this.userCourses);
         this.addButtonListeners();
+        this.addListeners();
     }
 
     /*
@@ -76,6 +79,15 @@ function CoursesController() {
                 // else if it is selected move it to available
                 if(src == this.userCourses.available) {
                     this.userCourses.moveCourse(clickedCourse, src, this.userCourses.selected);
+
+                    if(this.userCourses.backend == "1" &&
+                       this.runScheduler(Object.keys(this.userCourses.selected).length) == 0) {
+
+                        this.errors.renderError("We could not schedule CS"+ event.currentTarget.id + " with the current selection and configuration. Please select another course or change the configuration parameters");
+
+                        this.userCourses.moveCourse(clickedCourse, this.userCourses.selected, src);
+
+                    }
                 }
                 else {
                     // If the course was selected, and it was a core course, move it to waived...
@@ -126,13 +138,15 @@ function CoursesController() {
             this.selected.renderAll();
             break;
         case 4:
-            // schedule
-            var requirements = {}
-            requirements.reqCourse = this.userCourses.getSortedCoursList();
-            var takenSchedule = scheduleAll(this.userCourses.coursesRequired, this.userCourses.coursesPerSem, this.rotation.rotation, requirements);
-            //var takenSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semestersRemaining(), 30, this.xmlRotation, this.courses);
-            this.userCourses.schedule = takenSchedule;
-
+            if(this.userCourses.backend == "0") {
+                var tempSchedule = MakeSchedule(this.userCourses.selected, this.userCourses.semestersRemaining(), 30, this.xmlRotation.rotation, this.courses);
+                this.userCourses.schedule =  this.scheduleTranslator.translateSchedule(tempSchedule);
+            }
+            else {
+                // schedule
+                var takenSchedule = this.runScheduler();
+                this.userCourses.schedule = takenSchedule;
+            }
             this.schedule.renderSchedule(this.userCourses.schedule);
             break;
         }
@@ -150,5 +164,26 @@ function CoursesController() {
             }
         }
     }
+
+    this.runScheduler = function(nrOfCourses) {
+        var requirements = {}
+        requirements.reqCourse = this.userCourses.getSortedCoursList();
+        if(nrOfCourses == undefined) {
+            nrOfCourses = (this.userCourses.coursesRequired - Object.keys(this.userCourses.taken).length);
+        }
+
+        var schedule =  scheduleAll(nrOfCourses, this.userCourses.coursesPerSem, this.rotationTranslator.rotation, requirements);
+        return schedule;
+    }
+
+    this.addListeners = function() {
+        var self = this;
+        $('#total-courses-list').change(function(event) {
+            $('#semesters-list').val(self.userCourses.semestersRemaining());
+            self.scoreboard.renderAll();
+        });
+
+    }
+
     this.init();
 }

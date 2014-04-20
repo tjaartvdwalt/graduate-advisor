@@ -4,21 +4,36 @@ function ConfigureRenderer(userCourses, rules){
         this.userCourses = userCourses;
         this.rules = rules;
     }
-    this.semestersRenderer = function() {
+
+    this.coursesPerSemesterRenderer = function() {
+
         // Add the select list
-        var semesterList = $('<select>').addClass('selectpicker');
-        $('#courses-per-semester').append(semesterList)
+        var semestersList = $('<select>').addClass('selectpicker').attr('id', 'semesters-list');
+        var coursesPerSemesterList = $('<select>').addClass('selectpicker');
+
+        $('#semesters').append(semestersList)
+            .change(function(event) {
+                self.userCourses.coursesPerSem = Math.ceil((self.rules.rules.total - Object.keys(self.userCourses.taken).length) / event.target.value);
+                coursesPerSemesterList.val(self.userCourses.coursesPerSem);
+            });
+
+        $('#courses-per-semester').append(coursesPerSemesterList)
             .change(function(event) {
                 self.userCourses.coursesPerSem = event.target.value;
-                $('#nr-of-semesters')[0].value = self.userCourses.semestersRemaining();
+                semestersList.val(self.userCourses.semestersRemaining());
             });
         for(var i=1; i <= 5; i++) {
-            semesterList.append($('<option>').html(i));
+            coursesPerSemesterList.append($('<option>').html(i));
         }
-        semesterList.val("3");
+        for(var i=2; i <= 10; i++) {
+            semestersList.append($('<option>').html(i));
+        }
+
+        coursesPerSemesterList.val("3");
+        semestersList.val(self.userCourses.semestersRemaining());
     }
 
-    this.semesterRenderer = function(which) {
+    this.dateRenderer = function(which) {
         var currentYear = $('<select>').addClass('selectpicker')
         $('#' + which + '-year').append(currentYear)
         currentYear.change(function(event) {
@@ -38,11 +53,38 @@ function ConfigureRenderer(userCourses, rules){
 
     }
 
+    this.totalCoursesRenderer = function() {
+        var totalCoursesList = $('<select>').addClass('selectpicker').attr('id', 'total-courses-list');
+        $('#total-courses').append(totalCoursesList);
+        totalCoursesList.change(function(event) {
+            self.userCourses.coursesRequired = event.target.value;
+        });
+
+        for(var i=2; i <= 12; i++) {
+            totalCoursesList.append($('<option>').html(i));
+        }
+        totalCoursesList.val("10");
+
+    }
+
+    this.backendRenderer = function() {
+        var backendList = $('<select>').addClass('selectpicker').attr('id', 'backend-list');
+        $('#backend').append(backendList)
+            .change(function(event) {
+                self.userCourses.backend = event.target.value;
+            });
+        backendList.append($('<option>').attr('value', '0').html("Schedule Packing"));
+        backendList.append($('<option>').attr('value', '1').html("Depth First Search"));
+
+        
+    }
 
     this.renderAll = function() {
-        this.semestersRenderer();
-        this.semesterRenderer('starting');
-        this.semesterRenderer('current');
+        this.coursesPerSemesterRenderer();
+        this.dateRenderer('starting');
+        this.dateRenderer('current');
+        this.totalCoursesRenderer();
+        this.backendRenderer();
     }
 
     this.init();

@@ -1,5 +1,6 @@
 function UserCourses(courses, rules) {
     this.init = function () {
+        this.backend = 0;
         this.rules = rules;
         // Constructor items
         this.coursesPerSem = 3;
@@ -21,12 +22,11 @@ function UserCourses(courses, rules) {
             else {
                 this.addCourse(courses[i], this.selected);
             }
-
         }
     }
 
     this.semestersRemaining = function() {
-        return Math.ceil((this.rules.rules.total - Object.keys(this.taken).length) / this.coursesPerSem);
+        return Math.ceil((this.coursesRequired - Object.keys(this.taken).length) / this.coursesPerSem);
     }
 
     this.export = function() {

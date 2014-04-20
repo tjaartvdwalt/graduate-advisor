@@ -37,7 +37,11 @@ function SelectedRenderer(userCourses, rotation, rules){
         for(var i in userCourses.available) {
             $("#buttons").append($("<button>" + i + "</button>").attr({
                 'id' :   i,
-                'class': 'btn-block btn-sm'
+                'class': 'btn-block btn-sm',
+                // 'data-container' : 'body',
+                // 'data-toggle' : 'popover',
+                // 'data-placement': 'auto right',
+                // 'data-content':   'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.'
 
             })).hide();
         }

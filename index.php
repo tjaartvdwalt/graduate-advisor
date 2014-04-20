@@ -19,6 +19,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/introjs.min.css" rel="stylesheet">
+    <!-- <link href="css/jquery-ui.custom.min.css" rel="stylesheet"> -->
     <!-- <link href="css/jasny-bootstrap.min.css" rel="stylesheet"> -->
     <link href="css/style.css" rel="stylesheet">
     
@@ -29,6 +30,7 @@
     <!-- importing everything here is not great. We should think about using include.js -->
     <!-- import frameworks -->
     <script src="js/lib/jquery.min.js"></script>
+    <!-- <script src="js/lib/jquery-ui.custom.min.js"></script> -->
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/bootstrap-select.min.js"></script>
     <script src="js/lib/intro.min.js"></script>
@@ -40,22 +42,26 @@
     <script src="js/model/Courses.js"></script>
     <script src="js/model/JSONParser.js"></script>
     <script src="js/model/Rotation.js"></script>
+    <script src="js/model/RotationTranslator.js"></script>
+    <script src="js/model/ScheduleTranslator.js"></script>
     <script src="js/model/Rules.js"></script>
     <script src="js/model/UserCourses.js"></script>
     <script src="js/view/ConfigureRenderer.js"></script>
+    <script src="js/view/ErrorRenderer.js"></script>
     <script src="js/view/LoadSaveRenderer.js"></script>
     <script src="js/view/ScheduleRenderer.js"></script>
     <script src="js/view/ScoreboardRenderer.js"></script>
     <script src="js/view/SelectedRenderer.js"></script>
     <script src="js/view/TakenRenderer.js"></script>
     <script src="js/view/WaivedRenderer.js"></script>
-    <script src="js/scheduler/scheduler.js"></script>
-    <script src="js/scheduler/RotationTranslator.js"></script>
+    <script src="js/scheduler0/Scheduler.js"></script>
+    <script src="js/scheduler0/CourseParser.js"></script>
+    <script src="js/scheduler1/scheduler.js"></script>
     <script src="js/wizard.js"></script>
   </head>
   <body>
     <div id="rootwizard">
-<h3 class="text-muted">&nbsp;UMSL CS Graduate Advisor</h3>
+      <h3 class="text-muted">&nbsp;UMSL CS Graduate Advisor</h3>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li><a href="#configure" data-toggle="tab">Configure</a></li>
@@ -82,12 +88,12 @@
               <tr>
                 <td>Maximum number of courses per semesters</td>
                 <td><div id="courses-per-semester"></td>
-                </tr>
-                <tr>
-                <td>Minimum number of semesters left</td>
-                <td><input id="nr-of-semesters" type="text" maxlength="2" disabled style="width:40px"></input></td>
-                </tr>
-
+              </tr>
+              <tr>
+                <td>Minimum number of semesters remaining</td>
+                <td><div id="semesters"</td>
+              </tr>
+              
               <th>Dates</th>
               <tr>
                 <td>Starting semester</td>
@@ -96,14 +102,23 @@
                   <div id="starting-year"></div>
                   
                 </td>
-                </tr>
-                <tr>
-                <td class="warning">Current semester</td>
+              </tr>
+              
+              <th class="warning">Developer options</th>
+              <tr>
+                <td>Current semester</td>
                 <td>
                   <div id="current-semester"></div>
                   <div id="current-year"></div>
-                  
                 </td>
+              </tr>
+              <tr>
+                <td>Nr of courses required</td>
+                <td><div id="total-courses"></div></td>
+              </tr>
+              <tr>
+                <td>Scheduling Algorithm</td>
+                <td><div id="backend"></div></td>
               </tr>
             </table>
             </div>

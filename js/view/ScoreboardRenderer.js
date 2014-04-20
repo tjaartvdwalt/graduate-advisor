@@ -9,7 +9,7 @@ function ScoreboardRenderer(userCourses, rules){
         var taken = Object.keys(this.userCourses.taken).length;
         var selected = Object.keys(this.userCourses.selected).length;
         var total = selected;
-        var required = rules.rules.total - taken;
+        var required = this.userCourses.coursesRequired - taken;
         $('#waived-badge').html(waived);
         $('#completed-badge').html(taken);
         $('#selected-badge').html(selected);
