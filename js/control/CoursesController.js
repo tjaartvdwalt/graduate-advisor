@@ -35,7 +35,18 @@ function CoursesController() {
     // Handle event is a special function that catches all events
     this.handleEvent = function (event) {
 
-                    this.scoreboard.renderAll();
+        var currentTab = $('.tab-pane.active')[0].id;
+        switch(currentTab) {
+        case "waived":
+            var clickedCourse = this.userCourses.getCourse(event.currentTarget.id);
+            var src = this.userCourses.getCourseBucket(event.currentTarget.id);
+            if(src == this.userCourses.waived) {
+                this.userCourses.moveCourse(clickedCourse, src, this.userCourses.selected);
+            }
+            else {
+                this.userCourses.moveCourse(clickedCourse, src, this.userCourses.waived);
+            }
+            this.scoreboard.renderAll();
             this.waived.renderAll();
             break;
         case "taken":
