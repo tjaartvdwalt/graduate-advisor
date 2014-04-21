@@ -52,7 +52,6 @@
     <script src="js/view/ScheduleRenderer.js"></script>
     <script src="js/view/ScoreboardRenderer.js"></script>
     <script src="js/view/SelectedRenderer.js"></script>
-    <script src="js/view/TakenRenderer.js"></script>
     <script src="js/view/WaivedRenderer.js"></script>
     <script src="js/scheduler0/Scheduler.js"></script>
     <script src="js/scheduler0/CourseParser.js"></script>

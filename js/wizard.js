@@ -1,9 +1,6 @@
 $(document).ready(function() {
-
-    console.log("add listener");
     document.addEventListener("myEvent", function() {
         $('#rootwizard').bootstrapWizard('hide', 4);
-        console.log("disable schedule");
     },false);
 
     var controller = new CoursesController();

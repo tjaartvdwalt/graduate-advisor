@@ -56,6 +56,7 @@ function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable, require
         requirements.reqCourse = ["4250","5130"];
         requirements.reqCourse.sort();
         requirements.preReqs = [["4010","5010"]];
+        requirements.greaterThan= [[6000, 1], [5000, 6]];
         requirements.coursesPerSemester = [2,1,3];
     }
 
@@ -82,8 +83,8 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
         courseLimitCurrentSemester = requirements.coursesPerSemester[currentSemesterIndex];
     }
 
-    if(numberOfCoursesToTake-coursesTaken.length < courseLimitCurrentSemester){
-        courseLimitCurrentSemester = numberOfCoursesToTake-coursesTaken.length;
+    if(coursesTaken.length > 0 && numberOfCoursesToTake-coursesTaken[0].length < courseLimitCurrentSemester){
+        courseLimitCurrentSemester = numberOfCoursesToTake-coursesTaken[0].length;
     }
 
     //set coursesAvailable list
@@ -105,7 +106,10 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
         takenAndNoPreReq = coursesTaken;
     }
 
-    var solutionPermutationsForIndexY = combineTakenAndNew(coursesTaken,scheduleSemesterClasses(courseLimitCurrentSemester, courseNumberAvailableList, 0 , takenAndNoPreReq, 0))
+    var solutionPermutationsForIndexY = [];
+    for(var numberOfCoursesIndex = courseLimitCurrentSemester; numberOfCoursesIndex > 0; numberOfCoursesIndex--){
+        solutionPermutationsForIndexY = solutionPermutationsForIndexY.concat(combineTakenAndNew(coursesTaken,scheduleSemesterClasses(numberOfCoursesIndex, courseNumberAvailableList, 0 , takenAndNoPreReq, 0)));
+    }
     //FILTER FOR REQ'S HERE ( if solutionPermutationsForIndexY has anything left in it, break, we have a solution)
 
     var filteredSolution = filterRequirements(solutionPermutationsForIndexY, requirements, numberOfCoursesToTake); // This is going to return an array of length 2;
@@ -178,26 +182,27 @@ function doesntCompletePreReqs(coursesIn, requirements){
 
 function filterRequirements(scheduleArrayIn, requirements, numberOfCoursesToTake){
     var reqCoursePass;
-    var reqCoursePassCount
+    var reqCoursePassCount;
     var returnSchedule = [];
     var returnSolution = [];
+    var scheduleArray = filterGreaterThan(scheduleArrayIn, requirements, numberOfCoursesToTake);
     if(requirements.reqCourse != undefined && requirements.reqCourse.length > 0){
-        for(var scheduleIndex=0; scheduleIndex < scheduleArrayIn.length; scheduleIndex++){
+        for(var scheduleIndex=0; scheduleIndex < scheduleArray.length; scheduleIndex++){
             reqCoursePassCount = 0;
             for(var reqCourseIndex=0; reqCourseIndex < requirements.reqCourse.length; reqCourseIndex++){
-                for (var courseIndex =0; courseIndex < scheduleArrayIn[scheduleIndex].length; courseIndex++){
-                    if(scheduleArrayIn[scheduleIndex][courseIndex].courseNumber == requirements.reqCourse[reqCourseIndex]){
+                for (var courseIndex =0; courseIndex < scheduleArray[scheduleIndex].length; courseIndex++){
+                    if(scheduleArray[scheduleIndex][courseIndex].courseNumber == requirements.reqCourse[reqCourseIndex]){
                         reqCoursePassCount++;
                         break;//look for the next required course
                     }
                 }
             }
-            if((requirements.reqCourse.length - reqCoursePassCount) + scheduleArrayIn[scheduleIndex].length <= numberOfCoursesToTake){
-                returnSchedule.push(scheduleArrayIn[scheduleIndex]);
+            if((requirements.reqCourse.length - reqCoursePassCount) + scheduleArray[scheduleIndex].length <= numberOfCoursesToTake){
+                returnSchedule.push(scheduleArray[scheduleIndex]);
             }
         }
     }else{
-        returnSchedule = scheduleArrayIn;
+        returnSchedule = scheduleArray;
     }
 
     if(returnSchedule.length > 0 && returnSchedule[0].length == numberOfCoursesToTake){
@@ -205,6 +210,40 @@ function filterRequirements(scheduleArrayIn, requirements, numberOfCoursesToTake
     }
 
     return [returnSolution, returnSchedule];
+}
+
+function filterGreaterThan(scheduleArrayIn, requirements, numberOfCoursesToTake){
+    var reqCoursePass;
+    var reqCoursePassCount = [];
+    var returnSchedule = [];
+    var returnSolution = [];
+    if(requirements.greaterThan != undefined && requirements.greaterThan.length > 0){
+        for(var scheduleIndex=0; scheduleIndex < scheduleArrayIn.length; scheduleIndex++){
+            reqCoursePassCount = [];
+            for(var reqCourseIndex=0; reqCourseIndex < requirements.greaterThan.length; reqCourseIndex++){
+                reqCoursePassCount.push(0);
+                for (var courseIndex =0; courseIndex < scheduleArrayIn[scheduleIndex].length; courseIndex++){
+                    if(parseInt(scheduleArrayIn[scheduleIndex][courseIndex].courseNumber) >= requirements.greaterThan[reqCourseIndex][0]){
+                        reqCoursePassCount[reqCoursePassCount.length-1]++;
+                    }
+                }
+            }
+            var schedulePass = true;
+            for(var reqCoursePassCountIndex = 0; reqCoursePassCountIndex < reqCoursePassCount.length; reqCoursePassCountIndex++){
+                if(requirements.greaterThan[reqCoursePassCountIndex][1] - reqCoursePassCount[reqCoursePassCountIndex] > numberOfCoursesToTake - scheduleArrayIn[scheduleIndex].length){
+                    schedulePass = false;
+                }
+            }
+
+            if(schedulePass){
+                returnSchedule.push(scheduleArrayIn[scheduleIndex]);
+            }
+        }
+    }else{
+        returnSchedule = scheduleArrayIn;
+    }
+
+    return returnSchedule;
 }
 
 function courseNumberInCourseList(courseList, courseNumberToFind){
