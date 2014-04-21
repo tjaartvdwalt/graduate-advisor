@@ -11,7 +11,7 @@ function CoursesController() {
 
         this.xmlRotation = new Rotation(); //JSONParser().getJSON('rotation');
         this.rotationTranslator = new RotationTranslator(this.xmlRotation.rotation);
-        this.scheduleTranslator = new ScheduleTranslator();
+        this.scheduleTranslator = new ScheduleTranslator(this.userCourses);
 
         this.errors =    new ErrorRenderer();
         this.scoreboard =  new ScoreboardRenderer(this.userCourses, this.rules);
@@ -143,7 +143,7 @@ function CoursesController() {
             else {
                 // schedule
                 var takenSchedule = this.runScheduler();
-                this.userCourses.schedule = takenSchedule;
+                this.userCourses.schedule = this.scheduleTranslator.sortSchedule(takenSchedule);
             }
             this.schedule.renderSchedule(this.userCourses.schedule);
             break;

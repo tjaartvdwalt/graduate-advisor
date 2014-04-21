@@ -1,5 +1,6 @@
 function UserCourses(courses, rules) {
     this.init = function () {
+        this.startDate = {"sem": "Fall", "year": "2014"};
         this.backend = 0;
         this.rules = rules;
         // Constructor items
