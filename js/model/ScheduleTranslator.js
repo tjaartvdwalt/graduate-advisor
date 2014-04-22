@@ -40,7 +40,7 @@ function ScheduleTranslator(userCourses) {
             return 0;
         }
 
-        if(a.semester == "Fall") {
+        if(a.semester == "Spring") {
             return -1;
         }
         return 1;

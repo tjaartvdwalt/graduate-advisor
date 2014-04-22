@@ -80,14 +80,14 @@ function CoursesController() {
                 if(src == this.userCourses.available) {
                     this.userCourses.moveCourse(clickedCourse, src, this.userCourses.selected);
 
-                    if(this.userCourses.backend == "1" &&
-                       this.runScheduler(Object.keys(this.userCourses.selected).length) == 0) {
+                    //if(this.userCourses.backend == "1" &&
+                    //   this.runScheduler(Object.keys(this.userCourses.selected).length) == 0) {
 
-                        this.errors.renderError("We could not schedule CS"+ event.currentTarget.id + " with the current selection and configuration. Please select another course or change the configuration parameters");
+                    //    this.errors.renderError("We could not schedule CS"+ event.currentTarget.id + " with the current selection and configuration. Please select another course or change the configuration parameters");
 
-                        this.userCourses.moveCourse(clickedCourse, this.userCourses.selected, src);
+                   //     this.userCourses.moveCourse(clickedCourse, this.userCourses.selected, src);
 
-                    }
+			    //}
                 }
                 else {
                     // If the course was selected, and it was a core course, move it to waived...
@@ -168,12 +168,15 @@ function CoursesController() {
     this.runScheduler = function(nrOfCourses) {
         var requirements = {}
         requirements.reqCourse = this.userCourses.getSortedCoursList();
+        requirements.semesterLimit = this.userCourses.semestersRemaining();
+        requirements.greaterThan = [[6000, 1], [5000,6], [4000, 10]];      
         if(nrOfCourses == undefined) {
             nrOfCourses = (this.userCourses.coursesRequired - Object.keys(this.userCourses.taken).length);
         }
 
         var schedule =  scheduleAll(nrOfCourses, this.userCourses.coursesPerSem, this.rotationTranslator.rotation, requirements);
-        return schedule;
+        return this.scheduleTranslator.sortSchedule(schedule);
+        //return schedule;
     }
 
     this.addListeners = function() {
