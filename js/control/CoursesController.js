@@ -25,6 +25,7 @@ function CoursesController() {
         this.waived =      new WaivedRenderer(this.userCourses,  this.rules);
         this.selected =    new SelectedRenderer(this.userCourses, this.xmlRotation, this.rules);
         this.schedule =    new ScheduleRenderer(this.userCourses);
+        this.intro =    new IntroRenderer();
         this.addButtonListeners();
         this.addListeners();
     }
@@ -134,6 +135,7 @@ function CoursesController() {
         case 3:
             // selected
             this.selected.renderAll();
+            this.intro.selectedIntroRenderer();
             break;
         case 4:
             if(this.userCourses.backend == "0") {
