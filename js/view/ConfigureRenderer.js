@@ -10,17 +10,23 @@ function ConfigureRenderer(userCourses, rules){
         // Add the select list
         var semestersList = $('<select>').addClass('selectpicker').attr('id', 'semesters-list');
         var coursesPerSemesterList = $('<select>').addClass('selectpicker');
+        var link = $('<input>').attr('type', 'checkbox');
+
 
         $('#semesters').append(semestersList)
             .change(function(event) {
-                self.userCourses.coursesPerSem = Math.ceil((self.rules.rules.total - Object.keys(self.userCourses.taken).length) / event.target.value);
-                coursesPerSemesterList.val(self.userCourses.coursesPerSem);
+                if(self.userCourses.semesters == undefined) {
+                    self.userCourses.coursesPerSem = Math.ceil((self.rules.rules.total - Object.keys(self.userCourses.taken).length) / event.target.value);
+                    coursesPerSemesterList.val(self.userCourses.coursesPerSem);
+                }
             });
 
         $('#courses-per-semester').append(coursesPerSemesterList)
             .change(function(event) {
                 self.userCourses.coursesPerSem = event.target.value;
-                semestersList.val(self.userCourses.semestersRemaining());
+                if(self.userCourses.semesters == undefined) {
+                    semestersList.val(self.userCourses.semestersRemaining());
+                }
             });
         for(var i=1; i <= 5; i++) {
             coursesPerSemesterList.append($('<option>').html(i));
@@ -29,8 +35,22 @@ function ConfigureRenderer(userCourses, rules){
             semestersList.append($('<option>').html(i));
         }
 
-        coursesPerSemesterList.val("3");
+        coursesPerSemesterList.val(self.userCourses.coursesPerSem);
         semestersList.val(self.userCourses.semestersRemaining());
+        if(self.userCourses.semesters == undefined) {
+            link.attr('checked', true);
+        }
+
+        $('#link-courses-semesters').append(link)
+            .change(function(event) {
+                if(event.target.checked == true) {
+                    self.userCourses.semesters = undefined;
+                }
+                else {
+                    self.userCourses.semesters = semestersList.val();
+                }
+            });
+
     }
 
     this.dateRenderer = function(which) {
@@ -77,7 +97,7 @@ function ConfigureRenderer(userCourses, rules){
         backendList.append($('<option>').attr('value', '1').html("Depth First Search"));
         backendList.val("1");
 
-        
+
     }
 
     this.renderAll = function() {

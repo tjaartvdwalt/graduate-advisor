@@ -103,7 +103,11 @@
               <tr>
                 <td>Minimum number of semesters remaining</td>
                 <td><div id="semesters"</td>
-                         </tr>
+               </tr>
+              <tr>
+                <td>Link courses per semester and semesters remaining</td>
+                <td><div id="link-courses-semesters"</td>
+               </tr>
               
               <th>Dates</th>
               <tr>
