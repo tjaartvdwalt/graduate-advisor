@@ -1,6 +1,12 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
     <?php
       // parses the xml file and embeds the results as json in the html
       include 'php/xml-parser.php';
@@ -11,39 +17,40 @@
       echo "</script>\n";
     ?>
     
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="shortcut icon" href="assets/icons/favicon.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/trip.min.css" rel="stylesheet">
-
+    
     <!-- <link href="css/jquery-ui.custom.min.css" rel="stylesheet"> -->
     <!-- <link href="css/jasny-bootstrap.min.css" rel="stylesheet"> -->
     <link href="css/style.css" rel="stylesheet">
     
-    <script>
-      var MAX_SEMESTERS = 10;
-      var MAX_PER_SEM = 4;
-    </script>
+    <!-- <script> -->
+    <!--   var MAX_SEMESTERS = 10; -->
+    <!--   var MAX_PER_SEM = 4; -->
+    <!-- </script> -->
     <!-- importing everything here is not great. We should think about using include.js -->
     <!-- import frameworks -->
-    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/jquery.js"></script>
+    
     <!-- <script src="js/lib/jquery-ui.custom.min.js"></script> -->
-    <script src="js/lib/bootstrap.min.js"></script>
-    <script src="js/lib/bootstrap-select.min.js"></script>
-    <script src="js/lib/trip.min.js"></script>
-    <script src="js/lib/jquery.bootstrap.wizard.min.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/bootstrap-select.js"></script>
+    <script src="js/lib/trip.js"></script>
+    <script src="js/lib/require.js"></script>
+    <script src="js/lib/jquery-bootstrap-wizard.js"></script>
     
     <!-- import our code -->
-    <script src="js/control/CoursesController.js"></script>
+    <script src="js/control/ClickController.js"></script>
+    <script src="js/control/RootController.js"></script>
+    <script src="js/control/RenderController.js"></script>
     <script src="js/model/LoadAndSave.js"></script>
     <script src="js/model/Courses.js"></script>
     <script src="js/model/JSONParser.js"></script>
     <script src="js/model/Rotation.js"></script>
     <script src="js/model/RotationTranslator.js"></script>
+    <script src="js/model/Schedule.js"></script>
     <script src="js/model/ScheduleTranslator.js"></script>
     <script src="js/model/Rules.js"></script>
     <script src="js/model/UserCourses.js"></script>
@@ -51,6 +58,7 @@
     <script src="js/view/ErrorRenderer.js"></script>
     <script src="js/view/IntroRenderer.js"></script>
     <script src="js/view/LoadSaveRenderer.js"></script>
+    <script src="js/view/PopoverRenderer.js"></script>
     <script src="js/view/ScheduleRenderer.js"></script>
     <script src="js/view/ScoreboardRenderer.js"></script>
     <script src="js/view/SelectedRenderer.js"></script>
@@ -59,6 +67,7 @@
     <script src="js/scheduler0/CourseParser.js"></script>
     <script src="js/scheduler1/scheduler.js"></script>
     <script src="js/wizard.js"></script>
+    
   </head>
   <body>
     <div id="rootwizard">
@@ -73,8 +82,8 @@
         </ul>
         <ul class="nav navbar-nav nav-pills navbar-right">
           
+          <li><div id="intro"></div></li>
           <li>
-            <div id="intro"></div>
             <input id="import" type="file" style="display:none">
             <a class="btn" onclick="$('input[id=import]').click();">Load</a>
           </li>
@@ -94,7 +103,7 @@
               <tr>
                 <td>Minimum number of semesters remaining</td>
                 <td><div id="semesters"</td>
-              </tr>
+                         </tr>
               
               <th>Dates</th>
               <tr>
@@ -217,12 +226,6 @@
             <div class="container-fluid ">
             </div>
           </div>
-          <!-- <ul class="pager wizard"> -->
-          <!--   <li class="previous first" style="display:none;"><a href="#">First</a></li> -->
-          <!--   <li class="previous"><a href="#">Previous</a></li> -->
-          <!--   <li class="next last" style="display:none;"><a href="#">Last</a></li> -->
-          <!--   <li class="next"><a href="#">Next</a></li> -->
-          <!-- </ul> -->
         </div>
       </div>
     </div>
