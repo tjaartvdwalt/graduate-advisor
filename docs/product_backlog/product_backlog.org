@@ -1,7 +1,7 @@
 #+bind: org-export-publishing-directory "./product_backlog"
 
 * Graduate Advisor Product Backlog
-** courses with variable credit hours
+** TODO courses with variable credit hours
 Some courses have a range of credit hours. 
 For example the personal projects CS5880 can be taken between 1-6 credit hours.
 
@@ -13,22 +13,23 @@ I think the easiest solution is to have 2 buttons for these types of courses in 
 
 Otherwise we should allow the user to select the number of credit hours, but he should be able to repeat the course for a max of 6 hours. 
 
-** optional prerequisites
+** TODO optional prerequisites
 Currently we only allow for a single prerequisite per 6000 level course. There are courses that have multiple options, and we should allow the user to choose, but sometimes one of the options does not get presented in the users time frame, then we should not provide this option.
 
-** context sensitive help
+** TODO context sensitive help
 Create an "overlay" like tutorial for every page in the gui that explains the usage. The idea is similar to when you start using your new smart phone when you get a quick tutorial of how things work.
 
-** saving user data
+** DONE saving user data
+   CLOSED: [2014-04-21 Mon 20:41]
 In our design it should be almost trivial to save the data model to JSON and allow the user to load the JSON back in a new session. 
 
-** keep courses ordered after moving
+** TODO keep courses ordered after moving
    Currently if you move a course from "Available" to "Selected" and then move it back to available the course gets appended to the available list. Maybe the courses should be kept in chronological order (as it is initially).
 
-** test mobile version
+** TODO test mobile version
 Twitter Bootstrap /should/ handle the display for tablet/phone, but we need to test this thouroughly
 
-** allow modifications to generated schedule
+** TODO allow modifications to generated schedule
 If you have 2 courses that are presented in similar semesters, you might want to swap them around once your schedule has been generated.
 
-** manual test like crazy
+** TODO manual test like crazy

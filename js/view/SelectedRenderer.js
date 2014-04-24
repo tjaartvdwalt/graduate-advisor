@@ -99,7 +99,7 @@ function SelectedRenderer(userCourses, rotation, rules){
     this.renderAvailable = function () {
         var activeTab = $('.tab-pane.active').attr('id');
 
-        var available = $("#" + activeTab + "-available");
+        var available = $("#" + activeTab + "-available>#selected-group");
         var availableGroups = $("#" + activeTab + "-available" + "> .row-fluid");
 
         // render the category buttons first

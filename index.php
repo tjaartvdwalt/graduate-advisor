@@ -18,7 +18,8 @@
     <link rel="shortcut icon" href="assets/icons/favicon.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="css/introjs.min.css" rel="stylesheet">
+    <link href="css/trip.min.css" rel="stylesheet">
+
     <!-- <link href="css/jquery-ui.custom.min.css" rel="stylesheet"> -->
     <!-- <link href="css/jasny-bootstrap.min.css" rel="stylesheet"> -->
     <link href="css/style.css" rel="stylesheet">
@@ -33,7 +34,7 @@
     <!-- <script src="js/lib/jquery-ui.custom.min.js"></script> -->
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/bootstrap-select.min.js"></script>
-    <script src="js/lib/intro.min.js"></script>
+    <script src="js/lib/trip.min.js"></script>
     <script src="js/lib/jquery.bootstrap.wizard.min.js"></script>
     
     <!-- import our code -->
@@ -48,6 +49,7 @@
     <script src="js/model/UserCourses.js"></script>
     <script src="js/view/ConfigureRenderer.js"></script>
     <script src="js/view/ErrorRenderer.js"></script>
+    <script src="js/view/IntroRenderer.js"></script>
     <script src="js/view/LoadSaveRenderer.js"></script>
     <script src="js/view/ScheduleRenderer.js"></script>
     <script src="js/view/ScoreboardRenderer.js"></script>
@@ -72,6 +74,7 @@
         <ul class="nav navbar-nav nav-pills navbar-right">
           
           <li>
+            <div id="intro"></div>
             <input id="import" type="file" style="display:none">
             <a class="btn" onclick="$('input[id=import]').click();">Load</a>
           </li>
@@ -195,7 +198,8 @@
               </div>
               <div class="row-fluid">
                 <div id="selected-available" class="col-xs-2">
-                  <div class="row-fluid"></div>
+                  <div id ="available-groups" class="row-fluid"></div>
+                  <div id ="selected-group"></div>
                 </div>
                 <div class="clearfix visible-xs"></div>
                 <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
