@@ -322,7 +322,7 @@ function getCoursesAvailableThisSemester(coursesAvailable, startDate, semesterIn
 	for(var x = 0; x < coursesAvailable.length; x++){
 		if(coursesAvailable[x].year == currentYear && coursesAvailable[x].semester == currentMonth){
 			//If these courses have a schedule component
-			if(coursesAvailable[x].day != undefined && coursesAvailable[x].time != undefined) {
+			if(coursesAvailable[x].day != "" && coursesAvailable[x].time != "") {
 				//If we have preferences (preferences only matter if we have a schedule component)
 				if(preferences[0] == 1 || preferences[1] >= 0) {
 					//Check time preference
