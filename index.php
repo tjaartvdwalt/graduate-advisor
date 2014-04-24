@@ -42,7 +42,9 @@
     <script src="js/lib/jquery-bootstrap-wizard.js"></script>
     
     <!-- import our code -->
-    <script src="js/control/CoursesController.js"></script>
+    <script src="js/control/ClickController.js"></script>
+    <script src="js/control/RootController.js"></script>
+    <script src="js/control/RenderController.js"></script>
     <script src="js/model/LoadAndSave.js"></script>
     <script src="js/model/Courses.js"></script>
     <script src="js/model/JSONParser.js"></script>
@@ -56,6 +58,7 @@
     <script src="js/view/ErrorRenderer.js"></script>
     <script src="js/view/IntroRenderer.js"></script>
     <script src="js/view/LoadSaveRenderer.js"></script>
+    <script src="js/view/PopoverRenderer.js"></script>
     <script src="js/view/ScheduleRenderer.js"></script>
     <script src="js/view/ScoreboardRenderer.js"></script>
     <script src="js/view/SelectedRenderer.js"></script>
