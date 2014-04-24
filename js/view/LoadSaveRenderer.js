@@ -1,18 +1,10 @@
 function LoadSaveRenderer(model){
     this.init = function() {
         this.model = model;
-        this.introRenderer();
         this.loadRenderer();
         this.saveRenderer();
     }
 
-    this.introRenderer = function() {
-        var button = $('<button>').attr('id', 'intro-button').addClass('btn').html('Intro');
-        button[0].addEventListener("click", function (evt) {
-        }, false);
-        $('#intro').append(button);
-
-    }
 
     this.saveRenderer = function() {
         var self = this;

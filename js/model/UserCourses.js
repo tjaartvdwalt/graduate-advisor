@@ -1,7 +1,7 @@
 function UserCourses(courses, rules) {
     this.init = function () {
         this.startDate = {"sem": "Fall", "year": "2014"};
-        this.backend = 0;
+        this.backend = 1;
         this.rules = rules;
         // Constructor items
         this.coursesPerSem = 3;
@@ -111,6 +111,7 @@ function UserCourses(courses, rules) {
         else if(this.waived[courseNumber] !== undefined) {
             return this.waived[courseNumber]
         }
+        return undefined;
     }
 
     /* TODO: We should refactor this method after we have updated the data structure
@@ -130,6 +131,25 @@ function UserCourses(courses, rules) {
             return this.waived;
         }
     }
+
+        /* TODO: We should refactor this method after we have updated the data structure
+     * Returns the bucket that the given course is in
+     */
+    this.getCourseStatus = function(courseNumber) {
+        if(this.available[courseNumber] !== undefined) {
+            return "available";
+        }
+        else if(this.selected[courseNumber] !== undefined) {
+            return "selected";
+        }
+        else if(this.taken[courseNumber] !== undefined) {
+            return "taken";
+        }
+        else if(this.waived[courseNumber] !== undefined) {
+            return "waived";
+        }
+    }
+
 
     this.getSortedCoursList = function() {
         var courseList = [];

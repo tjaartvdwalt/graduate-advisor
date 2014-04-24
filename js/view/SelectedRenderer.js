@@ -99,7 +99,7 @@ function SelectedRenderer(userCourses, rotation, rules){
     this.renderAvailable = function () {
         var activeTab = $('.tab-pane.active').attr('id');
 
-        var available = $("#" + activeTab + "-available>#selected-group");
+        var available = $("#" + activeTab + "-available>#" + activeTab + "-group");
         var availableGroups = $("#" + activeTab + "-available" + "> .row-fluid");
 
         // render the category buttons first
@@ -222,20 +222,6 @@ function SelectedRenderer(userCourses, rotation, rules){
         return false;
     }
 
-    this.renderDescription = function (course) {
-        this.userCourses;
-        var description = $('#description');
-        // remove the previous description
-        description.children("div").remove();
-        // Add the new description
-        var details ="<table>" +
-            "<tr><td>course number</td><td>" + course.course_number + "</td></tr>" +
-            "<tr><td>course name</td><td>" + course.course_name + "</td></tr>" +
-            "<tr><td>credits</td><td>" + course.credit + "</td></tr>" +
-            "<tr><td>course description</td><td>" + course.course_description+ "</td></tr>"
-        "</table>";
-        $('<div>' + details + '</div>').prependTo(description);
-    }
 
     this.renderCore = function () {
         this.userCourses;

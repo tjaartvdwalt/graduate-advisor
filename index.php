@@ -172,7 +172,8 @@
               </div>
               <div class="row-fluid">
                 <div id="taken-available" class="col-xs-2">
-                  <div class="row-fluid"></div>
+                  <div id ="available-groups" class="row-fluid"></div>
+                  <div id ="taken-group"></div>
                 </div>
                 <div class="clearfix visible-xs"></div>
                 <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->

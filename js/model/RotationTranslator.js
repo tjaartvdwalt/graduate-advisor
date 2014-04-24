@@ -25,7 +25,7 @@ function RotationTranslator(xmlRotation, schedule) {
                 }
             }
         }
-        console.log(rotation)
+//        console.log(rotation)
         return rotation;
     }
 
