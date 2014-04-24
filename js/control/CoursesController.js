@@ -10,7 +10,9 @@ function CoursesController() {
         this.configure.renderAll();
 
         this.xmlRotation = new Rotation(); //JSONParser().getJSON('rotation');
-        this.rotationTranslator = new RotationTranslator(this.xmlRotation.rotation);
+        this.schedule = new Schedule();
+
+        this.rotationTranslator = new RotationTranslator(this.xmlRotation.rotation, this.schedule);
         this.scheduleTranslator = new ScheduleTranslator(this.userCourses);
 
         this.errors =    new ErrorRenderer();
