@@ -75,6 +75,7 @@ function ConfigureRenderer(userCourses, rules){
             });
         backendList.append($('<option>').attr('value', '0').html("Schedule Packing"));
         backendList.append($('<option>').attr('value', '1').html("Depth First Search"));
+        backendList.val("1");
 
         
     }

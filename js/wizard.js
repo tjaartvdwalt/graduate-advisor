@@ -3,11 +3,10 @@ $(document).ready(function() {
         $('#rootwizard').bootstrapWizard('hide', 4);
     },false);
 
-    var controller = new CoursesController();
-    //$('#rootwizard').bootstrapWizard();
+    var root = new RootController();
+    var render = new RenderController(root);
+    var click = new ClickController(root, render);
     var rootwizard = $('#rootwizard').bootstrapWizard({'onTabShow': function(tab, navigation, index) {
-        controller.onTabShow(tab, navigation, index);
-        //console.log("hallo");
+        render.onTabShow(tab, navigation, index);
     }});
-
 });
