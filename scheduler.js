@@ -62,6 +62,8 @@ function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable, require
         requirements.waived = ["4010"];
         requirements.startDate = [2014, "Fall"];
         requirements.reqCoursePerSemester = [["4250"],["5130"]];
+        requirements.minCoursesBase = 3; //No less than 3 courses per semester
+        requirements.minCoursesPerSemester = [1,2,3]; // No less than 1 course in the 1st semester Both of these do not count for the final semester
 	}
 
 	return scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable, [], 0, requirements);
@@ -76,6 +78,15 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
 		startDate = requirements.startDate;
 	}
 	var numberOfCoursesToTake = totalCourses;
+	var minNumberOfCoursesToTake = 0;
+
+	if(requirements.minCoursesBase != undefined){
+		minNumberOfCoursesToTake = requirements.minCoursesBase-1;
+	}
+
+	if(requirements.minCoursesPerSemester != undefined &&  requirements.minCoursesPerSemester[currentSemesterIndex] != undefined){
+		minNumberOfCoursesToTake = requirements.minCoursesPerSemester[currentSemesterIndex]-1;
+	}
 
 	var potentialSolutions = [];
 	potentialSolutions.push([]);
@@ -105,6 +116,11 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
 		courseLimitCurrentSemester = numberOfCoursesToTake-coursesTaken[0].length;
 	}
 
+
+	if(minNumberOfCoursesToTake >= courseLimitCurrentSemester){
+		minNumberOfCoursesToTake = courseLimitCurrentSemester-1;
+	}
+
 	//set coursesAvailable list
 	courseNumberAvailableList = getCoursesAvailableThisSemester(coursesAvailable, startDate, semesterIndex, seasonList);
 	
@@ -125,7 +141,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
 	}
 
 	var solutionPermutationsForIndexY = [];
-	for(var numberOfCoursesIndex = courseLimitCurrentSemester; numberOfCoursesIndex > 0; numberOfCoursesIndex--){
+	for(var numberOfCoursesIndex = courseLimitCurrentSemester; numberOfCoursesIndex > minNumberOfCoursesToTake; numberOfCoursesIndex--){
 		var semesterPermOfSameLength = scheduleSemesterClasses(numberOfCoursesIndex, courseNumberAvailableList, 0 , takenAndNoPreReq, 0);
 		if(requirements.reqCoursePerSemester != undefined && requirements.reqCoursePerSemester[currentSemesterIndex] != undefined){
 			semesterPermOfSameLength = filterRequirements(semesterPermOfSameLength, requirements.reqCoursePerSemester[currentSemesterIndex], semesterPermOfSameLength[0].length);
