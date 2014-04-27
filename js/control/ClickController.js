@@ -12,6 +12,7 @@ function ClickController(parent, render) {
 
     // Handle event is a special function that catches all events
     this.handleEvent = function (event) {
+        console.log(event);
         var courseNumber = event.currentTarget.id;
         var currentTab = $('.tab-pane.active')[0].id;
         this.clickHandler(currentTab, courseNumber);
@@ -53,8 +54,9 @@ function ClickController(parent, render) {
      * method here. Don't care too much about that for now.
      */
     this.addButtonListeners = function () {
-        for(var i in this.courses.courses) {
-            var courseButton = document.getElementById(this.courses.courses[i].course_number);
+        var coursesList = this.userCourses.getCourses();
+        for(var i in coursesList) {
+            var courseButton = document.getElementById(coursesList[i].course_number);
             if(courseButton != null) {
                 courseButton.addEventListener("click", this, false);
             }
