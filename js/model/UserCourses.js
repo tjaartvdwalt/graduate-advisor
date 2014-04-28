@@ -35,7 +35,7 @@ function UserCourses(courses, rules) {
                 this.addCourse(courses[i], this.selected);
             }
         }
-        //this.duplicateArrangedCourses(arrCourses);
+        this.duplicateArrangedCourses(arrCourses);
     }
 
     this.duplicateArrangedCourses = function(arrangedCourses) {
@@ -216,7 +216,7 @@ function UserCourses(courses, rules) {
     this.getSortedCourseList = function(inputList) {
         var courseList = [];
         for (var i in inputList) {
-            courseList.push(inputList.course_number);
+            courseList.push(inputList[i].course_number);
         }
         courseList.sort();
         return courseList;
