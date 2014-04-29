@@ -130,26 +130,29 @@ function ClickController(parent, render) {
             console.log(e);
             var action = e.detail.action;
             var courseNumber = e.detail.course;
+            var course = self.userCourses.getCourse(courseNumber);
             var src = self.userCourses.getCourseBucket(courseNumber);
+            console.log(src);
             switch(action) {
             case "waived":
-                self.userCourses.moveCourse(courseNumber, src, self.userCourses.waived);
+                self.userCourses.moveCourse(course, src, self.userCourses.waived);
                 break;
             case "taken":
-                self.userCourses.moveCourse(courseNumber, src, self.userCourses.taken);
+                self.userCourses.moveCourse(course, src, self.userCourses.taken);
+                console.log(self.userCourses.taken);
                 break;
             case "selected":
-                self.userCourses.moveCourse(courseNumber, src, self.userCourses.selected);
+                self.userCourses.moveCourse(course, src, self.userCourses.selected);
                 break;
             case "available":
-                self.userCourses.moveCourse(courseNumber, src, self.userCourses.available);
+                self.userCourses.moveCourse(course, src, self.userCourses.available);
                 break;
             }
+            self.render.popover.destroyPopover();
             self.render.scoreboard.renderAll();
             self.render.waived.renderAll();
-            //self.render.selected.renderAll();
+            self.render.selected.renderAll();
             self.currentClicked = "";
-            self.render.popover.destroyPopover();
 
         }
     }
