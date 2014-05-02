@@ -57,18 +57,21 @@ function ConfigureRenderer(userCourses, rules){
         var currentYear = $('<select>').addClass('selectpicker')
         $('#' + which + '-year').append(currentYear)
         currentYear.change(function(event) {
-            //self.userCourses.semesters = event.target.value;
+            self.userCourses.startDate.year = event.target.value;
         });
         for(var i=2014; i <= 2017; i++) {
             currentYear.append($('<option>').html(i));
         }
+        currentYear.val(self.userCourses.startDate.year);
 
         var startSemester = $('<select class="left">').addClass('selectpicker')
         startSemester.append($('<option class="left">').html("Fall"));
         startSemester.append($('<option class="left">').html("Spring"));
         startSemester.change(function(event) {
-            //self.userCourses.semesters = event.target.value;
+            self.userCourses.startDate.sem = event.target.value;
         });
+        startSemester.val(self.userCourses.startDate.sem);
+
         $('#' + which + '-semester').append(startSemester)
 
     }

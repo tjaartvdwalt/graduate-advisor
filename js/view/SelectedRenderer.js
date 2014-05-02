@@ -13,7 +13,6 @@ function SelectedRenderer(userCourses, rotation, rules){
 
         this.addCourseButtons();
         this.availableButtons = ["6000", "5000", "4000"];
-
         this.addAvailableButtons();
     }
 
@@ -149,8 +148,8 @@ function SelectedRenderer(userCourses, rotation, rules){
             return true;
         }
         return false;
-// && button.length > 0
-//                && button.get(0).id > filter && button.get(0).id -  1000 < filter
+        // && button.length > 0
+        //                && button.get(0).id > filter && button.get(0).id -  1000 < filter
     }
 
     this.renderSelected = function (filter) {
@@ -198,10 +197,10 @@ function SelectedRenderer(userCourses, rotation, rules){
                 // Add a class to the button if it has a dependency
                 // we can then colorize the buttons in the css
                 var course = this.userCourses.getCourse(i);
-                var prereq = this.userCourses.findPrereq(course);
-                if(prereq != undefined) {
+                if(course.prereq != undefined) {
                     button.addClass("prereq");
-                    $("#" + prereq.course_number).addClass("prereq");
+                    $("#" + course.course_number).addClass("prereq");
+                    $("#" + course.prereq).addClass("prereq");
                 }
 
                 if(button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter) {
@@ -239,7 +238,6 @@ function SelectedRenderer(userCourses, rotation, rules){
         }
         return false;
     }
-
 
     this.renderCore = function () {
         this.userCourses;

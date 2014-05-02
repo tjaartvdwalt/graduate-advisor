@@ -103,8 +103,8 @@ function UserCourses(courses, rules) {
     this.findPrereq = function(course) {
         // Check if the course has a true prereq. If not return.
         // Currently all proper prereqs use or_choice.
-        if(course.course_number < 6000 || course.prerequisite == undefined ||
-           course.prerequisite.or_choice == undefined ) {
+        if(course.prerequisite == undefined ||
+           course.prerequisite.or_choice == undefined) {
             return null;
         }
 
@@ -135,10 +135,10 @@ function UserCourses(courses, rules) {
     // Move the selected course and if it has prerequisites move those too.
     this.moveCourse = function (course, src, dest) {
         // move the prerequisite recursively
-        var prereq = this.findPrereq(course);
-        if(prereq != undefined) {
-            this.moveCourse(prereq, src, dest);
-        }
+        // var prereq = this.findPrereq(course);
+        // if(prereq != undefined) {
+        //     this.moveCourse(prereq, src, dest);
+        // }
         // move the course itself
         dest[course.course_number] = course;
         delete src[course.course_number];
@@ -210,6 +210,32 @@ function UserCourses(courses, rules) {
         else if(this.waived[courseNumber] !== undefined) {
             return "waived";
         }
+    }
+
+    //regex search in course number, name and description
+    this.search = function(searchString) {
+        var matchedCourses = [];
+        courseBuckets = [this.available, this.selected, this.taken, this.waived];
+
+        for(var i in courseBuckets) {
+            for(var j in courseBuckets[i])
+                if(courseBuckets[i][j] != undefined) {
+                    var matcher = searchString.toLowerCase()
+                    var matchee1 = toString(courseBuckets[i][j].course_number).toLowerCase()
+                    var matchee2 = courseBuckets[i][j].course_name.toLowerCase()
+                    // var matchee3 = courseBuckets[i][j].course_description.toLowerCase()
+                    if(matchee1.match(matcher) != null) {
+                        matchedCourses.push(courseBuckets[i][j].course_number);
+                    } else
+                    if(matchee2.match(matcher) != null) {
+                        matchedCourses.push(courseBuckets[i][j].course_number);
+                    }
+                    // else if(matchee3.match(matcher) != null) {
+                    //     matchedCourses.push(courseBuckets[i][j].course_number);
+                    // }
+                }
+        }
+        return matchedCourses;
     }
 
 

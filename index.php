@@ -72,24 +72,26 @@
   </head>
   <body>
     <div id="rootwizard">
-      <h3 class="text-muted">&nbsp;UMSL CS Graduate Advisor</h3>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="#configure" data-toggle="tab">Configure</a></li>
-          <li><a href="#waived" data-toggle="tab">Waived<span id="waived-badge" class="badge"></span></a></li>
-          <li><a href="#taken" data-toggle="tab">Completed<span id="completed-badge" class="badge"></span></a></li>
-          <li><a href="#selected" data-toggle="tab">Selected<span id="selected-badge" class="badge"></span></a></li>
-          <li><a href="#schedules" data-toggle="tab">Schedule<span id="schedule-badge" class="badge"></span></a></li>
-        </ul>
-        <ul class="nav navbar-nav nav-pills navbar-right">
-          
-          <li><div id="intro"></div></li>
-          <li>
-            <input id="import" type="file" style="display:none">
-            <a class="btn" onclick="$('input[id=import]').click();">Load</a>
-          </li>
-          <li><div id="export"></div></li>
-        </ul>
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">UMSL CS Graduate Advisor</a>
+        <div id="searchbar" class="navbar-collapse navbar-right"></div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#configure" data-toggle="tab">Configure</a></li>
+            <li><a href="#waived" data-toggle="tab">Waived<span id="waived-badge" class="badge"></span></a></li>
+            <li><a href="#taken" data-toggle="tab">Completed<span id="completed-badge" class="badge"></span></a></li>
+            <li><a href="#selected" data-toggle="tab">Selected<span id="selected-badge" class="badge"></span></a></li>
+            <li><a href="#schedules" data-toggle="tab">Schedule<span id="schedule-badge" class="badge"></span></a></li>
+          </ul>
+          <ul class="nav navbar-nav nav-pills navbar-right">
+            <li>
+              <input id="import" type="file" style="display:none">
+              <button id="import-button" onclick="$('input[id=import]').click();"></button>
+            </li>
+            <li><div id="export"></div></li>
+            <li><div id="intro"></div></li>
+          </ul>
+        </div>
       </div>
       <div class="tab-content">
         <div class="tab-pane" id="configure">
@@ -104,11 +106,11 @@
               <tr>
                 <td>Minimum number of semesters remaining</td>
                 <td><div id="semesters"</td>
-               </tr>
+                         </tr>
               <tr>
                 <td>Link courses per semester and semesters remaining</td>
                 <td><div id="link-courses-semesters"</td>
-               </tr>
+                         </tr>
               
               <th>Dates</th>
               <tr>
@@ -194,6 +196,8 @@
           
           <div class="tab-pane" id="selected">
             <div class="container-fluid ">
+              <div class="row">
+              </div>
               <div class="row">
                 <div class="col-xs-1">
                   <b>Available</b>

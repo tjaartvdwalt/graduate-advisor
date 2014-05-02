@@ -30,7 +30,6 @@ function PopoverRenderer (userCourses, rules) {
 
     // If the type is schedule we add different buttons
     this.renderPopover = function (course,type) {
-        console.log(course);
         var buttons = this.buttonsToDisplay(course.course_number);
         if(type == "schedules") {
             buttons = this.scheduleButtons();
@@ -54,6 +53,8 @@ function PopoverRenderer (userCourses, rules) {
         this.addClickListener(completeButton, courseNumber, "taken")
         var waiveButton = $('<button>').html('waive');
         this.addClickListener(waiveButton, courseNumber, "waived")
+        var prereqButton = $('<button>').html('select w/ prereq');
+        this.addClickListener(prereqButton, courseNumber, "prereq")
 
         var buttons = [];
         var status = this.userCourses.getCourseStatus(courseNumber);
@@ -64,12 +65,19 @@ function PopoverRenderer (userCourses, rules) {
             buttons.push(selectButton);
         }
 
+        var course = this.userCourses.getCourse(courseNumber);
+        if(this.userCourses.findPrereq(course) != undefined) {
+            buttons.push(prereqButton);
+        }
+
         if(status != "taken") {
             buttons.push(completeButton);
         }
         if(status != "waived" && $.inArray(courseNumber, this.rules.rules.core) >= 0) {
             buttons.push(waiveButton);
         }
+
+
         return buttons;
     }
 
@@ -92,16 +100,16 @@ function PopoverRenderer (userCourses, rules) {
 
     this.destroyPopover = function () {
         for(var course in this.userCourses.selected) {
-         $("#" + course).popover('destroy');
+            $("#" + course).popover('destroy');
         }
         for(var course in this.userCourses.available) {
-         $("#" + course).popover('destroy');
+            $("#" + course).popover('destroy');
         }
         for(var course in this.userCourses.waived) {
-         $("#" + course).popover('destroy');
+            $("#" + course).popover('destroy');
         }
         for(var course in this.userCourses.taken) {
-         $("#" + course).popover('destroy');
+            $("#" + course).popover('destroy');
         }
 
         //$('.popover').remove();

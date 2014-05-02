@@ -12,7 +12,6 @@ function ClickController(parent, render) {
 
     // Handle event is a special function that catches all events
     this.handleEvent = function (event) {
-        console.log(event);
         var courseNumber = event.currentTarget.id;
         var currentTab = $('.tab-pane.active')[0].id;
         this.clickHandler(currentTab, courseNumber);
@@ -115,8 +114,36 @@ function ClickController(parent, render) {
         // }
     }
 
+    this.search = function() {
+        // remove previous search results
+        var searchResults = $('.searchresult');
+        searchResults.removeClass('searchresult');
+        var searchResults = self.userCourses.search($('#searchtext').val());
+        for(var i in searchResults) {
+            $('#' + searchResults[i]).addClass('searchresult');
+        }
+    }
+
     this.addListeners = function() {
         var self = this;
+        $('#searchbutton').click(function(event) {
+            self.search();
+        });
+
+        $('#searchtext').keypress(function(event) {
+            if (event.which == 13) {
+                self.search();
+            }
+        });
+
+
+        var self = this;
+        $('#resetbutton').click(function(event) {
+            var searchResults = $('.searchresult');
+            searchResults.removeClass('searchresult');
+            $('#searchtext').val("");
+        });
+
         $(document).click(function(event) {
             if(event.target.id != self.currentClicked) {
                 self.render.popover.destroyPopover();
@@ -127,19 +154,16 @@ function ClickController(parent, render) {
         document.addEventListener("popupClickMessage", popupEventHandler, false);
 
         function popupEventHandler(e) {
-            console.log(e);
             var action = e.detail.action;
             var courseNumber = e.detail.course;
             var course = self.userCourses.getCourse(courseNumber);
             var src = self.userCourses.getCourseBucket(courseNumber);
-            console.log(src);
             switch(action) {
             case "waived":
                 self.userCourses.moveCourse(course, src, self.userCourses.waived);
                 break;
             case "taken":
                 self.userCourses.moveCourse(course, src, self.userCourses.taken);
-                console.log(self.userCourses.taken);
                 break;
             case "selected":
                 self.userCourses.moveCourse(course, src, self.userCourses.selected);
@@ -147,13 +171,18 @@ function ClickController(parent, render) {
             case "available":
                 self.userCourses.moveCourse(course, src, self.userCourses.available);
                 break;
+            case "prereq":
+                var prereq = self.userCourses.findPrereq(course);
+                course.prereq = prereq.course_number;
+                self.userCourses.moveCourse(course, src, self.userCourses.selected);
+                self.userCourses.moveCourse(prereq, src, self.userCourses.selected);
+                break;
             }
             self.render.popover.destroyPopover();
             self.render.scoreboard.renderAll();
             self.render.waived.renderAll();
             self.render.selected.renderAll();
             self.currentClicked = "";
-
         }
     }
     this.init();

@@ -6,7 +6,8 @@ function IntroRenderer(userCourses, rules){
 
     this.addButton = function() {
         var self = this;
-        var button = $('<button>').attr('id', 'intro-button').addClass('btn').html('Intro');
+        var button = $('<button>').attr('id', 'intro-button')
+            .addClass('btn btn glyphicon glyphicon-question-sign');
         button[0].addEventListener("click", function (evt) {
             console.log('click');
             var currentTab = $('.tab-pane.active')[0].id;

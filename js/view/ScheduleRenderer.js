@@ -5,8 +5,20 @@ function ScheduleRenderer(userCourses){
 
     this.renderSchedule = function() {
         var semesterArray = [userCourses.semestersRemaining()];
+        //This is overkill, but we move all courses back to hidden list...
+        //otherwise the previously scheduled buttons will get deleted, but
+        // there is currently no super easy way to know which buttons were
+        // selected. But the other views will work correctly if everything is moved
+        // anyway, so we do that.
+        var courses = this.userCourses.getCourses();
+        for(var i in courses) {
+            var button = $("#" + courses[i].course_number);
+            $("#buttons").append(button).hide()
+        }
+
         // Remove the previous schedule
         $('#schedtable').remove();
+
         var table = $('<div>').attr('id', 'schedtable');
 
         var headers = $($('<div>').addClass("row"));

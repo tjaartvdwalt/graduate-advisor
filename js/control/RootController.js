@@ -22,13 +22,22 @@ function RootController() {
 
     this.runScheduler = function(nrOfCourses) {
         var requirements = {}
+        requirements.preReqs = [];
+        var selected = this.userCourses.selected;
+        for(var i in selected) {
+            if(selected[i].prereq != undefined) {
+                requirements.preReqs.push([selected[i].course_number, selected[i].prereq]);
+            }
+        }
         requirements.reqCourse = this.userCourses.getSortedCourseList(this.userCourses.selected);
         requirements.semesterLimit = this.userCourses.semestersRemaining();
+        requirements.startDate = [parseInt(this.userCourses.startDate.year), this.userCourses.startDate.sem];
         requirements.greaterThan = [[6000, 1], [5000,6], [4000, 10]];
         if(nrOfCourses == undefined) {
             nrOfCourses = (this.userCourses.coursesRequired - Object.keys(this.userCourses.taken).length);
         }
 
+        console.log(requirements);
         var translatedRotation = this.rotationTranslator.rotation;
         var schedule =  scheduleAll(nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements);
         return this.scheduleTranslator.sortSchedule(schedule);
