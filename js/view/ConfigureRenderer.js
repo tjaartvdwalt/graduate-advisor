@@ -53,6 +53,21 @@ function ConfigureRenderer(userCourses, rules){
 
     }
 
+    this.intCheckboxRenderer = function() {
+        var intCheckbox = $('<input>').attr('type', 'checkbox');
+        $('#int-student').append(intCheckbox)
+            .change(function(event) {
+                if(event.target.checked == true) {
+                    self.userCourses.intStudent = true;
+                }
+                else {
+                    self.userCourses.intStudent = false;
+                }
+            });
+
+
+    }
+
     this.dateRenderer = function(which) {
         var currentYear = $('<select>').addClass('selectpicker')
         $('#' + which + '-year').append(currentYear)
@@ -107,6 +122,7 @@ function ConfigureRenderer(userCourses, rules){
         this.coursesPerSemesterRenderer();
         this.dateRenderer('starting');
         this.dateRenderer('current');
+        this.intCheckboxRenderer();
         this.totalCoursesRenderer();
         this.backendRenderer();
     }

@@ -95,7 +95,7 @@
       </div>
       <div class="tab-content">
         <div class="tab-pane" id="configure">
-          <div class="container">
+          <div class="container-fluid ">
             <!-- <div class="row"> -->
             <table class="table table-striped">
               <th>Time frame</th>
@@ -111,7 +111,7 @@
                 <td>Link courses per semester and semesters remaining</td>
                 <td><div id="link-courses-semesters"</td>
                          </tr>
-              
+                            
               <th>Dates</th>
               <tr>
                 <td>Starting semester</td>
@@ -119,6 +119,13 @@
                   <div id="starting-semester"></div>
                   <div id="starting-year"></div>
                   
+                </td>
+              </tr>
+              <th>Additional Settings</th>
+              <tr>
+                <td>International Student</td>
+                <td>
+                  <div id="int-student"></div>                  
                 </td>
               </tr>
               
@@ -143,6 +150,8 @@
           </div>
           <div class="tab-pane" id="waived">
             <div class="container-fluid">
+              <div class="row">
+              </div>
               <div class="row-fluid">
                 <div id="waived-available" class="col-xs-1">
                   <b>Not Waived</b>
@@ -160,6 +169,8 @@
           
           <div class="tab-pane" id="taken">
             <div class="container-fluid ">
+              <div class="row">
+              </div>
               <div class="row">
                 <div class="col-xs-1">
                   <b>Available</b>

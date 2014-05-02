@@ -9,7 +9,7 @@ function LoadSaveRenderer(model){
 
     this.saveRenderer = function() {
         var self = this;
-        var button = $('<button>').addClass('btn glyphicon glyphicon-open');
+        var button = $('<button>').addClass('btn glyphicon glyphicon-floppy-save');
         $('#export').append(button);
         button[0].addEventListener("click", function (evt) {
             self.model.saveFile();
@@ -21,7 +21,7 @@ function LoadSaveRenderer(model){
         var self = this;
         var file = $("#import");
         $("#import-button").add("<span>")
-            .addClass('btn glyphicon glyphicon-save');
+            .addClass('btn glyphicon glyphicon-floppy-open');
 
         //  onclick="$('input[id=import]').click();
 

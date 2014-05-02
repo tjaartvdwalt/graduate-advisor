@@ -5,24 +5,29 @@
 
 ** DONE [#A] Hook up starting date to backend
    CLOSED: [2014-04-30 Wed 14:50]
-** TODO Add button in Selection to "Add Pre-Req" and treat it as a Pre-Req
+** DONE Add button in Selection to "Add Pre-Req" and treat it as a Pre-Req
+   CLOSED: [2014-05-02 Fri 07:31]
 
 ** DONE Search bar for "tags" of courses
    CLOSED: [2014-04-30 Wed 18:45]
 ** TODO [#A] Adding dynamic buttons to Schedule display (anchor, etc.)
 
-** TODO [#B] Add the international student's checkbox (see NECESSARY CHANGES point 1)
 ** TODO Add "Restricted status" check box that allows users to select undergraduate courses.
 Added undergraduate courses increases required credits to graduate
 ** TODO In the instance of having "too many" completed courses
 we take the "most necessary" course first and add them to the "total credit hours completed." This way we avoid adding too many wasteful courses to the courses completed.
 
+* Waiting on changes to backend
+
+** DONE [#B] Add the ability to choose Thesis and Independent Study courses 
+   CLOSED: [2014-05-02 Fri 08:24]
+Frontend changes are done, Peter needs to add the ability to deal with courses numbered 6900A and 6900B in the backend.
+
+** DONE [#B] Add the international student's checkbox (see NECESSARY CHANGES point 1)
+   CLOSED: [2014-05-02 Fri 08:19]
+Frontend changes are done, using requirements.minCoursesBase = 3;
+but with this setting often the backend will become unresponsive
+
 
 * Optional
 ** TODO [#B] Tutorial features
-
-* Waiting on changes to backend
-
-** TODO [#B] Add the ability to choose Thesis and Independent Study courses 
-(perhaps add them into the XML during initial parsing - that way Peter doesn't have
-to redo his algorithm entirely?)

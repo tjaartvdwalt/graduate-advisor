@@ -7,6 +7,7 @@ function UserCourses(courses, rules) {
         this.coursesPerSem = 3;
         this.semesters = undefined;
         this.coursesRequired = 10;
+        this.intStudent = false;
         this.available = {};
         this.selected  = {};
         this.taken     = {};

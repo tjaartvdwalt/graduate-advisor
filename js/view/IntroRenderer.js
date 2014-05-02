@@ -42,7 +42,7 @@ function IntroRenderer(userCourses, rules){
                 content : "The filter bar keeps the number of courses shown at any given time to a <br> reasonable number by only showing the courses at the given level.",
                 position: "screen-nw",
                 showNavigation: true,
-                delay: 1000,
+                delay: 5000,
                 expose: true
             },
             {
@@ -50,6 +50,7 @@ function IntroRenderer(userCourses, rules){
                 content : 'Only the courses at the selected level are displayed here.<br> The courses are also filtered by the Number of semesters Remaining setting in the Configuration tab.<br> Courses that are not presented in your selected time frame will not be displayed here.',
                 position: "screen-nw",
                 showNavigation: true,
+                delay: 5000,
                 expose: true
             },
             {
@@ -57,6 +58,7 @@ function IntroRenderer(userCourses, rules){
                 content : 'If you click on a course once, the course details will be displayed <br> If you click on the course a second time...',
                 position: "screen-nw",
                 showNavigation: true,
+                delay: 5000,
                 expose: true
 
 

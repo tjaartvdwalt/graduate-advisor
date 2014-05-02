@@ -29,6 +29,9 @@ function RootController() {
                 requirements.preReqs.push([selected[i].course_number, selected[i].prereq]);
             }
         }
+        if(this.userCourses.intStudent == true) {
+            requirements.minCoursesBase = 3;
+        }
         requirements.reqCourse = this.userCourses.getSortedCourseList(this.userCourses.selected);
         requirements.semesterLimit = this.userCourses.semestersRemaining();
         requirements.startDate = [parseInt(this.userCourses.startDate.year), this.userCourses.startDate.sem];
