@@ -12,6 +12,7 @@ function ClickController(parent, render) {
 
     // Handle event is a special function that catches all events
     this.handleEvent = function (event) {
+        console.log(event);
         var courseNumber = event.currentTarget.id;
         var currentTab = $('.tab-pane.active')[0].id;
         this.clickHandler(currentTab, courseNumber);
@@ -53,8 +54,9 @@ function ClickController(parent, render) {
      * method here. Don't care too much about that for now.
      */
     this.addButtonListeners = function () {
-        for(var i in this.courses.courses) {
-            var courseButton = document.getElementById(this.courses.courses[i].course_number);
+        var coursesList = this.userCourses.getCourses();
+        for(var i in coursesList) {
+            var courseButton = document.getElementById(coursesList[i].course_number);
             if(courseButton != null) {
                 courseButton.addEventListener("click", this, false);
             }
@@ -128,26 +130,29 @@ function ClickController(parent, render) {
             console.log(e);
             var action = e.detail.action;
             var courseNumber = e.detail.course;
+            var course = self.userCourses.getCourse(courseNumber);
             var src = self.userCourses.getCourseBucket(courseNumber);
+            console.log(src);
             switch(action) {
             case "waived":
-                self.userCourses.moveCourse(courseNumber, src, self.userCourses.waived);
+                self.userCourses.moveCourse(course, src, self.userCourses.waived);
                 break;
             case "taken":
-                self.userCourses.moveCourse(courseNumber, src, self.userCourses.taken);
+                self.userCourses.moveCourse(course, src, self.userCourses.taken);
+                console.log(self.userCourses.taken);
                 break;
             case "selected":
-                self.userCourses.moveCourse(courseNumber, src, self.userCourses.selected);
+                self.userCourses.moveCourse(course, src, self.userCourses.selected);
                 break;
             case "available":
-                self.userCourses.moveCourse(courseNumber, src, self.userCourses.available);
+                self.userCourses.moveCourse(course, src, self.userCourses.available);
                 break;
             }
+            self.render.popover.destroyPopover();
             self.render.scoreboard.renderAll();
             self.render.waived.renderAll();
-            //self.render.selected.renderAll();
+            self.render.selected.renderAll();
             self.currentClicked = "";
-            self.render.popover.destroyPopover();
 
         }
     }

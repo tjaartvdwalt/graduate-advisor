@@ -37,9 +37,10 @@
     <!-- <script src="js/lib/jquery-ui.custom.min.js"></script> -->
     <script src="js/lib/bootstrap.js"></script>
     <script src="js/lib/bootstrap-select.js"></script>
-    <script src="js/lib/trip.js"></script>
-    <script src="js/lib/require.js"></script>
+    <script src="js/lib/dojo.js"></script>
     <script src="js/lib/jquery-bootstrap-wizard.js"></script>
+    <script src="js/lib/require.js"></script>
+    <script src="js/lib/trip.js"></script>
     
     <!-- import our code -->
     <script src="js/control/ClickController.js"></script>

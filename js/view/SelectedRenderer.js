@@ -118,7 +118,7 @@ function SelectedRenderer(userCourses, rotation, rules){
 
             // remove the prereq class if its set
             button.removeClass("prereq");
-            if(this.inRange(button.get(0).id) && button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter) {
+            if(this.inRange(button.get(0).id) && this.isInBucket(button.get(0).id, filter)) {
                 button.detach().appendTo(available);
                 button.show();
                 j++
@@ -135,6 +135,22 @@ function SelectedRenderer(userCourses, rotation, rules){
         //     }).appendTo(available);
         // }
 
+    }
+
+    // Checks whether a course is in the current level
+    // for example 4250, 4000 returns true, 4250, 5000 returns false
+    // also deals with courses like 6900A
+    this.isInBucket = function(courseNumber, filter) {
+        // Remove any appendix to the number... we know the course number is
+        // 4 digits long, so we extract only the 4 digits
+        var realCourseNumber = courseNumber.match(/\d\d\d\d/gi);
+
+        if(realCourseNumber > filter && realCourseNumber - 1000 < filter) {
+            return true;
+        }
+        return false;
+// && button.length > 0
+//                && button.get(0).id > filter && button.get(0).id -  1000 < filter
     }
 
     this.renderSelected = function (filter) {
@@ -214,6 +230,8 @@ function SelectedRenderer(userCourses, rotation, rules){
         }
     }
 
+    // Checks if this course is presented in the following number of semesters
+    // that the student will study
     this.inRange = function(course) {
         var options = this.rotation.findOptions(course, this.userCourses.semestersRemaining());
         if(options.length > 0) {

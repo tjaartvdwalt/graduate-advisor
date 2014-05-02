@@ -1,14 +1,14 @@
 function RootController() {
     this.init = function() {
-        this.courses =     new Courses();
         this.rules =       new Rules();
+        this.courses =     new Courses();
         this.userCourses = new UserCourses(this.courses.courses, this.rules);
 
         // Initialize the different renderers
 
-        this.xmlRotation = new Rotation(); //JSONParser().getJSON('rotation');
+        this.xmlRotation = new Rotation(this.userCourses.getArrangedCourses(this.userCourses.available)); //JSONParser().getJSON('rotation');
         this.schedule = new Schedule(); //JSONParser().getJSON('rotation');
-        
+
         this.rotationTranslator = new RotationTranslator(this.xmlRotation.rotation, this.schedule);
         this.scheduleTranslator = new ScheduleTranslator(this.userCourses);
 
@@ -22,14 +22,15 @@ function RootController() {
 
     this.runScheduler = function(nrOfCourses) {
         var requirements = {}
-        requirements.reqCourse = this.userCourses.getSortedCoursList();
+        requirements.reqCourse = this.userCourses.getSortedCourseList(this.userCourses.selected);
         requirements.semesterLimit = this.userCourses.semestersRemaining();
         requirements.greaterThan = [[6000, 1], [5000,6], [4000, 10]];
         if(nrOfCourses == undefined) {
             nrOfCourses = (this.userCourses.coursesRequired - Object.keys(this.userCourses.taken).length);
         }
 
-        var schedule =  scheduleAll(nrOfCourses, this.userCourses.coursesPerSem, this.rotationTranslator.rotation, requirements);
+        var translatedRotation = this.rotationTranslator.rotation;
+        var schedule =  scheduleAll(nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements);
         return this.scheduleTranslator.sortSchedule(schedule);
         //return schedule;
     }

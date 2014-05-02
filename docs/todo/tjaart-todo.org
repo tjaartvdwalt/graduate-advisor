@@ -1,0 +1,23 @@
+* Iteration 4
+** TODO [#A] Adding dynamic buttons to Schedule display (anchor, etc.)
+
+** TODO [#B] Add the international student's checkbox (see NECESSARY CHANGES point 1)
+
+** DONE Add an option to disable auto-setting of Timeframe to graduate/Courses per semester
+   CLOSED: [2014-04-24 Thu 16:36]
+
+** TODO [#B] Tutorial features
+
+** TODO [#B] Add the ability to choose Thesis and Independent Study courses 
+(perhaps add them into the XML during initial parsing - that way Peter doesn't have
+to redo his algorithm entirely?)
+
+** TODO [#A] Hook up starting date to backend
+
+** TODO Search bar for "tags" of courses
+** TODO Add button in Selection to "Add Pre-Req" and treat it as a Pre-Req
+** TODO Add "International student button" that forces 3 course minimum
+** TODO Add "Restricted status" check box that allows users to select undergraduate courses.
+Added undergraduate courses increases required credits to graduate
+** TODO In the instance of having "too many" completed courses
+we take the "most necessary" course first and add them to the "total credit hours completed." This way we avoid adding too many wasteful courses to the courses completed.

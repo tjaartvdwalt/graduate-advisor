@@ -1,7 +1,8 @@
-function Rotation() {
+function Rotation(arrangedCourses) {
     this.init = function() {
         var json = this.getRotationFromJSON();
         this.rotation = this.getCSCourses(json);
+        //this.addArrangedCourses(arrangedCourses);
     }
 
     this.getRotationFromJSON = function() {
@@ -32,6 +33,31 @@ function Rotation() {
         return returnObject;
     }
 
+    this.addArrangedCourses = function(arrangedCourses) {
+        for(var i in arrangedCourses) {
+            for(var j in this.rotation.rotation_year) {
+                this.rotation.rotation_year[j].course.push(
+             this.createArrangedRotationFromCourse(arrangedCourses[i]));
+            }
+        }
+    }
+
+    this.createArrangedRotationFromCourse = function(courseObject) {
+        var returnRotation = {};
+
+        returnRotation.subject = "CMP SCI";
+        returnRotation.course_number = courseObject.course_number;
+        returnRotation.course_name = courseObject.course_name; 
+        returnRotation.day = "ARR";
+        returnRotation.rotation_term = [];
+        var spring = {"term" : "Spring", "time_code" : "ARR"};
+        returnRotation.rotation_term.push(spring);
+        var fall = {"term": "Fall", "time_code" : "ARR"};
+        returnRotation.rotation_term.push(fall);
+        returnRotation.time = "ARR";
+        return returnRotation;
+
+    }
     //Search the XML for all Rotation Object occurrences within a semester threshold
     //for a given course_number. Returns an array of all occurrences in the form of
     //objects {course = actual course object; year = year offered; sem = 0-N format

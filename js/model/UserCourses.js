@@ -17,14 +17,60 @@ function UserCourses(courses, rules) {
 
         // We initialise core courses as selected. Everything else goes in available
         core = this.rules.rules.core;
+        var arrCourses = this.getArrangedCourses(courses);
         for(var i in courses) {
-            if($.inArray(courses[i].course_number, core) < 0) {
-                this.addCourse(courses[i], this.available);
+            var courseNumber = courses[i].course_number;
+            if(!rules.isCore(courseNumber)) {
+                var shouldAdd = true;
+                for(var j in arrCourses){
+                    if(arrCourses[j].course_number == i) {
+                        shouldAdd = false;
+                    }
+                }
+                if(shouldAdd) {
+                    this.addCourse(courses[i], this.available);
+                }
             }
             else {
                 this.addCourse(courses[i], this.selected);
             }
         }
+        this.duplicateArrangedCourses(arrCourses);
+    }
+
+    this.duplicateArrangedCourses = function(arrangedCourses) {
+        for(var i in arrangedCourses) {
+            var upperLimit = arrangedCourses[i].credit.match(/\d$/gi);
+            var nrOfCourses = Math.ceil(upperLimit/3);
+
+            // check if the course may be repeated for credit and add 1 to nrOfCourses
+            if(arrangedCourses[i].can_select_multiple == "true") {
+                nrOfCourses++;
+            }
+            for(var j=1; j<= nrOfCourses; j++) {
+                arrangedCourses[i].instance = j;
+                var myClone = dojo.clone(arrangedCourses[i]);
+                //var myClone = $.clone(arrangedCourses[i]);
+                myClone.course_number = arrangedCourses[i].course_number + String.fromCharCode(64 + j);
+                this.addCourse(myClone, this.available);
+            }
+
+        }
+    }
+
+
+    // We make the assumption that a coures with variable number of credit
+    // hours is arranged by the instructor. These courses are not in the rotation
+    this.getArrangedCourses = function(srcList) {
+        var returnCourses = []
+        // Check if the course has variable credit hours
+        // i.e in the xml it looks like courses="1-6"
+        for(var i in srcList) {
+            if(srcList[i].credit.match(/\d-\d/gi)) {
+                returnCourses.push(srcList[i]);
+            }
+        }
+        return returnCourses;
     }
 
     this.semestersRemaining = function() {
@@ -118,6 +164,18 @@ function UserCourses(courses, rules) {
         return undefined;
     }
 
+    // returns all the courses in a single array
+    this.getCourses = function() {
+        var returnArray = [];
+        courseBuckets = [this.available, this.selected, this.taken, this.waived];
+
+        for(var i in courseBuckets) {
+            for(var j in courseBuckets[i])
+                returnArray.push(courseBuckets[i][j])
+        }
+        return returnArray;
+    }
+
     /* TODO: We should refactor this method after we have updated the data structure
      * Returns the bucket that the given course is in
      */
@@ -136,7 +194,7 @@ function UserCourses(courses, rules) {
         }
     }
 
-        /* TODO: We should refactor this method after we have updated the data structure
+    /* TODO: We should refactor this method after we have updated the data structure
      * Returns the bucket that the given course is in
      */
     this.getCourseStatus = function(courseNumber) {
@@ -155,10 +213,10 @@ function UserCourses(courses, rules) {
     }
 
 
-    this.getSortedCoursList = function() {
+    this.getSortedCourseList = function(inputList) {
         var courseList = [];
-        for (var i in this.selected) {
-            courseList.push(this.selected[i].course_number);
+        for (var i in inputList) {
+            courseList.push(inputList[i].course_number);
         }
         courseList.sort();
         return courseList;
