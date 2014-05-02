@@ -95,7 +95,7 @@
       </div>
       <div class="tab-content">
         <div class="tab-pane" id="configure">
-          <div class="container-fluid ">
+          <div class="container">
             <!-- <div class="row"> -->
             <table class="table table-striped">
               <th>Time frame</th>
