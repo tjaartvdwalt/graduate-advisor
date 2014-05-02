@@ -1,4 +1,4 @@
-function UserCourses(courses, rules) {
+function UserCourses(courses, restrictions, rules) {
     this.init = function () {
         this.startDate = {"sem": "Fall", "year": "2014"};
         this.backend = 1;
@@ -8,6 +8,12 @@ function UserCourses(courses, rules) {
         this.semesters = undefined;
         this.coursesRequired = 10;
         this.intStudent = false;
+        this.nightOnly = false;
+        // -1 = no preference
+        // 0  = Mo/We
+        // 1  = Tu/Th
+        this.daysOfWeek = -1;
+        this.restricted = {};
         this.available = {};
         this.selected  = {};
         this.taken     = {};
@@ -37,6 +43,7 @@ function UserCourses(courses, rules) {
             }
         }
         this.duplicateArrangedCourses(arrCourses);
+        this.addRestrictedCourses(restrictions);
     }
 
     this.duplicateArrangedCourses = function(arrangedCourses) {
@@ -56,6 +63,12 @@ function UserCourses(courses, rules) {
                 this.addCourse(myClone, this.available);
             }
 
+        }
+    }
+
+    this.addRestrictedCourses = function(restrictedCourses) {
+        for(var i in restrictedCourses) {
+            this.addCourse(restrictedCourses[i], this.restricted);
         }
     }
 
@@ -89,8 +102,7 @@ function UserCourses(courses, rules) {
         dest[course.course_number] = course;
     }
 
-    /* We check only 6000 level dependencies!
-     * With the current course schedule all 6000 level courses have exactly
+    /* With the current course schedule all 6000 level courses have exactly
      * 1 prerequisite with 1 exception:
      *
      * CS6420 have an option of two prereqs: CS5400 or CS5420
@@ -228,9 +240,9 @@ function UserCourses(courses, rules) {
                     if(matchee1.match(matcher) != null) {
                         matchedCourses.push(courseBuckets[i][j].course_number);
                     } else
-                    if(matchee2.match(matcher) != null) {
-                        matchedCourses.push(courseBuckets[i][j].course_number);
-                    }
+                        if(matchee2.match(matcher) != null) {
+                            matchedCourses.push(courseBuckets[i][j].course_number);
+                        }
                     // else if(matchee3.match(matcher) != null) {
                     //     matchedCourses.push(courseBuckets[i][j].course_number);
                     // }
@@ -248,6 +260,27 @@ function UserCourses(courses, rules) {
         courseList.sort();
         return courseList;
     }
+
+    // For a particular bucket, count how many courses are at a particular level.
+    // For example countCoursesAboveLevel(this.taken, 6000) returns how many courses
+    // above 6000 has been taken
+    this.countCoursesAboveLevel = function(bucket, level) {
+        var count = 0;
+        for(var i in bucket) {
+            if(parseInt(bucket[i].course_number) > level) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    this.getScheduledCourse = function(courseNumber) {
+        for(var i in this.schedule)
+            if(this.schedule[i].courseNumber == courseNumber) {
+                return this.schedule[i];
+            }
+    }
+
     // execute the constructor
     this.init();
 }

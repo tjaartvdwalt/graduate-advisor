@@ -12,8 +12,9 @@ function SelectedRenderer(userCourses, rotation, rules){
         this.rules = rules;
 
         this.addCourseButtons();
-        this.availableButtons = ["6000", "5000", "4000"];
+        this.availableButtons = ["6000", "5000", "4000", "R"];
         this.addAvailableButtons();
+        console.log(this.userCourses);
     }
 
     this.addCourseButtons = function() {
@@ -33,23 +34,24 @@ function SelectedRenderer(userCourses, rotation, rules){
             'id' : 'buttons',
             'class': 'btn-block btn-sm'
         }));
-        for(var i in userCourses.available) {
+        buttonsToCreate = [userCourses.available, userCourses.selected, userCourses.restricted];
+        for(var j in buttonsToCreate)
+        for(var i in buttonsToCreate[j]) {
+            var core = "";
+            if(rules.isCore(i)) {
+                core = "core";
+            }
             $("#buttons").append($("<button>" + i + "</button>").attr({
                 'id' :   i,
-                'class': 'btn-block btn-sm',
-                // 'data-container' : 'body',
-                // 'data-toggle' : 'popover',
-                // 'data-placement': 'auto right',
-                // 'data-content':   'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.'
-
+                'class': 'btn-block btn-sm ' + core,
             })).hide();
         }
-        for(var i in userCourses.selected) {
-            $("#buttons").append($("<button>" + i + "</button>").attr({
-                'id' : i,
-                'class': 'btn-block btn-sm core'
-            })).hide();
-        }
+        // for(var i in userCourses.selected) {
+        //     $("#buttons").append($("<button>" + i + "</button>").attr({
+        //         'id' : i,
+        //         'class': 'btn-block btn-sm core'
+        //     })).hide();
+        // }
 
     }
 
@@ -117,6 +119,7 @@ function SelectedRenderer(userCourses, rotation, rules){
 
             // remove the prereq class if its set
             button.removeClass("prereq");
+            console.log(i);
             if(this.inRange(button.get(0).id) && this.isInBucket(button.get(0).id, filter)) {
                 button.detach().appendTo(available);
                 button.show();

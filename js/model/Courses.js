@@ -1,4 +1,13 @@
-function Courses() {
+function Courses(rules) {
+    this.init = function() {
+        //we get a list of all courses, and filter them so that only the
+        // Gradduate Computer Science courses get in the list.
+        // Note: the order is important here, if we first filter the graduate courses
+        // the course numbers for math and cmp would clash and we may lose some cmp courses
+        var allCourses = this.getCoursesFromJSON();
+        this.courses = this.getGraduateCourses(allCourses);
+        this.restrictions = this.getRestrictedCourses(allCourses, rules.rules.restrictions);
+    }
     /* The raw JSON has a "course" key that contains o list of all the courses.
        Ex:
        * {"course":[{"course_number":"1010", ...},{...}]}
@@ -53,11 +62,15 @@ function Courses() {
         return return_array;
     }
 
-        //we get a list of all courses, and filter them so that only the
-    // Gradduate Computer Science courses get in the list.
-    // Note: the order is important here, if we first filter the graduate courses
-    // the course numbers for math and cmp would clash and we may lose some cmp courses
-    var allCourses = this.getCoursesFromJSON();
-    this.courses = this.getGraduateCourses(allCourses);
+    this.getRestrictedCourses = function(courses, courseNames) {
+        var myCourses = {};
+        for(var i in courses) {
+            if($.inArray(courses[i].course_number, courseNames)>= 0) {
+                myCourses[courses[i].course_number] = courses[i];
+            }
+        }
+        return myCourses;
+    }
 
+    this.init();
 }

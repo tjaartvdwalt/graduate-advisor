@@ -1,3 +1,25 @@
+* Use cases
+** New student, no credits, want to go 1-2 courses a semester but only twice a week, interested in graphics
+
+** New student, credits for 4760, waiver on 4250, wants to go 2 courses a semester no specific interests
+waiting for bugfix in backend
+
+** DONE New international student, no credits, interested in java 5010 but would need to take 4010 possibly first
+   CLOSED: [2014-05-02 Fri 11:20]
+
+** New international student, restricted status need to take 3130 and 2750.
+This requires a lot of exra functionality
+
+** Current student, completed 4250, 4760, 5500, and 5010, 4010, 4410. Wants to go 2 courses a semester preferably twice a week only if possible.
+
+** Current student, completed 4250, 5010. Wants to go 2 courses a semester preferably twice a week only if possible, interested in evolutionary computation
+
+** Current student, took 4250,4760,4010, 4610, 5130, 5500, 5700, 5010, 5890. (tricky)
+
+** As above but waived 5320
+Cant be done. As I understand the system only core courses can be waived, and 5320 is not required.
+If you want to waive it as a prereq for the 6000 level course, you simply don't need to add it.
+
 * Backlog
 
 ** DONE Add an option to disable auto-setting of Timeframe to graduate/Courses per semester
@@ -17,8 +39,9 @@ Added undergraduate courses increases required credits to graduate
 ** TODO In the instance of having "too many" completed courses
 we take the "most necessary" course first and add them to the "total credit hours completed." This way we avoid adding too many wasteful courses to the courses completed.
 
-* Waiting on changes to backend
 
+* Waiting on changes to backend
+** bug with waived courses reducing the nr of courses required
 ** DONE [#B] Add the ability to choose Thesis and Independent Study courses 
    CLOSED: [2014-05-02 Fri 08:24]
 Frontend changes are done, Peter needs to add the ability to deal with courses numbered 6900A and 6900B in the backend.

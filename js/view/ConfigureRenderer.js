@@ -64,8 +64,31 @@ function ConfigureRenderer(userCourses, rules){
                     self.userCourses.intStudent = false;
                 }
             });
+        intCheckbox.val(self.userCourses.intStudent);
 
+    }
 
+    this.daysRenderer = function() {
+        var nightOnly= $('<input>').attr('type', 'checkbox');
+        $('#night-only').append(nightOnly)
+            .change(function(event) {
+                if(event.target.checked == true) {
+                    self.userCourses.nightOnly = true;
+                }
+                else {
+                    self.userCourses.nightOnly = false;
+                }
+            });
+
+        var days = $('<select>').addClass('selectpicker')
+        $('#week-days').append(days)
+        days.change(function(event) {
+            self.userCourses.days = event.target.value;
+        });
+        days.append($('<option>').attr('value', '-1').html('Any'));
+        days.append($('<option>').attr('value', '0').html('Monday/Wednesday'));
+        days.append($('<option>').attr('value', '1').html('Tuesday/Thursday'));
+        days.val(self.userCourses.daysOfWeek);
     }
 
     this.dateRenderer = function(which) {
@@ -122,6 +145,7 @@ function ConfigureRenderer(userCourses, rules){
         this.coursesPerSemesterRenderer();
         this.dateRenderer('starting');
         this.dateRenderer('current');
+        this.daysRenderer();
         this.intCheckboxRenderer();
         this.totalCoursesRenderer();
         this.backendRenderer();

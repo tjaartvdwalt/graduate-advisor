@@ -4,47 +4,47 @@ function PopoverRenderer (userCourses, rules) {
         this.rules = rules;
     }
 
-    // this.renderSchedulePopover = function (course) {
-    //     var courseName = this.userCourses.getCourse(course).course_name;
-    //     var buttons = this.scheduleButtons();
-    //     var courseButton = $('#' + course);
-    //     courseButton.popover({
-    //         'span' : '2',
-    //         'container' : 'body',
-    //         'title' :courseName,
-    //         'html' : true,
-    //         'content' : buttons });
-    //     courseButton.popover('show');
-    // }
-
-    this.scheduleButtons = function() {
-        var buttons = []
+    this.scheduleButtons = function(course) {
+        var content = $('<div>');
         var anchorButton = $('<button>').html('anchor');
-        buttons.push(anchorButton);
+        content.append(anchorButton);
         //this.addClickListener(availableButton, courseNumber, "available")
         var selectButton = $('<button>').html('remove');
-        buttons.push(selectButton);
+        content.append(selectButton);
         //this.addClickListener(selectButton, courseNumber, "other semester")
-        return buttons;
+
+        var scheduledItem = this.userCourses.getScheduledCourse(course.course_number);
+        if(scheduledItem != undefined && scheduledItem.day != "") {
+            var text = $("<p>");
+            text.html("Days: " + scheduledItem.day + "<br>Time: " + scheduledItem.time);
+            content.append(text);
+        }
+
+
+
+        return content;
     }
 
     // If the type is schedule we add different buttons
     this.renderPopover = function (course,type) {
-        var buttons = this.buttonsToDisplay(course.course_number);
+        var content = this.contentToDisplay(course.course_number);
+
         if(type == "schedules") {
-            buttons = this.scheduleButtons();
+            content = this.scheduleButtons(course);
         }
+        console.log(content[0]);
         var courseButton = $('#' + course.course_number);
         courseButton.popover({
             'span' : '2',
             'container' : 'body',
             'title' : course.course_name,
             'html' : true,
-            'content' :  buttons });
+            'content' : content[0] });
         courseButton.popover('show');
     }
 
-    this.buttonsToDisplay = function(courseNumber) {
+    this.contentToDisplay = function(courseNumber) {
+        var content = $("<div>");
         var availableButton = $('<button>').html('available');
         this.addClickListener(availableButton, courseNumber, "available")
         var selectButton = $('<button>').html('select');
@@ -59,26 +59,24 @@ function PopoverRenderer (userCourses, rules) {
         var buttons = [];
         var status = this.userCourses.getCourseStatus(courseNumber);
         if(status != "available") {
-            buttons.push(availableButton);
+            content.append(availableButton);
         }
         if(status != "selected") {
-            buttons.push(selectButton);
+            content.append(selectButton);
         }
 
         var course = this.userCourses.getCourse(courseNumber);
         if(this.userCourses.findPrereq(course) != undefined) {
-            buttons.push(prereqButton);
+            content.append(prereqButton);
         }
 
         if(status != "taken") {
-            buttons.push(completeButton);
+            content.append(completeButton);
         }
         if(status != "waived" && $.inArray(courseNumber, this.rules.rules.core) >= 0) {
-            buttons.push(waiveButton);
+            content.append(waiveButton);
         }
-
-
-        return buttons;
+        return content;
     }
 
     this.addClickListener = function(button, course, action) {

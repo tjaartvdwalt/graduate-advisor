@@ -112,6 +112,16 @@
                 <td><div id="link-courses-semesters"</td>
                          </tr>
                             
+              <th>Class Times</th>
+              <tr>
+                <td>Night only</td>
+                <td><div id="night-only"></div></td>
+              </tr>
+              <tr>
+                <td>Days of the week</td>
+                <td><div id="week-days"></div></td>
+              </tr>
+
               <th>Dates</th>
               <tr>
                 <td>Starting semester</td>
