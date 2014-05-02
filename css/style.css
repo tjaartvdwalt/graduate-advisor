@@ -1,0 +1,73 @@
+button{
+    height: 100%;
+}
+/* body { */
+/*     padding-top: 50px; */
+/* } */
+
+.bucket {
+    padding-top: 20px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-right-style:solid;
+    border-bottom-style:solid;
+    border-left-style:solid;
+}
+
+.right-border {
+    border-right-style:solid;
+}
+
+.min {
+    border-top-style:solid;
+    border-color: green;
+}
+.max {
+    border-top-style:solid;
+    border-color: red;
+}
+
+.spacer {
+    visibility:hidden;
+}
+
+.core {
+    background-color:#99CCFF;
+}
+
+.prereq {
+    background-color:#FF9966;
+}
+
+.searchresult {
+    background-color:#FFFF00;
+}
+
+.small-font {
+    margin-top: 0px;
+    font-size: 5pt;
+}
+
+.inactive {
+    background: repeating-linear-gradient(
+        -45deg,
+        #ffffff,
+        #ffffff 5px,
+        #aaaaaa 5px,
+        #aaaaaa 10px
+    );
+}
+
+.filter {
+font-weight: bold;
+}
+
+.warning {
+    backgroundcolor: red;
+}
+
+.left {
+    float: left;
+}
+
