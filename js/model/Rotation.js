@@ -2,7 +2,7 @@ function Rotation(arrangedCourses) {
     this.init = function() {
         var json = this.getRotationFromJSON();
         this.rotation = this.getCSCourses(json);
-        this.addArrangedCourses(arrangedCourses);
+        //this.addArrangedCourses(arrangedCourses);
     }
 
     this.getRotationFromJSON = function() {
