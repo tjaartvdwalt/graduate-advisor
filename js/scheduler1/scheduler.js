@@ -98,7 +98,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
 
     if(requirements.waived != undefined && currentSemesterIndex == 0){
         coursesTaken = coursesTaken.concat(numberListToBlankCourseList(requirements.waived));
-        totalCourses = totalCourses + requirements.waived.length;
+        numberOfCoursesToTake = numberOfCoursesToTake + requirements.waived.length;
     }
 
     var semesterIndex = currentSemesterIndex;
@@ -173,7 +173,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     //inductive step
     for(var y = 0; y < solutionPermutationsForIndexY.length; y++){
 
-        var returnedAnswer = scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable, solutionPermutationsForIndexY[y], semesterIndex+1, requirements)
+        var returnedAnswer = scheduleAllRecursive(numberOfCoursesToTake, coursesPerSemester, coursesAvailable, solutionPermutationsForIndexY[y], semesterIndex+1, requirements)
         if(returnedAnswer.length > 0){
             return returnedAnswer;
         }
