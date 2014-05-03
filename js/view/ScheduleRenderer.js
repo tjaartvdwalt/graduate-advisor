@@ -2,14 +2,7 @@ function ScheduleRenderer(userCourses){
     this.init = function() {
         this.userCourses = userCourses;
     }
-    this.renderLoading = function() {
-        var loading = $("<p1>").attr("id", "schedtable").html("loading");
-        $("#schedules").append(loading);
-
-    }
-
-    this.renderSchedule = function() {
-        var semesterArray = [userCourses.semestersRemaining()];
+    this.hideCourses = function() {
         //This is overkill, but we move all courses back to hidden list...
         //otherwise the previously scheduled buttons will get deleted, but
         // there is currently no super easy way to know which buttons were
@@ -20,7 +13,18 @@ function ScheduleRenderer(userCourses){
             var button = $("#" + courses[i].course_number);
             $("#buttons").append(button).hide()
         }
+    }
+    this.renderLoading = function() {
+        this.hideCourses();
+        $('#schedtable').remove();
+        var loading = $("<p1>").attr("id", "schedtable").html("loading");
+        $("#schedules").append(loading);
 
+    }
+
+    this.renderSchedule = function() {
+        var semesterArray = [userCourses.semestersRemaining()];
+        this.hideCourses();
         // Remove the previous schedule
         $('#schedtable').remove();
 

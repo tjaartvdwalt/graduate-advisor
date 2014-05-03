@@ -19,6 +19,9 @@ function ConfigureRenderer(userCourses, rules){
                     self.userCourses.coursesPerSem = Math.ceil((self.rules.rules.total - Object.keys(self.userCourses.taken).length) / event.target.value);
                     coursesPerSemesterList.val(self.userCourses.coursesPerSem);
                 }
+                else{
+                    self.userCourses.semesters = parseInt(event.target.value);
+                }
             });
 
         $('#courses-per-semester').append(coursesPerSemesterList)
@@ -47,7 +50,7 @@ function ConfigureRenderer(userCourses, rules){
                     self.userCourses.semesters = undefined;
                 }
                 else {
-                    self.userCourses.semesters = semestersList.val();
+                    self.userCourses.semesters = parseInt(semestersList.val());
                 }
             });
 

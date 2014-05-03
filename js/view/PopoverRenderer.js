@@ -38,6 +38,7 @@ function PopoverRenderer (userCourses, rules) {
             'container' : 'body',
             'title' : course.course_name,
             'html' : true,
+            'placement' : 'auto right',
             'content' : content[0] });
         courseButton.popover('show');
     }
