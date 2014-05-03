@@ -60,7 +60,7 @@ function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable, require
         requirements.semesterLimit = 10;
         requirements.waived = ["4010"];
         requirements.startDate = [2014, "Fall"];
-requirements.preferences = [0, -1];
+        requirements.preferences = [0, -1];
         requirements.reqCoursePerSemester = [["4250"],["5130"]];
         requirements.minCoursesBase = 3; //No less than 3 courses per semester
         requirements.minCoursesPerSemester = [1,2,3]; // No less than 1 course in the 1st semester Both of these do not count for the final semester
@@ -128,8 +128,8 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     }
 
 
-    if(minNumberOfCoursesToTake >= courseLimitCurrentSemester){
-        minNumberOfCoursesToTake = courseLimitCurrentSemester-1;
+    if(minNumberOfCoursesToTake + 1 >= totalCourses - coursesTaken.length){
+        minNumberOfCoursesToTake = totalCourses - coursesTaken.length - 1;
     }
     //----------------------------------------------------------------------------------------------
 
@@ -152,6 +152,11 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     }else{
         takenAndNoPreReq = coursesTaken;
     }
+    //Semester scheduler assumes sorted inputs
+    takenAndNoPreReq = takenAndNoPreReq.sort(function(a,b){
+            return parseCourseNumber(a.courseNumber) - parseCourseNumber(b.courseNumber);
+        });
+
 
     var solutionPermutationsForIndexY = [];
     for(var numberOfCoursesIndex = courseLimitCurrentSemester; numberOfCoursesIndex > minNumberOfCoursesToTake; numberOfCoursesIndex--){
@@ -248,10 +253,14 @@ function filterCurrentBranch(scheduleArrayIn, requirements, numberOfCoursesToTak
     var scheduleArray = filterGreaterThan(scheduleArrayIn, requirements, numberOfCoursesToTake);
     scheduleArray = filterRequirements(scheduleArray, requirements.reqCourse, numberOfCoursesToTake);
 
-    if(scheduleArray.length > 0 && scheduleArray[0].length == numberOfCoursesToTake){
-        returnSolution = scheduleArray[0];
+    if(scheduleArray.length > 0 && scheduleArray[0].length >= numberOfCoursesToTake){
+        for(var scheduleIndex = 0; scheduleIndex < scheduleArray.length; scheduleIndex++){
+            if(scheduleArray[scheduleIndex].length == numberOfCoursesToTake){
+                returnSolution = scheduleArray[scheduleIndex];
+                break;
+            }
+        }
     }
-
     return [returnSolution, scheduleArray];
 }
 
