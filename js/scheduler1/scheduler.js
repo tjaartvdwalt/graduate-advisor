@@ -253,10 +253,14 @@ function filterCurrentBranch(scheduleArrayIn, requirements, numberOfCoursesToTak
     var scheduleArray = filterGreaterThan(scheduleArrayIn, requirements, numberOfCoursesToTake);
     scheduleArray = filterRequirements(scheduleArray, requirements.reqCourse, numberOfCoursesToTake);
 
-    if(scheduleArray.length > 0 && scheduleArray[0].length == numberOfCoursesToTake){
-        returnSolution = scheduleArray[0];
+    if(scheduleArray.length > 0 && scheduleArray[0].length >= numberOfCoursesToTake){
+        for(var scheduleIndex = 0; scheduleIndex < scheduleArray.length; scheduleIndex++){
+            if(scheduleArray[scheduleIndex].length == numberOfCoursesToTake){
+                returnSolution = scheduleArray[scheduleIndex];
+                break;
+            }
+        }
     }
-
     return [returnSolution, scheduleArray];
 }
 
