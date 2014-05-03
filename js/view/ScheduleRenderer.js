@@ -17,7 +17,7 @@ function ScheduleRenderer(userCourses){
     this.renderLoading = function() {
         this.hideCourses();
         $('#schedtable').remove();
-        var loading = $("<p1>").attr("id", "schedtable").html("loading");
+        var loading = $("<img>").attr("id", "loading").attr('src', 'assets/images/ajax-loader.gif');
         $("#schedules").append(loading);
 
     }
@@ -26,7 +26,7 @@ function ScheduleRenderer(userCourses){
         var semesterArray = [userCourses.semestersRemaining()];
         this.hideCourses();
         // Remove the previous schedule
-        $('#schedtable').remove();
+        $('#loading').remove();
 
         var table = $('<div>').attr('id', 'schedtable');
 
