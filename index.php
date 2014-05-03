@@ -66,7 +66,6 @@
     <script src="js/view/WaivedRenderer.js"></script>
     <script src="js/scheduler0/Scheduler.js"></script>
     <script src="js/scheduler0/CourseParser.js"></script>
-    <script src="js/scheduler1/scheduler.js"></script>
     <script src="js/wizard.js"></script>
     
   </head>
@@ -89,6 +88,7 @@
               <button id="import-button" onclick="$('input[id=import]').click();"></button>
             </li>
             <li><div id="export"></div></li>
+            <li><button class="btn glyphicon glyphicon-trash" onclick="window.location.reload();"></button></li>
             <li><div id="intro"></div></li>
           </ul>
         </div>
