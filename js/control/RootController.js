@@ -3,7 +3,6 @@ function RootController() {
         this.rules =       new Rules();
         this.courses =     new Courses(this.rules);
         this.userCourses = new UserCourses(this.courses.courses, this.courses.restrictions, this.rules);
-
         // Initialize the different renderers
 
         this.xmlRotation = new Rotation(this.userCourses.getArrangedCourses(this.userCourses.available)); //JSONParser().getJSON('rotation');
@@ -71,10 +70,20 @@ function RootController() {
         console.log(this.userCourses.coursesPerSem);
         console.log(requirements);
         var translatedRotation = this.rotationTranslator.rotation;
-        var schedule =  scheduleAll(nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements);
-        console.log(schedule);
-        return this.scheduleTranslator.sortSchedule(schedule);
-        //return schedule;
+	
+	//NEW CODE BEING TESTED - WEB WORKERS
+	var self = this;
+	var worker = new Worker("js/scheduler1/scheduler.js");
+	var temp_obj = [nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements];
+	worker.postMessage(temp_obj);
+	worker.onmessage = function(event) {
+		self.userCourses.schedule = self.scheduleTranslator.sortSchedule(event.data);
+		global_render.schedule.renderSchedule();
+		console.log("We're done with the Web Workers Render");
+	}
+	//END NEW CODE BEING TESTED - WEB WORKERS
+	console.log(schedule);
+	return [];
     }
 
     this.addListeners = function() {

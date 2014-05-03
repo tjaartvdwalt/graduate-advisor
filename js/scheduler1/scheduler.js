@@ -396,3 +396,12 @@ preferences = [0, -1];
     });
     return coursesAvailableReturn;
 }
+
+onmessage = function(event) {
+                nrOfCourses = event.data[0];
+                coursesPerSem = event.data[1];
+                translatedRotation = event.data[2];
+                requirements = event.data[3];
+                var scheduler = scheduleAll(nrOfCourses, coursesPerSem, translatedRotation, requirements);
+                postMessage(scheduler);
+}
