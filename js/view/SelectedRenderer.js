@@ -145,7 +145,7 @@ function SelectedRenderer(userCourses, rotation, rules){
     this.isInBucket = function(courseNumber, filter) {
         // Remove any appendix to the number... we know the course number is
         // 4 digits long, so we extract only the 4 digits
-        var realCourseNumber = courseNumber.match(/\d\d\d\d/gi);
+        var realCourseNumber = parseInt(courseNumber);
 
         if(realCourseNumber > filter && realCourseNumber - 1000 < filter) {
             return true;
@@ -206,7 +206,8 @@ function SelectedRenderer(userCourses, rotation, rules){
                     $("#" + course.prereq).addClass("prereq");
                 }
 
-                if(button.length > 0 && button.get(0).id > filter && button.get(0).id -  1000 < filter) {
+                var courseInt = parseInt(course.course_number);
+                if(button.length > 0 && courseInt > filter && courseInt -  1000 < filter) {
 
                     button.detach().prependTo(selected);
                     button.show();

@@ -47,7 +47,7 @@ function Rotation(arrangedCourses) {
 
         returnRotation.subject = "CMP SCI";
         returnRotation.course_number = courseObject.course_number;
-        returnRotation.course_name = courseObject.course_name; 
+        returnRotation.course_name = courseObject.course_name;
         returnRotation.day = "ARR";
         returnRotation.rotation_term = [];
         var spring = {"term" : "Spring", "time_code" : "ARR"};
@@ -63,6 +63,8 @@ function Rotation(arrangedCourses) {
     //objects {course = actual course object; year = year offered; sem = 0-N format
     //of what semester it is offered distanced from current semester (0 is next, etc.)
     this.findOptions = function (course_number, semesters) {
+        console.log(course_number);
+        console.log(this.rotation);
         var result = [];
         for(var i = 0; i < this.rotation.rotation_year.length; i++)
             for(var k = 0; k < this.rotation.rotation_year[i].course.length; k++) {
