@@ -42,7 +42,6 @@ function RenderController(parent) {
             else {
                 // schedule
                 var takenSchedule = parent.runScheduler();
-                console.log(takenSchedule);
                 parent.userCourses.schedule = parent.scheduleTranslator.sortSchedule(takenSchedule);
             }
             this.schedule.renderSchedule(parent.userCourses.schedule);

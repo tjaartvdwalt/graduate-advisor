@@ -49,7 +49,12 @@ function RootController() {
         requirements.greaterThan = [[6000, 1 - sixTaken], [5000, 6 - fiveTaken], [4000, 10 - fourTaken]];
 
         // set the day preferences
-        requirements.preferences = [this.userCourses.nightOnly, this.userCourses.days];
+        var nightOnly = 0;
+        if(this.userCourses.nightOnly == true) {
+            nightOnly = 1;
+        }
+
+        requirements.preferences = [nightOnly, parseInt(this.userCourses.daysOfWeek)];
 
         // Add waived courses.
         // Completed courses also needs to go into the list so that they do not get rescheduled.
@@ -67,6 +72,7 @@ function RootController() {
         console.log(requirements);
         var translatedRotation = this.rotationTranslator.rotation;
         var schedule =  scheduleAll(nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements);
+        console.log(schedule);
         return this.scheduleTranslator.sortSchedule(schedule);
         //return schedule;
     }

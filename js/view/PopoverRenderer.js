@@ -32,7 +32,6 @@ function PopoverRenderer (userCourses, rules) {
         if(type == "schedules") {
             content = this.scheduleButtons(course);
         }
-        console.log(content[0]);
         var courseButton = $('#' + course.course_number);
         courseButton.popover({
             'span' : '2',

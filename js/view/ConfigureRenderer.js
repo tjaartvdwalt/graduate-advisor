@@ -83,7 +83,8 @@ function ConfigureRenderer(userCourses, rules){
         var days = $('<select>').addClass('selectpicker')
         $('#week-days').append(days)
         days.change(function(event) {
-            self.userCourses.days = event.target.value;
+            console.log(event.target.value);
+            self.userCourses.daysOfWeek = event.target.value;
         });
         days.append($('<option>').attr('value', '-1').html('Any'));
         days.append($('<option>').attr('value', '0').html('Monday/Wednesday'));

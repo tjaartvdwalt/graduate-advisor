@@ -14,7 +14,6 @@ function SelectedRenderer(userCourses, rotation, rules){
         this.addCourseButtons();
         this.availableButtons = ["6000", "5000", "4000", "R"];
         this.addAvailableButtons();
-        console.log(this.userCourses);
     }
 
     this.addCourseButtons = function() {
@@ -119,7 +118,6 @@ function SelectedRenderer(userCourses, rotation, rules){
 
             // remove the prereq class if its set
             button.removeClass("prereq");
-            console.log(i);
             if(this.inRange(button.get(0).id) && this.isInBucket(button.get(0).id, filter)) {
                 button.detach().appendTo(available);
                 button.show();
