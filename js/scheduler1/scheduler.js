@@ -60,7 +60,7 @@ function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable, require
         requirements.semesterLimit = 10;
         requirements.waived = ["4010"];
         requirements.startDate = [2014, "Fall"];
-		requirements.preferences = [0, -1];
+requirements.preferences = [0, -1];
         requirements.reqCoursePerSemester = [["4250"],["5130"]];
         requirements.minCoursesBase = 3; //No less than 3 courses per semester
         requirements.minCoursesPerSemester = [1,2,3]; // No less than 1 course in the 1st semester Both of these do not count for the final semester
@@ -85,7 +85,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
         minNumberOfCoursesToTake = requirements.minCoursesBase-1;
     }
 
-    if(requirements.minCoursesPerSemester != undefined &&  requirements.minCoursesPerSemester[currentSemesterIndex] != undefined){
+    if(requirements.minCoursesPerSemester != undefined && requirements.minCoursesPerSemester[currentSemesterIndex] != undefined){
         minNumberOfCoursesToTake = requirements.minCoursesPerSemester[currentSemesterIndex]-1;
     }
 
@@ -98,7 +98,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
 
     if(requirements.waived != undefined && currentSemesterIndex == 0){
         coursesTaken = coursesTaken.concat(numberListToBlankCourseList(requirements.waived));
-        totalCourses = totalCourses + requirements.waived.length;
+        numberOfCoursesToTake = numberOfCoursesToTake + requirements.waived.length;
     }
 
     var semesterIndex = currentSemesterIndex;
@@ -110,7 +110,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     unavailableCourses = unavailableCourses.concat(doesntCompletePreReqs(coursesTaken,requirements));
 
     if(requirements.restrictCourseBySemester != undefined && requirements.restrictCourseBySemester[currentSemesterIndex] != undefined){
-    	unavailableCourses = unavailableCourses.concat(numberListToBlankCourseList(requirements.restrictCourseBySemester[currentSemesterIndex]));
+     unavailableCourses = unavailableCourses.concat(numberListToBlankCourseList(requirements.restrictCourseBySemester[currentSemesterIndex]));
     }
 
     //--------------------------------------------------------------------------------------------
@@ -152,6 +152,11 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     }else{
         takenAndNoPreReq = coursesTaken;
     }
+    //Semester scheduler assumes sorted inputs
+    takenAndNoPreReq = takenAndNoPreReq.sort(function(a,b){
+            return parseCourseNumber(a.courseNumber) - parseCourseNumber(b.courseNumber);
+        });
+
 
     var solutionPermutationsForIndexY = [];
     for(var numberOfCoursesIndex = courseLimitCurrentSemester; numberOfCoursesIndex > minNumberOfCoursesToTake; numberOfCoursesIndex--){
@@ -173,7 +178,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     //inductive step
     for(var y = 0; y < solutionPermutationsForIndexY.length; y++){
 
-        var returnedAnswer = scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable, solutionPermutationsForIndexY[y], semesterIndex+1, requirements)
+        var returnedAnswer = scheduleAllRecursive(numberOfCoursesToTake, coursesPerSemester, coursesAvailable, solutionPermutationsForIndexY[y], semesterIndex+1, requirements)
         if(returnedAnswer.length > 0){
             return returnedAnswer;
         }
@@ -214,7 +219,7 @@ function doesntCompletePreReqs(coursesIn, requirements){
                 while(passedIndex < passedList.length && failList[failListIndex][0] > passedList[passedIndex][0]){ // make sure that we are comparing the closest higher course taken next
                     passedIndex++;
                 }
-                if(passedIndex >= passedList.length ||  passedList.length == 0 || passedList[passedIndex][0] != failList[failListIndex][0]){
+                if(passedIndex >= passedList.length || passedList.length == 0 || passedList[passedIndex][0] != failList[failListIndex][0]){
                     var newBlankCourse = new Object();
                     newBlankCourse.courseNumber = failList[failListIndex][0];
                     outList.push(newBlankCourse);
@@ -294,11 +299,11 @@ function removeWaived(schedule){
 }
 
 function parseCourseNumber(courseNumberString){
-	var courseNumberOut = parseInt(courseNumberString);
-	if(courseNumberString != undefined && courseNumberString.indexOf('B') != -1){
-		courseNumberOut += .5;
-	}
-	return courseNumberOut;
+var courseNumberOut = parseInt(courseNumberString);
+if(courseNumberString != undefined && courseNumberString.indexOf('B') != -1){
+courseNumberOut += .5;
+}
+return courseNumberOut;
 }
 
 function filterGreaterThan(scheduleArrayIn, requirements, numberOfCoursesToTake){
@@ -312,7 +317,7 @@ function filterGreaterThan(scheduleArrayIn, requirements, numberOfCoursesToTake)
             for(var reqCourseIndex=0; reqCourseIndex < requirements.greaterThan.length; reqCourseIndex++){
                 reqCoursePassCount.push(0);
                 for (var courseIndex =0; courseIndex < scheduleArrayIn[scheduleIndex].length; courseIndex++){
-                    if(parseCourseNumber(scheduleArrayIn[scheduleIndex][courseIndex].courseNumber) >= requirements.greaterThan[reqCourseIndex][0]){
+                    if(scheduleArrayIn[scheduleIndex][courseIndex].waived != true && parseCourseNumber(scheduleArrayIn[scheduleIndex][courseIndex].courseNumber) >= requirements.greaterThan[reqCourseIndex][0]){
                         reqCoursePassCount[reqCoursePassCount.length-1]++;
                     }
                 }
@@ -364,9 +369,9 @@ function combineTakenAndNew(takenCourses, newCourses){
 function getCoursesAvailableThisSemester(coursesAvailable, startDate, semesterIndex, seasonList, preferences){
     var coursesAvailableReturn =[];
     var currentYear = startDate[0] + parseInt((semesterIndex+seasonList.indexOf(startDate[1]))/seasonList.length);
-    var currentMonth =  seasonList[(seasonList.indexOf(startDate[1]) + semesterIndex)%seasonList.length];
-    if(preferences === undefined) 
-	preferences = [0, -1];
+    var currentMonth = seasonList[(seasonList.indexOf(startDate[1]) + semesterIndex)%seasonList.length];
+    if(preferences === undefined)
+preferences = [0, -1];
     for(var x = 0; x < coursesAvailable.length; x++){
         if(coursesAvailable[x].year == currentYear && coursesAvailable[x].semester == currentMonth){
             //If these courses have a schedule component
