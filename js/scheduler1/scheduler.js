@@ -60,7 +60,7 @@ function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable, require
         requirements.semesterLimit = 10;
         requirements.waived = ["4010"];
         requirements.startDate = [2014, "Fall"];
-requirements.preferences = [0, -1];
+        requirements.preferences = [0, -1];
         requirements.reqCoursePerSemester = [["4250"],["5130"]];
         requirements.minCoursesBase = 3; //No less than 3 courses per semester
         requirements.minCoursesPerSemester = [1,2,3]; // No less than 1 course in the 1st semester Both of these do not count for the final semester
@@ -128,8 +128,8 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     }
 
 
-    if(minNumberOfCoursesToTake >= courseLimitCurrentSemester){
-        minNumberOfCoursesToTake = courseLimitCurrentSemester-1;
+    if(minNumberOfCoursesToTake + 1 >= totalCourses - coursesTaken.length){
+        minNumberOfCoursesToTake = totalCourses - coursesTaken.length - 1;
     }
     //----------------------------------------------------------------------------------------------
 
