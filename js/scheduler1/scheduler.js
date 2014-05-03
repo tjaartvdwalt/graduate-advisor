@@ -319,7 +319,7 @@ function filterGreaterThan(scheduleArrayIn, requirements, numberOfCoursesToTake)
             }
             var schedulePass = true;
             for(var reqCoursePassCountIndex = 0; reqCoursePassCountIndex < reqCoursePassCount.length; reqCoursePassCountIndex++){
-                if(requirements.greaterThan[reqCoursePassCountIndex][1] - reqCoursePassCount[reqCoursePassCountIndex] > numberOfCoursesToTake - scheduleArrayIn[scheduleIndex].length){
+                if(requirements.greaterThan[reqCoursePassCountIndex][1] - reqCoursePassCount[reqCoursePassCountIndex] > numberOfCoursesToTake - lengthWithoutWaived(scheduleArrayIn[scheduleIndex])){
                     schedulePass = false;
                 }
             }
@@ -333,6 +333,16 @@ function filterGreaterThan(scheduleArrayIn, requirements, numberOfCoursesToTake)
     }
 
     return returnSchedule;
+}
+
+function lengthWithoutWaived(arrayOfCourses){
+	var outCount = 0;
+	for(var arrayIndex =0; arrayIndex < arrayOfCourses.length; arrayIndex++){
+		if(arrayOfCourses[arrayIndex].waived != true){
+			outCount++;
+		}
+	}
+	return outCount;
 }
 
 function courseNumberInCourseList(courseList, courseNumberToFind){
