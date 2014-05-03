@@ -42,9 +42,10 @@ function RenderController(parent) {
             else {
                 // schedule
                 var takenSchedule = parent.runScheduler();
-                parent.userCourses.schedule = parent.scheduleTranslator.sortSchedule(takenSchedule);
+                //parent.userCourses.schedule = parent.scheduleTranslator.sortSchedule(takenSchedule);
             }
-            this.schedule.renderSchedule(parent.userCourses.schedule);
+            // if()
+            // this.schedule.renderSchedule(parent.userCourses.schedule);
             break;
         }
     }

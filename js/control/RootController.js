@@ -65,13 +65,11 @@ function RootController() {
         for(var i in this.userCourses.taken) {
             requirements.waived.push(this.userCourses.taken[i].course_number);
         }
-
-        console.log(nrOfCourses);
-        console.log(this.userCourses.coursesPerSem);
-        console.log(requirements);
         var translatedRotation = this.rotationTranslator.rotation;
-	
-	//NEW CODE BEING TESTED - WEB WORKERS
+
+	//Creates a Web Worker to run the scheduling algorithm in a separate thread
+	//We render a loading screen from here, and the actual schedule is rendered
+	//on the Web Worker callback	
 	var self = this;
 	var worker = new Worker("js/scheduler1/scheduler.js");
 	var temp_obj = [nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements];
@@ -81,9 +79,10 @@ function RootController() {
 		global_render.schedule.renderSchedule();
 		console.log("We're done with the Web Workers Render");
 	}
-	//END NEW CODE BEING TESTED - WEB WORKERS
-	console.log(schedule);
-	return [];
+	console.log("TRIGGER");
+	global_render.schedule.renderLoading();
+	console.log("We've rendered the loading screen.");
+	return;
     }
 
     this.addListeners = function() {

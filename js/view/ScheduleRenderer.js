@@ -2,6 +2,11 @@ function ScheduleRenderer(userCourses){
     this.init = function() {
         this.userCourses = userCourses;
     }
+    this.renderLoading = function() {
+        var loading = $("<p1>").attr("id", "schedtable").html("loading");
+        $("#schedules").append(loading);
+
+    }
 
     this.renderSchedule = function() {
         var semesterArray = [userCourses.semestersRemaining()];
