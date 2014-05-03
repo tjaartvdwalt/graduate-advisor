@@ -152,6 +152,11 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     }else{
         takenAndNoPreReq = coursesTaken;
     }
+    //Semester scheduler assumes sorted inputs
+    takenAndNoPreReq = takenAndNoPreReq.sort(function(a,b){
+            return parseCourseNumber(a.courseNumber) - parseCourseNumber(b.courseNumber);
+        });
+
 
     var solutionPermutationsForIndexY = [];
     for(var numberOfCoursesIndex = courseLimitCurrentSemester; numberOfCoursesIndex > minNumberOfCoursesToTake; numberOfCoursesIndex--){
