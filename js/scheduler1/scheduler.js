@@ -312,7 +312,7 @@ function filterGreaterThan(scheduleArrayIn, requirements, numberOfCoursesToTake)
             for(var reqCourseIndex=0; reqCourseIndex < requirements.greaterThan.length; reqCourseIndex++){
                 reqCoursePassCount.push(0);
                 for (var courseIndex =0; courseIndex < scheduleArrayIn[scheduleIndex].length; courseIndex++){
-                    if(parseCourseNumber(scheduleArrayIn[scheduleIndex][courseIndex].courseNumber) >= requirements.greaterThan[reqCourseIndex][0]){
+                    if(scheduleArrayIn[scheduleIndex][courseIndex].waived != true && parseCourseNumber(scheduleArrayIn[scheduleIndex][courseIndex].courseNumber) >= requirements.greaterThan[reqCourseIndex][0]){
                         reqCoursePassCount[reqCoursePassCount.length-1]++;
                     }
                 }
