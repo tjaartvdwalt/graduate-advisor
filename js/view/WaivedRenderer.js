@@ -17,12 +17,14 @@ function WaivedRenderer(userCourses, rules){
     }
 
     this.renderWaivedAvailable = function () {
+        console.log('render');
         var waivedAvailable = $('#waived-available');
         var notWaived = [this.userCourses.available, this.userCourses.selected, this.userCourses.taken]
         for(var j in notWaived) {
             for(var i in notWaived[j]) {
-                if(jQuery.inArray(i, this.rules.rules.core) >= 0) {
+                if(this.rules.isCore(i)) {
                     var button = $("#" + i);
+                    console.log(button);
                     button.detach().appendTo(waivedAvailable);
                     button.show();
                 }

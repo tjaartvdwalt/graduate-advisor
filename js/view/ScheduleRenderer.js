@@ -67,9 +67,11 @@ function ScheduleRenderer(userCourses){
         for(var i in schedule) {
             if(parseInt(schedule[i].courseNumber) > 6000) {
                 var course = this.userCourses.getCourse(schedule[i].courseNumber);
-                $("#" + course.course_number).addClass("prereq");
                 var prereq = this.userCourses.findPrereq(course);
-                $("#" + prereq.course_number).addClass("prereq");
+                if(prereq != null) {
+                    $("#" + course.course_number).addClass("prereq");
+                    $("#" + prereq.course_number).addClass("prereq");
+                }
             }
         }
     }

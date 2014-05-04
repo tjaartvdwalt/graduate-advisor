@@ -98,6 +98,10 @@ function SelectedRenderer(userCourses, rotation, rules){
      */
     this.renderAvailable = function () {
         var activeTab = $('.tab-pane.active').attr('id');
+        // We can render available in the waived tab, then nothing should be rendered
+        if(activeTab == "waived") {
+            return;
+        }
 
         var available = $("#" + activeTab + "-available>#" + activeTab + "-group");
         var availableGroups = $("#" + activeTab + "-available" + "> .row-fluid");
@@ -168,6 +172,10 @@ function SelectedRenderer(userCourses, rotation, rules){
 
     this.renderSelected = function (filter) {
         var activeTab = $('.tab-pane.active').attr('id');
+        // We can render available in the waived tab, then nothing should be rendered
+        if(activeTab == "waived") {
+            return;
+        }
         var otherTab = undefined;
         if(activeTab == "selected") {
             otherTab = "taken";
