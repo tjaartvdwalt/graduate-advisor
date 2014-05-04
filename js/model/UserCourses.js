@@ -264,15 +264,23 @@ function UserCourses(courses, restrictions, rules) {
     // For a particular bucket, count how many courses are at a particular level.
     // For example countCoursesAboveLevel(this.taken, 6000) returns how many courses
     // above 6000 has been taken
-    this.countCoursesAboveLevel = function(bucket, level) {
-        var count = 0;
+    this.getCoursesAboveLevel = function(bucket, level) {
+        var returnArray = [];
         for(var i in bucket) {
             if(parseInt(bucket[i].course_number) > level) {
-                count++;
+                returnArray.push(bucket[i]);
             }
         }
-        return count;
+        return returnArray;
     }
+
+    // For a particular bucket, count how many courses are at a particular level.
+    // For example countCoursesAboveLevel(this.taken, 6000) returns how many courses
+    // above 6000 has been taken
+    this.countCoursesAboveLevel = function(bucket, level) {
+        return this.getCoursesAboveLevel(bucket, level).length;
+    }
+
 
     this.getScheduledCourse = function(courseNumber) {
         for(var i in this.schedule)

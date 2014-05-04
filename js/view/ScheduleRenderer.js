@@ -36,6 +36,7 @@ function ScheduleRenderer(userCourses){
         var semester = "";
         var cur_row = 0;
         var schedule = this.userCourses.schedule;
+        this.addPrereqClass(schedule);
         for(var j in schedule) {
             if(schedule[j].year != year || schedule[j].semester != semester) {
                 headers.append($('<div>').addClass("col-xs-2").html(schedule[j].semester + " " + schedule[j].year));
@@ -58,6 +59,20 @@ function ScheduleRenderer(userCourses){
         $("#schedules").append(table)
     }
 
+
+    // add the prereq class to the button if a prereq exists.
+    // this is used to highlight prereqs if they are auto poputated
+    this.addPrereqClass = function() {
+        var schedule = this.userCourses.schedule;
+        for(var i in schedule) {
+            if(parseInt(schedule[i].courseNumber) > 6000) {
+                var course = this.userCourses.getCourse(schedule[i].courseNumber);
+                $("#" + course.course_number).addClass("prereq");
+                var prereq = this.userCourses.findPrereq(course);
+                $("#" + prereq.course_number).addClass("prereq");
+            }
+        }
+    }
 
     this.init();
 }

@@ -29,6 +29,18 @@ function RootController() {
                 requirements.preReqs.push([selected[i].course_number, selected[i].prereq]);
             }
         }
+        // Add all 6000 level prereqs if no 6000 level course is selected we should add
+        // all the prereqs so that the prereq gets loaded when you select it
+        if(this.userCourses.countCoursesAboveLevel(this.userCourses.selected, 6000) == 0) {
+            var sixCourses = this.userCourses.getCoursesAboveLevel(this.userCourses.available, 6000);
+            for(var i in sixCourses) {
+                var prereq = this.userCourses.findPrereq(sixCourses[i]);
+                if(prereq != null) {
+                    requirements.preReqs.push([sixCourses[i].course_number, prereq.course_number]);
+                }
+            }
+
+        }
 
         // Add min courses for international students
         if(this.userCourses.intStudent == true) {
@@ -43,8 +55,8 @@ function RootController() {
         }
         // Set the max number required at each level
         var sixTaken =this.userCourses.countCoursesAboveLevel(this.userCourses.taken, 6000);
-        var fiveTaken = this.userCourses.countCoursesAboveLevel(this.userCourses.taken, 5000)
-        var fourTaken = this.userCourses.countCoursesAboveLevel(this.userCourses.taken, 4000)
+        var fiveTaken = this.userCourses.countCoursesAboveLevel(this.userCourses.taken, 5000);
+        var fourTaken = this.userCourses.countCoursesAboveLevel(this.userCourses.taken, 4000);
         requirements.greaterThan = [[6000, 1 - sixTaken], [5000, 6 - fiveTaken], [4000, 10 - fourTaken]];
 
         // set the day preferences
@@ -73,6 +85,7 @@ function RootController() {
         var self = this;
         var worker = new Worker("js/scheduler1/scheduler.js");
         var temp_obj = [nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements];
+
         console.log(nrOfCourses);
         console.log(this.userCourses.coursesPerSem);
         console.log(requirements);
