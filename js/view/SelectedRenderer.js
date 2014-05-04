@@ -5,7 +5,7 @@
  *
  */
 function SelectedRenderer(userCourses, rotation, rules){
-    this.init = function() {
+        this.init = function() {
         this.userCourses = userCourses;
         this.bucketSize = 6;
         this.rotation = rotation;
@@ -35,16 +35,16 @@ function SelectedRenderer(userCourses, rotation, rules){
         }));
         buttonsToCreate = [userCourses.available, userCourses.selected, userCourses.restricted];
         for(var j in buttonsToCreate)
-        for(var i in buttonsToCreate[j]) {
-            var core = "";
-            if(rules.isCore(i)) {
-                core = "core";
+            for(var i in buttonsToCreate[j]) {
+                var core = "";
+                if(rules.isCore(i)) {
+                    core = "core";
+                }
+                $("#buttons").append($("<button>" + i + "</button>").attr({
+                    'id' :   i,
+                    'class': 'btn-block btn-sm ' + core,
+                })).hide();
             }
-            $("#buttons").append($("<button>" + i + "</button>").attr({
-                'id' :   i,
-                'class': 'btn-block btn-sm ' + core,
-            })).hide();
-        }
         // for(var i in userCourses.selected) {
         //     $("#buttons").append($("<button>" + i + "</button>").attr({
         //         'id' : i,
@@ -118,7 +118,20 @@ function SelectedRenderer(userCourses, rotation, rules){
 
             // remove the prereq class if its set
             button.removeClass("prereq");
-            if(this.inRange(button.get(0).id) && this.isInBucket(button.get(0).id, filter)) {
+            var inRange
+            if(activeTab == "selected") {
+                if(this.inRange(button.get(0).id)) {
+                    inRange = true;
+                }
+                else {
+                    inRange = false;
+                }
+            }
+            else {
+                inRange = true;
+            }
+
+            if(inRange && this.isInBucket(button.get(0).id, filter)) {
                 button.detach().appendTo(available);
                 button.show();
                 j++

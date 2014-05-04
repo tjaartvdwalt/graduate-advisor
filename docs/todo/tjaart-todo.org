@@ -1,3 +1,13 @@
+* Last issues
+** Do not reload schedule if we have not changed anything (low priority)
+** DONE Include a reset button that refreshes the page (low priority)
+   CLOSED: [2014-05-03 Sat 19:31]
+** DONE Ensure auto-scheduling takes pre-requisite courses into account by sending in all 6000-level course/prerequisite pairs by default, and any 5000-level course/prerequisite pairs if explicitly asked for (high priority)
+   CLOSED: [2014-05-03 Sat 19:31]
+** DONE Fix bug where semester limit doesn't automatically reset when we "unlock" them via checkbox (high priority)
+   CLOSED: [2014-05-03 Sat 19:31]
+** DONE We need Completed to show *all *courses, even those that are not offered during the rotation (high priority)
+   CLOSED: [2014-05-03 Sat 19:54]
 * Use cases
 ** New student, no credits, want to go 1-2 courses a semester but only twice a week, interested in graphics
 
