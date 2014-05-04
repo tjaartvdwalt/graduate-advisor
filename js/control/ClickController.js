@@ -32,8 +32,10 @@ function ClickController(parent, render) {
                 this.selected(clickedCourse);
                 break;
             case "schedules":
-                this.scheduled(clickedCourse);
-                break;
+                return;
+                // console.log("schedules");
+                // this.scheduled(clickedCourse);
+                // break;
             }
             this.render.scoreboard.renderAll();
             this.render.waived.renderAll();
