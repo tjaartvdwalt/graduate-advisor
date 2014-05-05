@@ -67,7 +67,7 @@ function PopoverRenderer (userCourses, rules) {
         }
 
         var course = this.userCourses.getCourse(courseNumber);
-        if(this.userCourses.findPrereq(course) != undefined) {
+        if(status != "selected" && this.userCourses.findPrereq(course) != undefined) {
             content.append(prereqButton);
         }
 
