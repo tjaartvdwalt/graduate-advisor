@@ -112,7 +112,7 @@
                 <td><div id="link-courses-semesters"</td>
                          </tr>
                             
-              <th>Class Times</th>
+              <th>Preferred Class Times</th>
               <tr>
                 <td>Night only</td>
                 <td><div id="night-only"></div></td>

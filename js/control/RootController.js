@@ -14,6 +14,7 @@ function RootController() {
         this.loadSaveModel = new LoadAndSave(this.userCourses, this.scoreboard);
 
         this.addListeners();
+	this.WW_PRESENT = false;
     }
     this.getUserCourses = function() {
         return this.userCourses;
@@ -85,19 +86,17 @@ function RootController() {
         var self = this;
         var worker = new Worker("js/scheduler1/scheduler.js");
         var temp_obj = [nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements];
-
-        console.log(nrOfCourses);
-        console.log(this.userCourses.coursesPerSem);
-        console.log(requirements);
-        worker.postMessage(temp_obj);
-        worker.onmessage = function(event) {
-            self.userCourses.schedule = self.scheduleTranslator.sortSchedule(event.data);
-            global_render.schedule.renderSchedule();
-            console.log("We're done with the Web Workers Render");
-        }
-        console.log("TRIGGER");
-        global_render.schedule.renderLoading();
-        console.log("We've rendered the loading screen.");
+	console.log(this.WW_PRESENT);	
+	if(!this.WW_PRESENT) {
+		this.WW_PRESENT = true;
+        	worker.postMessage(temp_obj);
+        	worker.onmessage = function(event) {
+            		self.userCourses.schedule = self.scheduleTranslator.sortSchedule(event.data);
+            		global_render.schedule.renderSchedule();
+	    		self.WW_PRESENT = false;
+       		}
+        	global_render.schedule.renderLoading();
+	}
         return;
     }
 
