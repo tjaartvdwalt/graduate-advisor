@@ -43,6 +43,7 @@ function RenderController(parent) {
         case 1:
             // waived
             this.waived.renderAll();
+            this.selected.renderAvailable();
             this.showSearch();
             break;
         case 2:

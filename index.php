@@ -111,7 +111,7 @@
                 <td>Link courses per semester and semesters remaining</td>
                 <td><div id="link-courses-semesters"</td>
                          </tr>
-                            
+              
               <th>Preferred Class Times</th>
               <tr>
                 <td>Night only</td>
@@ -121,7 +121,7 @@
                 <td>Days of the week</td>
                 <td><div id="week-days"></div></td>
               </tr>
-
+              
               <th>Dates</th>
               <tr>
                 <td>Starting semester</td>
@@ -135,13 +135,13 @@
               <tr>
                 <td>International Student</td>
                 <td>
-                  <div id="int-student"></div>                  
+                  <div id="int-student"></div>
                 </td>
               </tr>
               <tr>
                 <td>Restricted Status</td>
                 <td>
-                  <div id="restricted-student"></div>                  
+                  <div id="restricted-student"></div>
                 </td>
               </tr>
               
@@ -169,8 +169,10 @@
               <div class="row">
               </div>
               <div class="row-fluid">
-                <div id="waived-available" class="col-xs-1">
+                <div id="waived-available" class="col-xs-2">
                   <b>Not Waived</b>
+                  <div id ="waived-groups" class="row-fluid"></div>
+                  <div id ="waived-group"></div>
                 </div>
                 <div class="col-xs-1 right-border"></div>
                 <div class="col-xs-1"></div>
@@ -248,7 +250,7 @@
                 </div>
                 <div class="clearfix visible-xs"></div>
                 <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
-
+                
                 <div id="show-restricted-bucket-selected"></div>
                 <div class="col-xs-1 bucket selected 4000"></div>
                 <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>

@@ -42,7 +42,7 @@ function WaivedRenderer(userCourses, rules){
     }
 
     this.renderAll = function () {
-        this.renderWaivedAvailable();
+        //this.renderWaivedAvailable();
         this.renderWaived();
     }
     this.init();

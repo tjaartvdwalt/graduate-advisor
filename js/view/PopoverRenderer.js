@@ -74,7 +74,8 @@ function PopoverRenderer (userCourses, rules) {
         if(status != "taken") {
             content.append(completeButton);
         }
-        if(status != "waived" && $.inArray(courseNumber, this.rules.rules.core) >= 0) {
+        if(status != "waived") {
+           //&& $.inArray(courseNumber, this.rules.rules.core) >= 0) {
             content.append(waiveButton);
         }
         return content;

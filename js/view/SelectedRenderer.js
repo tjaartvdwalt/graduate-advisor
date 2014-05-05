@@ -128,10 +128,11 @@ function SelectedRenderer(userCourses, rotation, rules){
     this.renderAvailable = function () {
         var activeTab = $('.tab-pane.active').attr('id');
         // We can render available in the waived tab, then nothing should be rendered
-        if(activeTab == "waived") {
-            return;
-        }
+        // if(activeTab == "waived") {
+        //     return;
+        // }
 
+        console.log(activeTab);
         var available = $("#" + activeTab + "-available>#" + activeTab + "-group");
         var availableGroups = $("#" + activeTab + "-available" + "> .row-fluid");
 
@@ -143,38 +144,54 @@ function SelectedRenderer(userCourses, rotation, rules){
         }
         var filter = $(".filter").attr('id');
 
-        for(var i in this.userCourses.available) {
-            var button = $("#" + i);
-            // remove unavailable class
-            button.removeClass("inactive");
+        if(activeTab == "waived") {
+            for(var i in this.userCourses.selected) {
+                var button = $("#" + i);
+                button.removeClass("inactive");
+                button.removeClass("prereq");
 
-            // remove the prereq class if its set
-            button.removeClass("prereq");
-            var inRange
-            if(activeTab == "selected") {
-                if(this.inRange(button.get(0).id)) {
-                    inRange = true;
+            }
+        }
+
+        iterateArray = [];
+        if(activeTab == "waived") {
+            iterateArray.push(this.userCourses.selected);
+        }
+        iterateArray.push(this.userCourses.available);
+        for(var j in iterateArray) {
+            for(var i in iterateArray[j]) {
+                var button = $("#" + i);
+                // remove unavailable class
+                button.removeClass("inactive");
+
+                // remove the prereq class if its set
+                button.removeClass("prereq");
+                var inRange
+                if(activeTab == "selected") {
+                    if(this.inRange(button.get(0).id)) {
+                        inRange = true;
+                    }
+                    else {
+                        inRange = false;
+                    }
                 }
                 else {
-                    inRange = false;
+                    inRange = true;
                 }
-            }
-            else {
-                inRange = true;
-            }
 
-            if(filter == "R") {
-                button.detach().appendTo(available);
-                button.show();
-            }
+                if(filter == "R") {
+                    button.detach().appendTo(available);
+                    button.show();
+                }
 
-            if(inRange && this.isInBucket(button.get(0).id, filter)) {
-                button.detach().appendTo(available);
-                button.show();
-            }
-            else {
-                button.detach().prependTo("#buttons");
-                button.hide();
+                if(inRange && this.isInBucket(button.get(0).id, filter)) {
+                    button.detach().appendTo(available);
+                    button.show();
+                }
+                else {
+                    button.detach().prependTo("#buttons");
+                    button.hide();
+                }
             }
         }
     }
