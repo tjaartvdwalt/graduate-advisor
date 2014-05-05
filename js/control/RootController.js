@@ -86,6 +86,9 @@ function RootController() {
         var worker = new Worker("js/scheduler1/scheduler.js");
         var temp_obj = [nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements];
 
+        var nrOfRestrictedCourses = this.userCourses.countCoursesBelowLevel(this.userCourses.selected, 4000);
+        nrOfCourses = nrOfCourses + nrOfRestrictedCourses;
+        console.log(nrOfRestrictedCourses);
         console.log(nrOfCourses);
         console.log(this.userCourses.coursesPerSem);
         console.log(requirements);

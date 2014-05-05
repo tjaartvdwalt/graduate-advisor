@@ -159,6 +159,9 @@ function ClickController(parent, render) {
             var action = e.detail.action;
             var courseNumber = e.detail.course;
             var course = self.userCourses.getCourse(courseNumber);
+            console.log(self.userCourses);
+            console.log(self.userCourses.getCourseBucket(courseNumber));
+            console.log(action);
             var src = self.userCourses.getCourseBucket(courseNumber);
             switch(action) {
             case "waived":

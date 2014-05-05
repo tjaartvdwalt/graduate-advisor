@@ -57,9 +57,11 @@ function ConfigureRenderer(userCourses, rules){
     }
 
     this.intCheckboxRenderer = function() {
+        var self = this;
         var intCheckbox = $('<input>').attr('type', 'checkbox');
         $('#int-student').append(intCheckbox)
             .change(function(event) {
+                console.log(event.target.checked);
                 if(event.target.checked == true) {
                     self.userCourses.intStudent = true;
                 }
@@ -68,8 +70,25 @@ function ConfigureRenderer(userCourses, rules){
                 }
             });
         intCheckbox.val(self.userCourses.intStudent);
+    }
+
+    this.restrictedCheckboxRenderer = function() {
+        var self = this;
+        var restrictedCheckbox = $('<input>').attr('type', 'checkbox');
+        $('#restricted-student').append(restrictedCheckbox)
+            .change(function(event) {
+                console.log(event.target.checked);
+                if(event.target.checked == true) {
+                    self.userCourses.restrictedStudent = true;
+                }
+                else {
+                    self.userCourses.restrictedStudent = false;
+                }
+            });
+        restrictedCheckbox.val(self.userCourses.restrictedStudent);
 
     }
+
 
     this.daysRenderer = function() {
         var nightOnly= $('<input>').attr('type', 'checkbox');
@@ -151,6 +170,7 @@ function ConfigureRenderer(userCourses, rules){
         this.dateRenderer('current');
         this.daysRenderer();
         this.intCheckboxRenderer();
+        this.restrictedCheckboxRenderer();
         this.totalCoursesRenderer();
         this.backendRenderer();
     }

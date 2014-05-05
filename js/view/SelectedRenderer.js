@@ -5,7 +5,7 @@
  *
  */
 function SelectedRenderer(userCourses, rotation, rules){
-        this.init = function() {
+    this.init = function() {
         this.userCourses = userCourses;
         this.bucketSize = 6;
         this.rotation = rotation;
@@ -14,6 +14,33 @@ function SelectedRenderer(userCourses, rotation, rules){
         this.addCourseButtons();
         this.availableButtons = ["6000", "5000", "4000", "R"];
         this.addAvailableButtons();
+    }
+
+    this.hideRestrictedButton = function() {
+
+    }
+
+    this.showRestricted = function() {
+        var activeTab = $('.tab-pane.active').attr('id');
+        var header = $('#show-restricted-header-' + activeTab);
+        var anchor = $('#show-restricted-bucket-' + activeTab);
+        if(this.userCourses.restrictedStudent == true && anchor.children().length == 0) {
+            $('#R').show();
+            var restrictedHeader = $('<div>').addClass("col-md-offset-1 col-xs-1")
+                .html("<b>Restricted</b>");
+            var restrictedBucket = $('<div>').addClass("col-xs-1 bucket " + activeTab + " R");
+            $('.bucket.' + activeTab + '.4000').addClass('col-md-offset-1');
+            header.append(restrictedHeader);
+            anchor.append(restrictedBucket);
+        }
+
+        if(this.userCourses.restrictedStudent == false) {
+            $('#R').hide();
+            $('#show-restricted-header').children().remove();
+            $('#show-restricted-bucket').children().remove();
+            $('.bucket.selected.4000').removeClass('col-md-offset-1');
+
+        }
     }
 
     this.addCourseButtons = function() {
@@ -33,7 +60,7 @@ function SelectedRenderer(userCourses, rotation, rules){
             'id' : 'buttons',
             'class': 'btn-block btn-sm'
         }));
-        buttonsToCreate = [userCourses.available, userCourses.selected, userCourses.restricted];
+        buttonsToCreate = [userCourses.available, userCourses.selected];
         for(var j in buttonsToCreate)
             for(var i in buttonsToCreate[j]) {
                 var core = "";
@@ -79,9 +106,11 @@ function SelectedRenderer(userCourses, rotation, rules){
 
     this.renderAll = function(currentAvailable) {
         this.renderAvailable();
+        this.showRestricted();
         this.renderSelected('6000');
         this.renderSelected('5000');
         this.renderSelected('4000');
+        this.renderSelected('R')
     }
 
     /*
@@ -114,7 +143,6 @@ function SelectedRenderer(userCourses, rotation, rules){
         }
         var filter = $(".filter").attr('id');
 
-        var j = 0;
         for(var i in this.userCourses.available) {
             var button = $("#" + i);
             // remove unavailable class
@@ -135,23 +163,20 @@ function SelectedRenderer(userCourses, rotation, rules){
                 inRange = true;
             }
 
+            if(filter == "R") {
+                button.detach().appendTo(available);
+                button.show();
+            }
+
             if(inRange && this.isInBucket(button.get(0).id, filter)) {
                 button.detach().appendTo(available);
                 button.show();
-                j++
             }
             else {
                 button.detach().prependTo("#buttons");
                 button.hide();
             }
         }
-
-        // for(var k=0;k<7-j;k++) {
-        //     $('<button>Spacer</button>').attr({
-        //         'class' : 'spacer'
-        //     }).appendTo(available);
-        // }
-
     }
 
     // Checks whether a course is in the current level
@@ -162,12 +187,20 @@ function SelectedRenderer(userCourses, rotation, rules){
         // 4 digits long, so we extract only the 4 digits
         var realCourseNumber = parseInt(courseNumber);
 
+        // Deal with restricted courses seperately
+        if(realCourseNumber < 4000) {
+            if(filter == 'R') {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
         if(realCourseNumber > filter && realCourseNumber - 1000 < filter) {
             return true;
         }
         return false;
-        // && button.length > 0
-        //                && button.get(0).id > filter && button.get(0).id -  1000 < filter
     }
 
     this.renderSelected = function (filter) {
@@ -226,14 +259,18 @@ function SelectedRenderer(userCourses, rotation, rules){
                 }
 
                 var courseInt = parseInt(course.course_number);
-                if(button.length > 0 && courseInt > filter && courseInt -  1000 < filter) {
-
+                // first handle restricted courses
+                if(courseInt < 4000 && filter == "R") {
                     button.detach().prependTo(selected);
                     button.show();
                     j++;
-                    // if(keys != null && j == displayRules[keys[0]]) {
-                    //     $("<div>").addClass(keys[0]).prependTo(selected);
-                    // }
+                }
+                else {
+                    if(button.length > 0 && courseInt > filter && courseInt -  1000 < filter) {
+                        button.detach().prependTo(selected);
+                        button.show();
+                        j++;
+                    }
                 }
             }
         }

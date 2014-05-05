@@ -6,7 +6,8 @@ function ScoreboardRenderer(userCourses, rules){
 
     this.renderAll = function() {
         var waived = Object.keys(this.userCourses.waived).length;
-        var taken = Object.keys(this.userCourses.taken).length;
+        // only courses above 4000 counts towards your degree
+        var taken = this.userCourses.countCoursesAboveLevel(this.userCourses.taken, 4000);
         var selected = Object.keys(this.userCourses.selected).length;
         var total = selected;
         var required = this.userCourses.coursesRequired - taken;

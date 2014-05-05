@@ -9,11 +9,11 @@ function UserCourses(courses, restrictions, rules) {
         this.coursesRequired = 10;
         this.intStudent = false;
         this.nightOnly = false;
+        this.restrictedStudent = false;
         // -1 = no preference
         // 0  = Mo/We
         // 1  = Tu/Th
         this.daysOfWeek = -1;
-        this.restricted = {};
         this.available = {};
         this.selected  = {};
         this.taken     = {};
@@ -68,7 +68,7 @@ function UserCourses(courses, restrictions, rules) {
 
     this.addRestrictedCourses = function(restrictedCourses) {
         for(var i in restrictedCourses) {
-            this.addCourse(restrictedCourses[i], this.restricted);
+            this.addCourse(restrictedCourses[i], this.available);
         }
     }
 
@@ -274,12 +274,28 @@ function UserCourses(courses, restrictions, rules) {
         return returnArray;
     }
 
+    this.getCoursesBelowLevel = function(bucket, level) {
+        var returnArray = [];
+        for(var i in bucket) {
+            if(parseInt(bucket[i].course_number) < level) {
+                returnArray.push(bucket[i]);
+            }
+        }
+        return returnArray;
+    }
+
+
     // For a particular bucket, count how many courses are at a particular level.
     // For example countCoursesAboveLevel(this.taken, 6000) returns how many courses
     // above 6000 has been taken
     this.countCoursesAboveLevel = function(bucket, level) {
         return this.getCoursesAboveLevel(bucket, level).length;
     }
+
+    this.countCoursesBelowLevel = function(bucket, level) {
+        return this.getCoursesBelowLevel(bucket, level).length;
+    }
+
 
 
     this.getScheduledCourse = function(courseNumber) {

@@ -138,6 +138,12 @@
                   <div id="int-student"></div>                  
                 </td>
               </tr>
+              <tr>
+                <td>Restricted Status</td>
+                <td>
+                  <div id="restricted-student"></div>                  
+                </td>
+              </tr>
               
               <th class="warning">Developer options</th>
               <tr>
@@ -185,9 +191,7 @@
                 <div class="col-xs-1">
                   <b>Available</b>
                 </div>
-                <!-- <div class="col-md-offset-1 col-xs-1"> -->
-                <!--   <b>Core</b> -->
-                <!-- </div> -->
+                <div id="show-restricted-header-taken"></div>
                 <div class="col-md-offset-1 col-xs-1">
                   <b>4000</b>
                 </div>
@@ -204,7 +208,7 @@
                   <div id ="taken-group"></div>
                 </div>
                 <div class="clearfix visible-xs"></div>
-                <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
+                <div id="show-restricted-bucket-taken"></div>
                 <div class="col-xs-1 bucket taken 4000"></div>
                 <div class="col-md-offset-1 col-xs-1 bucket taken 5000"></div>
                 <div class="col-md-offset-1 col-xs-1 bucket taken 6000"></div>
@@ -226,6 +230,7 @@
                 <!-- <div class="col-md-offset-1 col-xs-1"> -->
                 <!--   <b>Core</b> -->
                 <!-- </div> -->
+                <div id="show-restricted-header-selected"></div>
                 <div class="col-md-offset-1 col-xs-1">
                   <b>4000</b>
                 </div>
@@ -243,6 +248,8 @@
                 </div>
                 <div class="clearfix visible-xs"></div>
                 <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
+
+                <div id="show-restricted-bucket-selected"></div>
                 <div class="col-xs-1 bucket selected 4000"></div>
                 <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
                 <div class="col-md-offset-1 col-xs-1 bucket selected 6000"></div>
