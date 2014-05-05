@@ -13,26 +13,47 @@ function RenderController(parent) {
         this.popover =       new PopoverRenderer(parent.userCourses, parent.rules);
     }
 
+    this.hideSearch = function() {
+        $("#searchtext").hide();
+        $("#searchbutton").hide();
+        $("#resetbutton").hide();
+    }
+
+    this.showSearch = function() {
+        $("#searchtext").show();
+        $("#searchbutton").show();
+        $("#resetbutton").show();
+    }
+
     /*
      * This method gets fired when the wizard changes the tab being displayed
      */
     this.onTabShow = function(tab, navigation, index) {
-
         switch(index) {
         case 0:
             // Configuration page only needs to be rendered once
+            // Hide the search button
+            var searchText = $("<input>").attr('id', 'searchtext').attr('type', 'text')
+                .addClass("navbar-search");
+            var searchButton = $("<button>").attr('id', 'searchbutton').addClass("btn btn-sm")
+                .addClass("glyphicon glyphicon-search");
+            var resetButton = $("<button>").attr('id', 'resetbutton').addClass("btn btn-sm")
+            this.hideSearch();
             break;
         case 1:
             // waived
             this.waived.renderAll();
+            this.showSearch();
             break;
         case 2:
             // taken
             this.selected.renderAll();
+            this.showSearch();
             break;
         case 3:
             // selected
             this.selected.renderAll();
+            this.showSearch();
             break;
         case 4:
             if(parent.userCourses.backend == "0") {
@@ -44,8 +65,7 @@ function RenderController(parent) {
                 var takenSchedule = parent.runScheduler();
                 //parent.userCourses.schedule = parent.scheduleTranslator.sortSchedule(takenSchedule);
             }
-            // if()
-            // this.schedule.renderSchedule(parent.userCourses.schedule);
+            this.showSearch();
             break;
         }
     }

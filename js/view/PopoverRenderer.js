@@ -46,7 +46,7 @@ function PopoverRenderer (userCourses, rules) {
 
     this.contentToDisplay = function(courseNumber) {
         var content = $("<div>");
-        var availableButton = $('<button>').html('available');
+        var availableButton = $('<button>').html('unselectd');
         this.addClickListener(availableButton, courseNumber, "available")
         var selectButton = $('<button>').html('select');
         this.addClickListener(selectButton, courseNumber, "selected")
