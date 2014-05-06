@@ -16,11 +16,20 @@ function SelectedRenderer(userCourses, rotation, rules){
         this.addAvailableButtons();
     }
 
-    this.hideRestrictedButton = function() {
-
+    this.hideRestricted = function() {
+        var activeTab = $('.tab-pane.active').attr('id');
+        $('#R').hide();
+        $('#show-restricted-header-' + activeTab).children().remove();
+        $('#show-restricted-bucket-' + activeTab).children().remove();
+        $('.bucket.' + activeTab + '.4000').removeClass('col-md-offset-1');
     }
 
     this.showRestricted = function() {
+        if(this.userCourses.restrictedStudent == false) {
+            this.hideRestricted();
+            return;
+        }
+
         var activeTab = $('.tab-pane.active').attr('id');
         var header = $('#show-restricted-header-' + activeTab);
         var anchor = $('#show-restricted-bucket-' + activeTab);
@@ -34,13 +43,6 @@ function SelectedRenderer(userCourses, rotation, rules){
             anchor.append(restrictedBucket);
         }
 
-        if(this.userCourses.restrictedStudent == false) {
-            $('#R').hide();
-            $('#show-restricted-header').children().remove();
-            $('#show-restricted-bucket').children().remove();
-            $('.bucket.selected.4000').removeClass('col-md-offset-1');
-
-        }
     }
 
     this.addCourseButtons = function() {
@@ -106,7 +108,6 @@ function SelectedRenderer(userCourses, rotation, rules){
 
     this.renderAll = function(currentAvailable) {
         this.renderAvailable();
-        this.showRestricted();
         this.renderSelected('6000');
         this.renderSelected('5000');
         this.renderSelected('4000');
@@ -142,22 +143,24 @@ function SelectedRenderer(userCourses, rotation, rules){
             button.detach().prependTo(availableGroups);
             button.show();
         }
+
+        //Show restricted needs to happen after rerendering the available buttons!
+        this.showRestricted();
+
         var filter = $(".filter").attr('id');
 
-        if(activeTab == "waived") {
+        iterateArray = [];
+        if(activeTab == "waived" || activeTab == "taken") {
             for(var i in this.userCourses.selected) {
                 var button = $("#" + i);
                 button.removeClass("inactive");
                 button.removeClass("prereq");
 
             }
-        }
-
-        iterateArray = [];
-        if(activeTab == "waived") {
             iterateArray.push(this.userCourses.selected);
         }
         iterateArray.push(this.userCourses.available);
+
         for(var j in iterateArray) {
             for(var i in iterateArray[j]) {
                 var button = $("#" + i);
@@ -221,6 +224,7 @@ function SelectedRenderer(userCourses, rotation, rules){
     }
 
     this.renderSelected = function (filter) {
+        this.showRestricted();
         var activeTab = $('.tab-pane.active').attr('id');
         // We can render available in the waived tab, then nothing should be rendered
         if(activeTab == "waived") {
@@ -244,9 +248,9 @@ function SelectedRenderer(userCourses, rotation, rules){
         var selected = $('.' + activeTab + '.' + filter);
         var spacers =  $('.'+ activeTab + '.' + filter + " > .spacer");
         spacers.remove();
-        var minRules =  $('.min');
+        var minRules =  $('.min-' + filter);
         minRules.remove();
-        var maxRules =  $('.max');
+        var maxRules =  $('.max-' + filter);
         maxRules.remove();
 
         var renderData = [this.userCourses.taken, this.userCourses.selected];
@@ -289,21 +293,29 @@ function SelectedRenderer(userCourses, rotation, rules){
                         j++;
                     }
                 }
+
+                this.displayRules(keys, j, displayRules, selected);
             }
         }
+
 
         // fill the rest of the bucket with empty buttons
         for(k=j; k<this.bucketSize; k++) {
-            $('<button>Spacer</button>').attr({
-                'class' : 'spacer btn-block btn-sm'
-            }).prependTo(selected);
+            var spacer = $('<button>').addClass("spacer btn-block btn-sm")
+                .html("Spacer")
+                .prependTo(selected);
             j++;
-
-
-            if(keys != null && j == displayRules[keys[0]]) {
-                $("<div>").addClass(keys[0]).prependTo(selected);
-            }
+            this.displayRules(keys, j, displayRules, selected);
         }
+    }
+
+    this.displayRules = function(keys, j, displayRules, selected) {
+        if(keys != null && j == parseInt(displayRules[keys[0]])) {
+            var myKey = keys[0];
+            console.log("in if");
+            $("<div>").addClass(myKey).prependTo(selected);
+        }
+
     }
 
     // Checks if this course is presented in the following number of semesters

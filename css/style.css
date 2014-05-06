@@ -1,10 +1,45 @@
-button{
-    height: 100%;
-}
+/* .btn{ */
+/*     height: 100%; */
+/*     class: glyphicon; */
+/*     border-style: none; */
+
+/*     border-radius: 5px;  */
+/* -moz-border-radius: 5px;  */
+/* -webkit-border-radius: 5px;  */
+/* border: 1px solid #800000; */
+/* } */
+/* .btn-sm{ */
+/*     border-radius: 5px;  */
+/* -moz-border-radius: 5px;  */
+/* -webkit-border-radius: 5px;  */
+/* border: 1px solid #800000; */
+/* } */
+
 /* body { */
 /*     padding-top: 50px; */
 /* } */
 
+/* .btn-sm,.btn-group-sm>.btn{padding:5px 10px;font-size:13px;line-height:1.5;border-radius:0}.btn-xs,.btn-group-xs>.btn{padding:2px 5px;font-size:13px;line-height:1.5;border-radius:0}.btn-block{display:block;width:100%;padding-left:0;padding-right:0} */
+.btn-block{margin-top:2px}
+
+.btn-xs {
+  padding: 2px 2px;
+  font-size: 11px;
+  //line-height: 1.33;
+  border-radius: 6px;
+border: 1px solid #B6B6B4;
+}
+
+.btn {
+border: 1px solid #B6B6B4;
+}
+.btn-sm {
+  padding: 4px 4px;
+  font-size: 12px;
+  //line-height: 1.33;
+  border-radius: 6px;
+border: 1px solid #B6B6B4;
+}
 .bucket {
     padding-top: 20px;
     padding-bottom: 0px;
@@ -19,12 +54,12 @@ button{
     border-right-style:solid;
 }
 
-.min {
-    border-top-style:solid;
+.min-4000, .min-5000, .min-6000 {
+    border-bottom-style:solid;
     border-color: green;
 }
-.max {
-    border-top-style:solid;
+.max-4000, .max-5000, .max-6000 {
+    border-bottom-style:solid;
     border-color: red;
 }
 

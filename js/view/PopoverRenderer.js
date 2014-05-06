@@ -6,10 +6,10 @@ function PopoverRenderer (userCourses, rules) {
 
     this.scheduleButtons = function(course) {
         var content = $('<div>');
-        var anchorButton = $('<button>').html('anchor');
+        var anchorButton = $('<button>').addClass('btn-sm').html('anchor');
         content.append(anchorButton);
         //this.addClickListener(availableButton, courseNumber, "available")
-        var selectButton = $('<button>').html('remove');
+        var selectButton = $('<button>').addClass('btn-sm').html('remove');
         content.append(selectButton);
         //this.addClickListener(selectButton, courseNumber, "other semester")
 
@@ -46,15 +46,15 @@ function PopoverRenderer (userCourses, rules) {
 
     this.contentToDisplay = function(courseNumber) {
         var content = $("<div>");
-        var availableButton = $('<button>').html('unselectd');
+        var availableButton = $('<button>').addClass('btn-sm').html('unselectd');
         this.addClickListener(availableButton, courseNumber, "available")
-        var selectButton = $('<button>').html('select');
+        var selectButton = $('<button>').addClass('btn-sm').html('select');
         this.addClickListener(selectButton, courseNumber, "selected")
-        var completeButton = $('<button>').html('complete');
+        var completeButton = $('<button>').addClass('btn-sm').html('complete');
         this.addClickListener(completeButton, courseNumber, "taken")
-        var waiveButton = $('<button>').html('waive');
+        var waiveButton = $('<button>').addClass('btn-sm').html('waive');
         this.addClickListener(waiveButton, courseNumber, "waived")
-        var prereqButton = $('<button>').html('select w/ prereq');
+        var prereqButton = $('<button>').addClass('btn-sm').html('select w/ prereq');
         this.addClickListener(prereqButton, courseNumber, "prereq")
 
         var buttons = [];
