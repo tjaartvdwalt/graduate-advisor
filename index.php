@@ -95,179 +95,113 @@
       </div>
       <div class="tab-content">
         <div class="tab-pane" id="configure">
+          <div id="config" class="container-fluid ">
+          </div>
+        </div>
+        <div class="tab-pane" id="waived">
+          <div class="container-fluid">
+            <div class="row">
+            </div>
+            <div class="row-fluid">
+              <div id="waived-available" class="col-xs-2">
+                <b>Not Waived</b>
+                <div id ="waived-groups" class="row-fluid"></div>
+                <div id ="waived-group"></div>
+              </div>
+              <div class="col-xs-1 right-border"></div>
+              <div class="col-xs-1"></div>
+              <div id="waived-waived" class="col-xs-1">
+                <b>Waived</b>
+              </div>
+              <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
+              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane" id="taken">
           <div class="container-fluid ">
-            <!-- <div class="row"> -->
-            <table class="table table-striped">
-              <th>Time frame</th>
-              <tr>
-                <td>Maximum number of courses per semesters</td>
-                <td><div id="courses-per-semester"></td>
-              </tr>
-              <tr>
-                <td>Minimum number of semesters remaining</td>
-                <td><div id="semesters"</td>
-                         </tr>
-              <tr>
-                <td>Link courses per semester and semesters remaining</td>
-                <td><div id="link-courses-semesters"</td>
-                         </tr>
+            <div class="row">
+            </div>
+            <div class="row">
+              <div class="col-xs-1">
+                <b>Available</b>
+              </div>
+              <div id="show-restricted-header-taken"></div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>4000</b>
+              </div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>5000</b>
+              </div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>6000</b>
+              </div>
+            </div>
+            <div class="row-fluid">
+              <div id="taken-available" class="col-xs-2">
+                <div id ="available-groups" class="row-fluid"></div>
+                <div id ="taken-group"></div>
+              </div>
+              <div class="clearfix visible-xs"></div>
+              <div id="show-restricted-bucket-taken"></div>
+              <div class="col-xs-1 bucket taken 4000"></div>
+              <div class="col-md-offset-1 col-xs-1 bucket taken 5000"></div>
+              <div class="col-md-offset-1 col-xs-1 bucket taken 6000"></div>
+            </div>
+            <div class="row">
+              <div id ="description" class="col-md-offset-2 col-xs-7"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane" id="selected">
+          <div class="container-fluid ">
+            <div class="row">
+            </div>
+            <div class="row">
+              <div class="col-xs-1">
+                <b>Available</b>
+              </div>
+              <!-- <div class="col-md-offset-1 col-xs-1"> -->
+              <!--   <b>Core</b> -->
+              <!-- </div> -->
+              <div id="show-restricted-header-selected"></div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>4000</b>
+              </div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>5000</b>
+              </div>
+              <div class="col-md-offset-1 col-xs-1">
+                <b>6000</b>
+              </div>
+            </div>
+            <div class="row-fluid">
+              <div id="selected-available" class="col-xs-2">
+                <div id ="available-groups" class="row-fluid"></div>
+                <div id ="selected-group"></div>
+              </div>
+              <div class="clearfix visible-xs"></div>
+              <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
               
-              <th>Preferred Class Times</th>
-              <tr>
-                <td>Night only</td>
-                <td><div id="night-only"></div></td>
-              </tr>
-              <tr>
-                <td>Days of the week</td>
-                <td><div id="week-days"></div></td>
-              </tr>
-              
-              <th>Dates</th>
-              <tr>
-                <td>Starting semester</td>
-                <td>
-                  <div id="starting-semester"></div>
-                  <div id="starting-year"></div>
-                  
-                </td>
-              </tr>
-              <th>Additional Settings</th>
-              <tr>
-                <td>International Student</td>
-                <td>
-                  <div id="int-student"></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Restricted Status</td>
-                <td>
-                  <div id="restricted-student"></div>
-                </td>
-              </tr>
-              
-              <th class="warning">Developer options</th>
-              <tr>
-                <td>Current semester</td>
-                <td>
-                  <div id="current-semester"></div>
-                  <div id="current-year"></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Nr of courses required</td>
-                <td><div id="total-courses"></div></td>
-              </tr>
-              <tr>
-                <td>Scheduling Algorithm</td>
-                <td><div id="backend"></div></td>
-              </tr>
-            </table>
+              <div id="show-restricted-bucket-selected"></div>
+              <div class="col-xs-1 bucket selected 4000"></div>
+              <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
+              <div class="col-md-offset-1 col-xs-1 bucket selected 6000"></div>
+            </div>
+            <div class="row">
+              <div id ="description" class="col-md-offset-2 col-xs-7"></div>
             </div>
           </div>
-          <div class="tab-pane" id="waived">
-            <div class="container-fluid">
-              <div class="row">
-              </div>
-              <div class="row-fluid">
-                <div id="waived-available" class="col-xs-2">
-                  <b>Not Waived</b>
-                  <div id ="waived-groups" class="row-fluid"></div>
-                  <div id ="waived-group"></div>
-                </div>
-                <div class="col-xs-1 right-border"></div>
-                <div class="col-xs-1"></div>
-                <div id="waived-waived" class="col-xs-1">
-                  <b>Waived</b>
-                </div>
-                <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
-                <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
-              </div>
-            </div>
-          </div>
-          
-          <div class="tab-pane" id="taken">
-            <div class="container-fluid ">
-              <div class="row">
-              </div>
-              <div class="row">
-                <div class="col-xs-1">
-                  <b>Available</b>
-                </div>
-                <div id="show-restricted-header-taken"></div>
-                <div class="col-md-offset-1 col-xs-1">
-                  <b>4000</b>
-                </div>
-                <div class="col-md-offset-1 col-xs-1">
-                  <b>5000</b>
-                </div>
-                <div class="col-md-offset-1 col-xs-1">
-                  <b>6000</b>
-                </div>
-              </div>
-              <div class="row-fluid">
-                <div id="taken-available" class="col-xs-2">
-                  <div id ="available-groups" class="row-fluid"></div>
-                  <div id ="taken-group"></div>
-                </div>
-                <div class="clearfix visible-xs"></div>
-                <div id="show-restricted-bucket-taken"></div>
-                <div class="col-xs-1 bucket taken 4000"></div>
-                <div class="col-md-offset-1 col-xs-1 bucket taken 5000"></div>
-                <div class="col-md-offset-1 col-xs-1 bucket taken 6000"></div>
-              </div>
-              <div class="row">
-                <div id ="description" class="col-md-offset-2 col-xs-7"></div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="tab-pane" id="selected">
-            <div class="container-fluid ">
-              <div class="row">
-              </div>
-              <div class="row">
-                <div class="col-xs-1">
-                  <b>Available</b>
-                </div>
-                <!-- <div class="col-md-offset-1 col-xs-1"> -->
-                <!--   <b>Core</b> -->
-                <!-- </div> -->
-                <div id="show-restricted-header-selected"></div>
-                <div class="col-md-offset-1 col-xs-1">
-                  <b>4000</b>
-                </div>
-                <div class="col-md-offset-1 col-xs-1">
-                  <b>5000</b>
-                </div>
-                <div class="col-md-offset-1 col-xs-1">
-                  <b>6000</b>
-                </div>
-              </div>
-              <div class="row-fluid">
-                <div id="selected-available" class="col-xs-2">
-                  <div id ="available-groups" class="row-fluid"></div>
-                  <div id ="selected-group"></div>
-                </div>
-                <div class="clearfix visible-xs"></div>
-                <!-- <div class="col-md-offset-1 col-xs-1 bucket selected core"></div> -->
-                
-                <div id="show-restricted-bucket-selected"></div>
-                <div class="col-xs-1 bucket selected 4000"></div>
-                <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div>
-                <div class="col-md-offset-1 col-xs-1 bucket selected 6000"></div>
-              </div>
-              <div class="row">
-                <div id ="description" class="col-md-offset-2 col-xs-7"></div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="tab-pane" id="schedules">
-            <div class="container-fluid ">
-            </div>
+        </div>
+        
+        <div class="tab-pane" id="schedules">
+          <div class="container-fluid ">
           </div>
         </div>
       </div>
     </div>
-  </body>
+</div>
+</body>
 </html>

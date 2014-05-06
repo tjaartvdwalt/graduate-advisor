@@ -1,44 +1,23 @@
-/* .btn{ */
-/*     height: 100%; */
-/*     class: glyphicon; */
-/*     border-style: none; */
-
-/*     border-radius: 5px;  */
-/* -moz-border-radius: 5px;  */
-/* -webkit-border-radius: 5px;  */
-/* border: 1px solid #800000; */
-/* } */
-/* .btn-sm{ */
-/*     border-radius: 5px;  */
-/* -moz-border-radius: 5px;  */
-/* -webkit-border-radius: 5px;  */
-/* border: 1px solid #800000; */
-/* } */
-
-/* body { */
-/*     padding-top: 50px; */
-/* } */
-
 /* .btn-sm,.btn-group-sm>.btn{padding:5px 10px;font-size:13px;line-height:1.5;border-radius:0}.btn-xs,.btn-group-xs>.btn{padding:2px 5px;font-size:13px;line-height:1.5;border-radius:0}.btn-block{display:block;width:100%;padding-left:0;padding-right:0} */
 .btn-block{margin-top:2px}
 
 .btn-xs {
-  padding: 2px 2px;
-  font-size: 11px;
-  //line-height: 1.33;
-  border-radius: 6px;
-border: 1px solid #B6B6B4;
+    padding: 2px 2px;
+    font-size: 11px;
+    //line-height: 1.33;
+    border-radius: 6px;
+    border: 1px solid #B6B6B4;
 }
 
 .btn {
-border: 1px solid #B6B6B4;
+    border: 1px solid #B6B6B4;
 }
 .btn-sm {
-  padding: 4px 4px;
-  font-size: 12px;
-  //line-height: 1.33;
-  border-radius: 6px;
-border: 1px solid #B6B6B4;
+    padding: 4px 4px;
+    font-size: 12px;
+    //line-height: 1.33;
+    border-radius: 6px;
+    border: 1px solid #B6B6B4;
 }
 .bucket {
     padding-top: 20px;
@@ -95,7 +74,7 @@ border: 1px solid #B6B6B4;
 }
 
 .filter {
-font-weight: bold;
+    font-weight: bold;
 }
 
 .warning {
@@ -106,7 +85,39 @@ font-weight: bold;
     float: left;
 }
 
+.table {
+    display: table;
+    padding: 0px;
+}
+
+.table-row {
+    display: table-row;
+    overflow: hidden;
+}
+
+.table-header {
+    display: table-cell;
+    border: 1px solid #B6B6B4;
+}
+
+.table-cell {
+    display: table-cell;
+    border: 1px solid #B6B6B4;
+    min-height: 120px;
+}
+
+.config {
+    border-bottom: 1px solid #B6B6B4;
+    width: 50%
+
+}
+
+
 #loading {
     padding-top: 40px;
+    display: block; margin-left: auto; margin-right: auto
+}
+
+.center {
     display: block; margin-left: auto; margin-right: auto
 }

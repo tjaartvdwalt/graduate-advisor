@@ -17,7 +17,7 @@ function ScheduleRenderer(userCourses){
     this.renderLoading = function() {
         this.hideCourses();
         $('#schedtable').remove();
-	$('#loading').remove();
+        $('#loading').remove();
         var loading = $("<img>").attr("id", "loading").attr('src', 'assets/images/ajax-loader.gif');
         $("#schedules").append(loading);
 
@@ -29,9 +29,9 @@ function ScheduleRenderer(userCourses){
         // Remove the previous schedule
         $('#loading').remove();
 
-        var table = $('<div>').attr('id', 'schedtable');
+        var table = $('<div>').attr('id', 'schedtable').addClass('table');
 
-        var headers = $($('<div>').addClass("row"));
+        var headers = $($('<div>').addClass("table-row"));
         var row = [];
         var year = 0;
         var semester = "";
@@ -40,17 +40,24 @@ function ScheduleRenderer(userCourses){
         this.addPrereqClass(schedule);
         for(var j in schedule) {
             if(schedule[j].year != year || schedule[j].semester != semester) {
-                headers.append($('<div>').addClass("col-xs-2").html(schedule[j].semester + " " + schedule[j].year));
+                headers.append($('<div>').addClass("col-xs-2 table-header").html("<b>" + schedule[j].semester + " " + schedule[j].year + "</b>"));
                 cur_row = 0;
                 year = schedule[j].year;
                 semester = schedule[j].semester;
             }
             table.append(headers);
             if(cur_row >= row.length) {
-                row.push($('<div>').addClass("row"));
+                row.push($('<div>').addClass("table-row"));
             }
-            var courseButton = $("#" + schedule[j].courseNumber).show();
-            row[cur_row].append($("<div>").addClass('col-xs-2').append(courseButton));
+            console.log(schedule[j]);
+            var details = this.getDetails(schedule[j].courseNumber);
+            var cell = $("<div>").addClass('col-xs-2 table-cell');
+            row[cur_row].append(cell);
+
+            for(var i in details) {
+                cell.append(details[i]);
+            }
+
             cur_row++;
         }
         for(var i=0; i< row.length; i++) {
@@ -58,6 +65,49 @@ function ScheduleRenderer(userCourses){
         }
 
         $("#schedules").append(table)
+    }
+
+    this.getDetails = function(courseNumber) {
+        var courseButton = $("#" + courseNumber).show();
+        console.log(courseNumber);
+        var course = this.userCourses.getCourse(courseNumber);
+        var scheduledItem = this.userCourses.getScheduledCourse(course.course_number);
+        var details = [];
+        details.push(courseButton)
+        details.push(course.course_name);
+
+        if(scheduledItem != undefined && scheduledItem.day != "") {
+            var dates = this.getTimeDate(scheduledItem.day, scheduledItem.time);
+            details.push("<div><b>Times</b></div>");
+            for(i in dates) {
+                details.push("<div class='center'>" + dates[i] + "</div>");
+            }
+        }
+        return details;
+    }
+
+    this.getTimeDate = function(days, times) {
+        var returnArray = [];
+        while(days.length > 0) {
+            var returnString = "";
+            var day = days.substring(0, 2);
+            days = days.substring(2);
+            if(day == "MW") {
+                returnString = "Mon/Wed"
+            }
+            else{
+                returnString = "Tue/Thu"
+            }
+            var time = times.substring(0,1);
+            if(time == "D") {
+                returnString += "-- Evening"
+            } else {
+                returnString += "-- Day"
+            }
+            returnArray.push(returnString);
+        }
+        return returnArray;
+
     }
 
 
