@@ -17,6 +17,7 @@ function ScheduleRenderer(userCourses){
     this.renderLoading = function() {
         this.hideCourses();
         $('#schedtable').remove();
+	$('#loading').remove();
         var loading = $("<img>").attr("id", "loading").attr('src', 'assets/images/ajax-loader.gif');
         $("#schedules").append(loading);
 

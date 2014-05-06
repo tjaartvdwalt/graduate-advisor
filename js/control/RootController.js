@@ -88,14 +88,19 @@ function RootController() {
         var temp_obj = [nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements];
         var nrOfRestrictedCourses = this.userCourses.countCoursesBelowLevel(this.userCourses.selected, 4000);
         nrOfCourses = nrOfCourses + nrOfRestrictedCourses;
-
-        console.log(this.WW_PRESENT);
         if(!this.WW_PRESENT) {
             this.WW_PRESENT = true;
             worker.postMessage(temp_obj);
             worker.onmessage = function(event) {
                 self.userCourses.schedule = self.scheduleTranslator.sortSchedule(event.data);
-                global_render.schedule.renderSchedule();
+                if(self.userCourses.schedule.length != 0) {
+                    if($('.tab-pane.active').attr('id') == "schedules")
+                        global_render.schedule.renderSchedule();
+                }
+                else {
+                    global_render.errors.renderError("Sorry, no working schedule can be made with that selection.");
+                    $('#loading').remove();
+                }
                 self.WW_PRESENT = false;
             }
             global_render.schedule.renderLoading();
