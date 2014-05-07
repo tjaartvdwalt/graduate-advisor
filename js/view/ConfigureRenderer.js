@@ -58,7 +58,7 @@ function ConfigureRenderer(userCourses, rules){
 
     this.getInternationalStudent = function() {
         var self = this;
-        var div = $("<div>").addClass('row');
+        var div = $("<div>").addClass('row int-student');
         var text= $("<div>").addClass('col-xs-4').html("International Student");
         var intCheckbox = $('<input>').attr('type', 'checkbox');
         intCheckbox.change(function(event) {
@@ -78,7 +78,7 @@ function ConfigureRenderer(userCourses, rules){
 
     this.getRestricted = function() {
         var self = this;
-        var div = $("<div>").addClass('row');
+        var div = $("<div>").addClass('row restricted-status');
         var text= $("<div>").addClass('col-xs-4').html("Restricted Status");
         var restrictedCheckbox = $('<input>').attr('type', 'checkbox');
         restrictedCheckbox.change(function(event) {
@@ -98,7 +98,7 @@ function ConfigureRenderer(userCourses, rules){
     }
 
     this.getCoursesPerSemester = function() {
-        var div = $('<div>');
+        var div = $('<div>').addClass("courses-per-sem");
         var div1 = $("<div>").addClass('row');
         var text1= $("<div>").addClass('col-xs-3').html("Max nr of courses per semester");
         div1.append(text1);
@@ -162,7 +162,7 @@ function ConfigureRenderer(userCourses, rules){
     }
 
     this.getStartDate = function(which) {
-        var div = $("<div>").addClass('row');
+        var div = $("<div>").addClass('row start-date');
         var text= $("<div>").addClass('col-xs-4').html("Start date");
         div.append(text);
         var currentYear = $('<select>').addClass('selectpicker');
@@ -189,7 +189,7 @@ function ConfigureRenderer(userCourses, rules){
 
 
     this.getNight = function() {
-        var div = $("<div>").addClass('row');
+        var div = $("<div>").addClass('row night-only');
         var text= $("<div>").addClass('col-xs-4').html("Night only");
         var nightOnly= $('<input>').attr('type', 'checkbox');
         nightOnly.change(function(event) {
@@ -206,7 +206,7 @@ function ConfigureRenderer(userCourses, rules){
     }
 
     this.getDays = function() {
-        var div = $("<div>").addClass('row');
+        var div = $("<div>").addClass('row days-of-week');
         var text= $("<div>").addClass('col-xs-4').html("Days of the week");
 
         var days = $('<select>').addClass('selectpicker')
@@ -226,7 +226,7 @@ function ConfigureRenderer(userCourses, rules){
 
 
     this.getTotalNrOfCourses = function() {
-        var div = $("<div>").addClass('row');
+        var div = $("<div>").addClass('row required-nr-courses');
         var text= $("<div>").addClass('col-xs-4').html("Number of required courses");
 
         var totalCoursesList = $('<select>').addClass('selectpicker').attr('id', 'total-courses-list');

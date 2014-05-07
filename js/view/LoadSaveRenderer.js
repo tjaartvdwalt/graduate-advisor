@@ -6,7 +6,6 @@ function LoadSaveRenderer(model){
         this.addSearchBar();
     }
 
-
     this.saveRenderer = function() {
         var self = this;
         var button = $('<button>').addClass('btn glyphicon glyphicon-floppy-save');

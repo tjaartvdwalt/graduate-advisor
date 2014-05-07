@@ -80,7 +80,7 @@ function ScheduleRenderer(userCourses){
             var dates = this.getTimeDate(scheduledItem.day, scheduledItem.time);
             details.push("<div><b>Times</b></div>");
             for(i in dates) {
-                details.push("<div class='center'>" + dates[i] + "</div>");
+                details.push("<div class='day-time'>" + dates[i] + "</div>");
             }
         }
         return details;

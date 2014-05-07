@@ -9,8 +9,8 @@ function RenderController(parent) {
         this.waived =        new WaivedRenderer(parent.userCourses,  parent.rules);
         this.selected =      new SelectedRenderer(parent.userCourses, parent.xmlRotation, parent.rules);
         this.schedule =      new ScheduleRenderer(parent.userCourses);
-        this.intro =         new IntroRenderer();
         this.popover =       new PopoverRenderer(parent.userCourses, parent.rules);
+        this.intro =         new IntroRenderer(parent.userCourses, this.popover);
     }
 
     this.hideSearch = function() {
