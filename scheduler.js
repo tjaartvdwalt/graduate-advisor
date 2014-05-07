@@ -66,7 +66,7 @@ function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable, require
         requirements.minCoursesBase = 3; //No less than 3 courses per semester
         requirements.minCoursesPerSemester = [1,2,3]; // No less than 1 course in the 1st semester Both of these do not count for the final semester
         requirements.restrictCourseBySemester = [[],["4250","5130"], ["4010"]];
-        requirements.takenCourses = [{courseNumber:"4250"},{courseNumber:"5000"}];
+        requirements.takenCourses = ["4250","5000"];
         requirements.maxRecursions = 50000;
     }
 
@@ -112,8 +112,21 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     }
 
     if(requirements.takenCourses != undefined && currentSemesterIndex == 0){
-        coursesTaken = coursesTaken.concat(numberListToBlankCourseList(requirements.takenCourses),false);
+        coursesTaken = coursesTaken.concat(numberListToBlankCourseList(requirements.takenCourses,false));
     }
+
+    if(currentSemesterIndex == 0){
+        var testFilter = [[],[]];
+        var testCourses = numberOfCoursesToTake;
+        while(testFilter[1].length == 0 && testCourses <= coursesTaken.length+numberOfCoursesToTake){
+            testFilter =  filterCurrentBranch([coursesTaken], requirements, testCourses);
+            if(testFilter[1].length > 0){
+                numberOfCoursesToTake = testCourses;
+                break;
+            }
+            testCourses++;
+        }
+    } 
 
     var semesterIndex = currentSemesterIndex;
     var courseLimitCurrentSemester = coursesPerSemester;
@@ -265,6 +278,7 @@ function numberListToBlankCourseList(courseNumList, waivedIn){
         var newBlankCourse = new Object();
         newBlankCourse.courseNumber = courseNumList[outListIndex];
         newBlankCourse.waived = waivedIn;
+        newBlankCourse.remove = true;
         outList.push(newBlankCourse);
     }
     return outList;
@@ -316,7 +330,7 @@ function filterRequirements(scheduleArrayIn, requiredCourses, numberOfCoursesToT
 function removeWaived(schedule){
     var outList =[]
     for(var outListIndex = 0; outListIndex < schedule.length; outListIndex++){
-        if(schedule[outListIndex].waived != true){
+        if(schedule[outListIndex].remove != true){
             outList.push(schedule[outListIndex]);
         }
     }
