@@ -15,26 +15,31 @@ function IntroRenderer(userCourses, popover){
             var currentTab = $('.tab-pane.active')[0].id;
             switch(currentTab) {
             case "configure":
-                tripArray.push(self.toolbarRenderer(0, "Configure your settings"));
+                self.navRender(tripArray);
+                self.toolbarRenderer(tripArray, 0, "Configure your settings");
                 self.configureRenderer(tripArray);
                 break;
             case "waived":
+                self.navRender(tripArray);
                 self.misc(tripArray);
-                tripArray.push(self.toolbarRenderer(1, "Mark courses for which you have received credit."));
+                self.toolbarRenderer(tripArray, 1, "Mark courses for which you have received credit.");
                 self.waiveRenderer(tripArray);
                 break;
             case "taken":
+                self.navRender(tripArray);
                 self.misc(tripArray);
-                tripArray.push(self.toolbarRenderer(2, "Mark courses that you have already completed."));
+                self.toolbarRenderer(tripArray, 2, "Mark courses that you have already completed.");
                 self.completedRenderer(tripArray);
                 break;
             case "selected":
+                self.navRender(tripArray);
                 self.misc(tripArray);
-                tripArray.push(self.toolbarRenderer(3, "Mark courses that you wish to take."));
+                self.toolbarRenderer(tripArray, 3, "Mark courses that you wish to take.");
                 self.selectedRenderer(tripArray);
                 break;
             case "schedules":
-                tripArray.push(self.toolbarRenderer(4, "Render a schedule with your current criteria."));
+                self.navRender(tripArray);
+                self.toolbarRenderer(tripArray, 4, "Render a schedule with your current criteria.");
                 self.scheduleRenderer(tripArray);
                 break;
             }
@@ -50,6 +55,8 @@ function IntroRenderer(userCourses, popover){
             this.trip = new Trip(tripArray, options);
             this.trip.start();
         }, false);
+
+
         // //self.takeTrip();
         //     // }
         // }, false);
@@ -57,11 +64,30 @@ function IntroRenderer(userCourses, popover){
 
     }
 
-    this.toolbarRenderer = function(tab, content) {
+    this.navRender = function(trip) {
+        trip.push({
+            sel :  $('body'),
+            content : "You can use the left and right arrow keys to navigate the introduction.",
+            position: "screen-ne",
+            showNavigation: true,
+            expose: true
+        });
+
+        trip.push({
+            sel :  $('body'),
+            content : "The introduction is context sensitive. It introduces the current selected tab only. You can run it again from another tab.",
+            position: "screen-ne",
+            showNavigation: true,
+            expose: true
+        });
+        return trip
+    }
+
+    this.toolbarRenderer = function(trip, tab, content) {
         console.log(tab);
         tabIndex =["Configure", "Waived", "Completed", "Selected", "Schedule"]
         console.log($('a:contains("' + tabIndex[tab] + '")'));
-        var trip =
+        trip.push(
             {
                 sel : $('a:contains("' + tabIndex[tab] + '")'),
                 content : "" + content,
@@ -71,7 +97,7 @@ function IntroRenderer(userCourses, popover){
                 callback: function() {
                     $('#rootwizard').bootstrapWizard('show',tab);
                 }
-            }
+            });
         return trip;
     }
     this.availableRenderer = function(trip, context) {
@@ -344,30 +370,30 @@ function IntroRenderer(userCourses, popover){
         return trip;
     }
 
-    this.takeTrip = function() {
-        var tripArray = []
-        tripArray.push(this.toolbarRenderer(0, "The Configuration Tab"));
-        this.configureRenderer(tripArray);
-        tripArray.push(this.toolbarRenderer(1, "The Waived Tab "));
-        this.waiveRenderer(tripArray);
-        tripArray.push(this.toolbarRenderer(2, "The Completed Tab "));
-        this.completedRenderer(tripArray);
-        tripArray.push(this.toolbarRenderer(3, "The Selected Tab"));
-        this.selectedRenderer(tripArray);
+    // this.takeTrip = function() {
+    //     var tripArray = []
+    //     tripArray.push(this.toolbarRenderer(0, "The Configuration Tab"));
+    //     this.configureRenderer(tripArray);
+    //     tripArray.push(this.toolbarRenderer(1, "The Waived Tab "));
+    //     this.waiveRenderer(tripArray);
+    //     tripArray.push(this.toolbarRenderer(2, "The Completed Tab "));
+    //     this.completedRenderer(tripArray);
+    //     tripArray.push(this.toolbarRenderer(3, "The Selected Tab"));
+    //     this.selectedRenderer(tripArray);
 
-        options = {  delay : -1,
-                     //canGoPrev: false,
-                     //prevLabel: "",
-                     animation: undefined,
-                     onTripEnd : function() {
-                         $('.trip-block').remove();
-                     }
-                  }
+    //     options = {  delay : -1,
+    //                  //canGoPrev: false,
+    //                  //prevLabel: "",
+    //                  animation: undefined,
+    //                  onTripEnd : function() {
+    //                      $('.trip-block').remove();
+    //                  }
+    //               }
 
-        this.trip = new Trip(tripArray, options);
-        this.trip.start();
+    //     this.trip = new Trip(tripArray, options);
+    //     this.trip.start();
 
-    }
+    // }
 
     this.init();
 }
