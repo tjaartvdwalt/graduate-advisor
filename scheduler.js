@@ -199,7 +199,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     }
     //FILTER FOR REQ'S HERE ( if solutionPermutationsForIndexY has anything left in it, break, we have a solution)
     //solutionPermutationsForIndexY = filterSemesterRequirements(solutionPermutationsForIndexY, requirements);
-    if(solutionPermutationsForIndexY.length ==0 && requirements.totalPossible >= coursesTaken.length){
+    if(solutionPermutationsForIndexY.length ==0 && requirements.totalPossible == coursesTaken.length){
         return coursesTaken;
     }
 
