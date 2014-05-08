@@ -66,6 +66,7 @@
     <script src="js/view/WaivedRenderer.js"></script>
     <script src="js/scheduler0/Scheduler.js"></script>
     <script src="js/scheduler0/CourseParser.js"></script>
+    <script src="js/scheduler1/scheduler.js"></script>
     <script src="js/wizard.js"></script>
     
   </head>

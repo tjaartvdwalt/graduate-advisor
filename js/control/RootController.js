@@ -78,17 +78,38 @@ function RootController() {
         for(var i in this.userCourses.taken) {
             requirements.waived.push(this.userCourses.taken[i].course_number);
         }
+	var nrOfRestrictedCourses = this.userCourses.countCoursesBelowLevel(this.userCourses.selected, 4000);
+	nrOfCourses = nrOfCourses + nrOfRestrictedCourses;
+	var RestCourses = this.userCourses.getCoursesBelowLevel(this.userCourses.selected,4000);
         var translatedRotation = this.rotationTranslator.rotation;
+	var newTranslatedRotation = [];
+	//console.log(translatedRotation);
+	for(var x in translatedRotation) {
+		if(translatedRotation[x].courseNumber >= 4000){
+			 newTranslatedRotation.push(translatedRotation[x]);
+			//console.log(translatedRotation[x]);
+		}
+		else {
+			//If it is below 4000, the only way we include it is if it's specified as Restricted
+			for(var z in RestCourses) {
+				if(translatedRotation[x].courseNumber == RestCourses[z].course_number) {
+					newTranslatedRotation.push(translatedRotation[x]); 
+				//	console.log(translatedRotation[x]);
+				}
+			}
+		}
+	}
+	//console.log(newTranslatedRotation);
+	translatedRotation = newTranslatedRotation;
 
         //Creates a Web Worker to run the scheduling algorithm in a separate thread
         //We render a loading screen from here, and the actual schedule is rendered
         //on the Web Worker callback
         var self = this;
         var worker = new Worker("js/scheduler1/scheduler.js");
-        var temp_obj = [nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements];
-        var nrOfRestrictedCourses = this.userCourses.countCoursesBelowLevel(this.userCourses.selected, 4000);
-        nrOfCourses = nrOfCourses + nrOfRestrictedCourses;
-        if(!this.WW_PRESENT) {
+       	var temp_obj = [nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements]; 
+	//console.log(scheduleAll(nrOfCourses, this.userCourses.coursesPerSem, translatedRotation, requirements));
+	if(!this.WW_PRESENT) {
             this.WW_PRESENT = true;
             worker.postMessage(temp_obj);
             worker.onmessage = function(event) {

@@ -49,7 +49,7 @@ function ScheduleRenderer(userCourses){
             if(cur_row >= row.length) {
                 row.push($('<div>').addClass("table-row"));
             }
-            console.log(schedule[j]);
+            //console.log(schedule[j]);
             var details = this.getDetails(schedule[j].courseNumber);
             var cell = $("<div>").addClass('col-xs-2 table-cell');
             row[cur_row].append(cell);
@@ -69,7 +69,7 @@ function ScheduleRenderer(userCourses){
 
     this.getDetails = function(courseNumber) {
         var courseButton = $("#" + courseNumber).show();
-        console.log(courseNumber);
+        //console.log(courseNumber);
         var course = this.userCourses.getCourse(courseNumber);
         var scheduledItem = this.userCourses.getScheduledCourse(course.course_number);
         var details = [];
@@ -99,10 +99,12 @@ function ScheduleRenderer(userCourses){
                 returnString = "Tue/Thu"
             }
             var time = times.substring(0,1);
+            times = times.substring(1);
+            //console.log(times);
             if(time == "D") {
-                returnString += "-- Evening"
-            } else {
                 returnString += "-- Day"
+            } else {
+                returnString += "-- Evening"
             }
             returnArray.push(returnString);
         }
