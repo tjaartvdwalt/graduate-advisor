@@ -107,7 +107,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     maxRecursionsGlobal++;
 
     if(requirements.waived != undefined && currentSemesterIndex == 0){
-        coursesTaken = coursesTaken.concat(numberListToBlankCourseList(requirements.waived),true);
+        coursesTaken = coursesTaken.concat(numberListToBlankCourseList(requirements.waived,true));
         numberOfCoursesToTake = numberOfCoursesToTake + requirements.waived.length;
     }
 
