@@ -100,11 +100,11 @@ function ConfigureRenderer(userCourses, rules){
     this.getCoursesPerSemester = function() {
         var div = $('<div>').addClass("courses-per-sem");
         var div1 = $("<div>").addClass('row');
-        var text1= $("<div>").addClass('col-xs-3').html("Max nr of courses per semester");
+        var text1= $("<div>").addClass('col-xs-3').html("Max no. of courses per semester");
         div1.append(text1);
 
         var div2 = $("<div>").addClass('row');
-        var text2= $("<div>").addClass('col-xs-3').html("Min nr of semesters");
+        var text2= $("<div>").addClass('col-xs-3').html("Max no. of semesters");
         div2.append(text2);
 
         div.append(div1);
@@ -114,10 +114,10 @@ function ConfigureRenderer(userCourses, rules){
         var semestersList = $('<select>').addClass('selectpicker').attr('id', 'semesters-list');
         var coursesPerSemesterList = $('<select>').addClass('selectpicker');
         var link = $('<input>').attr('type', 'checkbox');
-        div1.append(semestersList);
-        div2.append(coursesPerSemesterList);
-        div1.append($("<div>").addClass('col-xs-1').html("link"));
-        div2.append($("<div>").addClass('col-xs-1').append(link));
+        div1.append(coursesPerSemesterList);
+        div2.append(semestersList);
+        div1.append($("<div>").addClass('col-xs-1'));//.html("link"));
+        div2.append($("<div>").addClass('col-xs-1'));//.append(link));
 
         semestersList.change(function(event) {
             if(self.userCourses.semesters == undefined) {
@@ -144,9 +144,9 @@ function ConfigureRenderer(userCourses, rules){
 
         coursesPerSemesterList.val(self.userCourses.coursesPerSem);
         semestersList.val(self.userCourses.semestersRemaining());
-        if(self.userCourses.semesters == undefined) {
-            link.attr('checked', true);
-        }
+        // if(self.userCourses.semesters == undefined) {
+        //     link.attr('checked', true);
+        // }
 
         link.change(function(event) {
             if(event.target.checked == true) {

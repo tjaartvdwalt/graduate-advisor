@@ -50,7 +50,6 @@ function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable, require
 
     var requirements = new Object();
     requirements = requirementsIn;
-    maxRecursionsGlobal =0;
     if(requirements.useTest == true){
         //setting the test. This might not work, but there is basic usage here for all options
         requirements.reqCourse = ["4250","5130"];
@@ -65,15 +64,11 @@ function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable, require
         requirements.reqCoursePerSemester = [["4250"],["5130"]];
         requirements.minCoursesBase = 3; //No less than 3 courses per semester
         requirements.minCoursesPerSemester = [1,2,3]; // No less than 1 course in the 1st semester Both of these do not count for the final semester
-        requirements.restrictCourseBySemester = [[],["4250","5130"], ["4010"]];
-        requirements.takenCourses = ["4250","5000"];
-        requirements.maxRecursions = 4000;
+        requirements.restrictCourseBySemester = [[],["4250","5130"], ["4010"]]
     }
 
     return scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable, [], 0, requirements);
 }
-
-var maxRecursionsGlobal = 0;
 
 function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable, coursesTaken, currentSemesterIndex, requirements){
     var courseNumberAvailableList = [];
@@ -101,32 +96,10 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
         return []; //Do not continue down this branch if we are searching past the semester limit
     }
 
-    if(requirements.maxRecursions != undefined && maxRecursionsGlobal > requirements.maxRecursions){
-        return [];
-    }
-    maxRecursionsGlobal++;
-
     if(requirements.waived != undefined && currentSemesterIndex == 0){
         coursesTaken = coursesTaken.concat(numberListToBlankCourseList(requirements.waived,true));
         numberOfCoursesToTake = numberOfCoursesToTake + requirements.waived.length;
     }
-
-    if(requirements.takenCourses != undefined && currentSemesterIndex == 0){
-        coursesTaken = coursesTaken.concat(numberListToBlankCourseList(requirements.takenCourses,false));
-    }
-
-    if(currentSemesterIndex == 0){
-        var testFilter = [[],[]];
-        var testCourses = numberOfCoursesToTake;
-        while(testFilter[1].length == 0 && testCourses <= coursesTaken.length+numberOfCoursesToTake){
-            testFilter =  filterCurrentBranch([coursesTaken], requirements, testCourses);
-            if(testFilter[1].length > 0){
-                numberOfCoursesToTake = testCourses;
-                break;
-            }
-            testCourses++;
-        }
-    } 
 
     var semesterIndex = currentSemesterIndex;
     var courseLimitCurrentSemester = coursesPerSemester;
@@ -137,7 +110,7 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     unavailableCourses = unavailableCourses.concat(doesntCompletePreReqs(coursesTaken,requirements));
 
     if(requirements.restrictCourseBySemester != undefined && requirements.restrictCourseBySemester[currentSemesterIndex] != undefined){
-     unavailableCourses = unavailableCourses.concat(numberListToBlankCourseList(requirements.restrictCourseBySemester[currentSemesterIndex]), false);
+     unavailableCourses = unavailableCourses.concat(numberListToBlankCourseList(requirements.restrictCourseBySemester[currentSemesterIndex]));
     }
 
     //--------------------------------------------------------------------------------------------
@@ -154,10 +127,6 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
         courseLimitCurrentSemester = numberOfCoursesToTake-coursesTaken[0].length;
     }
 
-    if(requirements.totalPossible == undefined){
-        requirements.totalPossible = 0;
-    }
-    requirements.totalPossible += courseLimitCurrentSemester;
 
     if(minNumberOfCoursesToTake + 1 >= totalCourses - coursesTaken.length){
         minNumberOfCoursesToTake = totalCourses - coursesTaken.length - 1;
@@ -199,10 +168,6 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     }
     //FILTER FOR REQ'S HERE ( if solutionPermutationsForIndexY has anything left in it, break, we have a solution)
     //solutionPermutationsForIndexY = filterSemesterRequirements(solutionPermutationsForIndexY, requirements);
-    if(solutionPermutationsForIndexY.length ==0 && requirements.totalPossible-courseLimitCurrentSemester < totalCourses){
-        return coursesTaken;
-    }
-
 
     var filteredSolution = filterCurrentBranch(solutionPermutationsForIndexY, requirements, numberOfCoursesToTake); // This is going to return an array of length 2;
     if(filteredSolution[0].length > 0){
@@ -278,7 +243,6 @@ function numberListToBlankCourseList(courseNumList){
         var newBlankCourse = new Object();
         newBlankCourse.courseNumber = courseNumList[outListIndex];
         newBlankCourse.waived = true;
-        newBlankCourse.remove = true;
         outList.push(newBlankCourse);
     }
     return outList;
@@ -330,7 +294,7 @@ function filterRequirements(scheduleArrayIn, requiredCourses, numberOfCoursesToT
 function removeWaived(schedule){
     var outList =[]
     for(var outListIndex = 0; outListIndex < schedule.length; outListIndex++){
-        if(schedule[outListIndex].remove != true){
+        if(schedule[outListIndex].waived != true){
             outList.push(schedule[outListIndex]);
         }
     }

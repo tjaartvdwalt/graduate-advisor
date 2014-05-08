@@ -5,7 +5,7 @@ function UserCourses(courses, restrictions, rules) {
         this.rules = rules;
         // Constructor items
         this.coursesPerSem = 3;
-        this.semesters = undefined;
+        this.semesters = 4;
         this.coursesRequired = 10;
         this.intStudent = false;
         this.nightOnly = false;
