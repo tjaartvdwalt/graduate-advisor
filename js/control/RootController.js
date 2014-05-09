@@ -11,8 +11,6 @@ function RootController() {
         this.rotationTranslator = new RotationTranslator(this.xmlRotation.rotation, this.schedule);
         this.scheduleTranslator = new ScheduleTranslator(this.userCourses);
 
-        this.loadSaveModel = new LoadAndSave(this.userCourses, this.scoreboard);
-
         this.addListeners();
         this.WW_PRESENT = false;
     }

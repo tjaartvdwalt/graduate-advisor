@@ -1,6 +1,8 @@
-function LoadAndSave(userCourses, scoreboard) {
+function LoadAndSave(userCourses, waived, selected, scoreboard) {
     this.init = function() {
         this.userCourses = userCourses;
+        this.waived = waived;
+        this.selected = selected;
         this.scoreboard = scoreboard;
     }
 
@@ -17,9 +19,8 @@ function LoadAndSave(userCourses, scoreboard) {
     this.loadFile = function(f) {
         var r = new FileReader();
         var result = r.readAsText(f);
-        console.log(result);
-        self = this;
 
+        var self = this;
         r.onload = function(e) {
             var contents = e.target.result;
             var myObject = JSON.parse(contents);
@@ -27,6 +28,20 @@ function LoadAndSave(userCourses, scoreboard) {
             self.userCourses.selected = myObject.selected;
             self.userCourses.taken = myObject.taken;
             self.userCourses.waived = myObject.waived;
+            var activeTab = $('.tab-pane.active').attr('id');
+            switch(activeTab) {
+            case "waived":
+                self.waived.renderAll();
+                break;
+            case "taken":
+                self.selected.renderAll();
+                break;
+            case "selected":
+                self.selected.renderAll();
+                break;
+            case "schedules":
+                self.waived.renderAll();
+            }
             self.scoreboard.renderAll();
         }
     }

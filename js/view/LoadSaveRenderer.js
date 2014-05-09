@@ -1,5 +1,6 @@
-function LoadSaveRenderer(model){
+function LoadSaveRenderer(parent, model){
     this.init = function() {
+        this.parent = parent;
         this.model = model;
         this.loadRenderer();
         this.saveRenderer();
@@ -22,15 +23,12 @@ function LoadSaveRenderer(model){
         $("#import-button").add("<span>")
             .addClass('btn glyphicon glyphicon-floppy-open');
 
-        //  onclick="$('input[id=import]').click();
-
-        // file[0].addEventListener('change', function (evt) {
-        //     console.log(self);
-        //     self.model.loadFile(evt.target.files[0]);
-        // }, false);
+        file[0].addEventListener('change', function (evt) {
+            self.model.loadFile(evt.target.files[0]);
+        }, false);
     }
 
-        this.addSearchBar = function() {
+    this.addSearchBar = function() {
         var searchText = $("<input>").attr('id', 'searchtext').attr('type', 'text')
             .addClass("navbar-search");
         var searchButton = $("<button>").attr('id', 'searchbutton').addClass("btn btn-sm")

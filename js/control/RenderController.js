@@ -5,12 +5,13 @@ function RenderController(parent) {
         this.scoreboard =    new ScoreboardRenderer(parent.userCourses, parent.rules);
         this.scoreboard.renderAll();
         this.errors =        new ErrorRenderer();
-        this.loadSave =      new LoadSaveRenderer(parent.loadSaveModel);
         this.waived =        new WaivedRenderer(parent.userCourses,  parent.rules);
         this.selected =      new SelectedRenderer(parent.userCourses, parent.xmlRotation, parent.rules);
         this.schedule =      new ScheduleRenderer(parent.userCourses);
         this.popover =       new PopoverRenderer(parent.userCourses, parent.rules);
         this.intro =         new IntroRenderer(parent.userCourses, this.popover);
+        this.loadSaveModel = new LoadAndSave(parent.userCourses, this.waived, this.selected, this.scoreboard);
+        this.loadSave =      new LoadSaveRenderer(this, this.loadSaveModel);
     }
 
     this.hideSearch = function() {
