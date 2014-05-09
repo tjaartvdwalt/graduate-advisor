@@ -4,21 +4,21 @@
   The application can be found at:
   [[http://comp.umsl.edu/~Group1/graduate-advisor/]]
   
-* Our idea
-  Our approach is to map out the schedule for your entire graduate course using the available data.
+* Our approach
+  Our approach is to map out the schedule for your entire degree using the available data.
   You simply have to input
 - some configuration details
 - courses you have waivers for
 - courses you have completed
 - courses you would like to take
   
-  You do not need to specify all courses you want to take, the system will fill any unselected courses so that the course requirements will be fulfilled.
+  You do not need to specify all courses you want to take, the system will fill any unselected courses so that the degree requirements will be fulfilled.
   
 * Getting help
 ** If its slow its working
-The backend algorithm does a lot of calculation and may take some time to complete. On our test systems it normally returns within a minute. If it cannot find a valid schedule it should display an error message to that effect.
+The backend normally returns almost instantaneously, for difficult cases however it can take some time to complete. On our test systems it normally returned within a minute. If it cannot find a valid schedule it will display an error message to that effect.
 ** Check your configuration
-During our testing, we often found found our configuration to be the thing that tripped us up when we couldn't generate a schedule we felt were valid. Often relaxing some restrictions can solve the issue.
+During our testing, we often found found our configuration to be the thing that tripped us up. If you can't get a solution try relaxing some restrictions.
 
 ** Built in help
   If you don't understand the user interface we have a context sensitive help page that explain the usage for the currently selected tab. Simply click on the button marked with a ? in the top  corner.
@@ -42,12 +42,12 @@ During our testing, we often found found our configuration to be the thing that 
   We have implemented *almost* everything in Javascript.
   The only exception is that the XML data files are parsed with a 5-line php script and embedded as JSON directly into the html page. The advantage of this approach  is that we can provide a cached version of the XML data should the original XML page be down for any reason. If we rewrote  this code in javascript we would have a completely client side solution, requiring only that the XML data files be available in some predefined location.
   
-  We use the following Javascript frameworks
+We use the following Javascript frameworks
 - JQuery
 - Bootstrap
 - Trip.js
   
-  Our backend implements a depth first search algorithm with backtracking.
+Our backend implements a depth first search algorithm with backtracking.
   
 * Known bugs
 - If you Select a 6000 level course and you add other courses after that the "bucket fill lines" grow thicker.

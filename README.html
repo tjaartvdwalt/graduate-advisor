@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="title" content="Graduate advisor - Group 1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2014-05-08T20:28-0500"/>
+<meta name="generated" content="2014-05-08T22:27-0500"/>
 <meta name="author" content="Tjaart van der Walt"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -123,7 +123,7 @@ for the JavaScript code in this tag.
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#sec-1">1 Deployed location</a></li>
-<li><a href="#sec-2">2 Our idea</a></li>
+<li><a href="#sec-2">2 Our approach</a></li>
 <li><a href="#sec-3">3 Getting help</a>
 <ul>
 <li><a href="#sec-3-1">3.1 If its slow its working</a></li>
@@ -156,10 +156,10 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> Our idea</h2>
+<h2 id="sec-2"><span class="section-number-2">2</span> Our approach</h2>
 <div class="outline-text-2" id="text-2">
 
-<p>  Our approach is to map out the schedule for your entire graduate course using the available data.
+<p>  Our approach is to map out the schedule for your entire degree using the available data.
   You simply have to input
 </p><ul>
 <li>some configuration details
@@ -171,7 +171,7 @@ for the JavaScript code in this tag.
 <li>courses you would like to take
 
 <p>  
-  You do not need to specify all courses you want to take, the system will fill any unselected courses so that the course requirements will be fulfilled.
+  You do not need to specify all courses you want to take, the system will fill any unselected courses so that the degree requirements will be fulfilled.
 </p></li>
 </ul>
 
@@ -191,7 +191,7 @@ for the JavaScript code in this tag.
 <h3 id="sec-3-1"><span class="section-number-3">3.1</span> If its slow its working</h3>
 <div class="outline-text-3" id="text-3-1">
 
-<p>The backend algorithm does a lot of calculation and may take some time to complete. On our test systems it normally returns within a minute. If it cannot find a valid schedule it should display an error message to that effect.
+<p>The backend normally returns almost instantaneously, for difficult cases however it can take some time to complete. On our test systems it normally returned within a minute. If it cannot find a valid schedule it will display an error message to that effect.
 </p></div>
 
 </div>
@@ -200,7 +200,7 @@ for the JavaScript code in this tag.
 <h3 id="sec-3-2"><span class="section-number-3">3.2</span> Check your configuration</h3>
 <div class="outline-text-3" id="text-3-2">
 
-<p>During our testing, we often found found our configuration to be the thing that tripped us up when we couldn't generate a schedule we felt were valid. Often relaxing some restrictions can solve the issue.
+<p>During our testing, we often found found our configuration to be the thing that tripped us up. If you can't get a solution try relaxing some restrictions.
 </p>
 </div>
 
@@ -275,20 +275,20 @@ for the JavaScript code in this tag.
   The only exception is that the XML data files are parsed with a 5-line php script and embedded as JSON directly into the html page. The advantage of this approach  is that we can provide a cached version of the XML data should the original XML page be down for any reason. If we rewrote  this code in javascript we would have a completely client side solution, requiring only that the XML data files be available in some predefined location.
 </p>
 <p>  
-  We use the following Javascript frameworks
+We use the following Javascript frameworks
 </p><ul>
 <li>JQuery
 </li>
 <li>Bootstrap
 </li>
 <li>Trip.js
-
-<p>  
-  Our backend implements a depth first search algorithm with backtracking.
-</p></li>
+</li>
 </ul>
 
 
+<p>  
+Our backend implements a depth first search algorithm with backtracking.
+</p>
 </div>
 
 </div>
@@ -325,7 +325,7 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2014-05-08T20:28-0500</p>
+<p class="date">Date: 2014-05-08T22:27-0500</p>
 <p class="author">Author: Tjaart van der Walt</p>
 <p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
