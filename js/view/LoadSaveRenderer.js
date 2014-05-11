@@ -4,14 +4,28 @@ function LoadSaveRenderer(parent, model){
         this.model = model;
         this.loadRenderer();
         this.saveRenderer();
+        this.infoRenderer();
         this.addSearchBar();
     }
+
+    this.infoRenderer = function() {
+        var self = this;
+        var button = $('<button>').addClass('btn glyphicon glyphicon-info-sign');
+        $('#info').append(button);
+        console.log("info");
+        button[0].addEventListener("click", function (evt) {
+            console.log("toggle");
+            $('#sidebar').modal('show');
+        }, false);
+    }
+
 
     this.saveRenderer = function() {
         var self = this;
         var button = $('<button>').addClass('btn glyphicon glyphicon-floppy-save');
         $('#export').append(button);
         button[0].addEventListener("click", function (evt) {
+            console.log("toggle");
             self.model.saveFile();
         }, false);
 

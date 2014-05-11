@@ -90,6 +90,7 @@
             </li>
             <li><div id="export"></div></li>
             <li><button class="btn glyphicon glyphicon-trash" onclick="window.location.reload();"></button></li>
+            <li><div id="info"></div></li>
             <li><div id="intro"></div></li>
           </ul>
         </div>
@@ -103,7 +104,7 @@
           <div class="container-fluid">
             <div class="row">
             </div>
-            <div class="row-fluid">
+            <div class="row">
               <div id="waived-available" class="col-xs-2">
                 <b>Not Waived</b>
                 <div id ="waived-groups" class="row-fluid"></div>
@@ -117,6 +118,7 @@
               <!-- <div class="col-xs-1 bucket selected 5000"></div> -->
               <!-- <div class="col-md-offset-1 col-xs-1 bucket selected 5000"></div> -->
             </div>
+            
           </div>
         </div>
         
@@ -204,5 +206,48 @@
       </div>
     </div>
 </div>
+<div id="sidebar" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">More information</h4>
+      </div>
+      <div class="modal-body">
+        <h4>This project was made by Group 1</h4>
+        Peter Zylka, Ryan Chrisco, Shahrouz Yousefi and Tjaart van der Walt<br>
+        <br>
+        <h4>Useful Links:</h4>
+        <a href="
+                 http://www.umsl.edu/mathcs/graduate-studies/grad-course-descrip.html[1]">
+          Graduate Course Descriptions </a><br>
+        <a href="
+                 http://www.umsl.edu/mathcs/undergraduate-studies/coursedescriptions.html[2]">Undergraduate
+          Course Descriptions</a><br>
+        <a href="http://www.cs.umsl.edu/degree/MS-cs.html[3]">MS in Computer Science
+          Website</a><br>
+        <a href="http://www.cs.umsl.edu/index_items/colloquia.html[4]">Colloquia Dates
+          and Times</a><br>
+        <a href="http://www.umsl.edu/divisions/graduate/formsregs/mastforms.html[5]
+                 ">Forms</a><br>
+        <a href="http://www.umsl.edu/divisions/graduate/index.html[6]">Important
+          Dates</a> (see Important Dates header)<br>
+        <br>
+        <h4>Notices</h4>
+        <ul>
+          <li><i>You must attend at least five colloquia over the course of your
+              graduate program</i></li>
+          <li><i>You must keep track of important deadlines for forms (M1, M4,
+              etc.)</i></li>
+        </ul>
+        <br><b>Disclaimer: This is only used for estimation and planning - ALWAYS
+          check with an advisor</b>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 </html>
