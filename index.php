@@ -222,21 +222,17 @@
         <h4>This project was made by Group 1</h4>
         Peter Zylka, Ryan Chrisco, Shahrouz Yousefi and Tjaart van der Walt<br>
         <br>
-        <h4>Useful Links:</h4>
-        <a href="
-                 http://www.umsl.edu/mathcs/graduate-studies/grad-course-descrip.html[1]">
+        <h4>README</h4>
+        <a href="http://comp.umsl.edu/~Group1/graduate-advisor/README.html" target="_blank">A short description of our project</a>
+        <h4>Useful Links</h4>
+        <a href="http://www.umsl.edu/mathcs/graduate-studies/grad-course-descrip.html" target="_blank">
           Graduate Course Descriptions </a><br>
-        <a href="
-                 http://www.umsl.edu/mathcs/undergraduate-studies/coursedescriptions.html[2]">Undergraduate
+        <a href="http://www.umsl.edu/mathcs/undergraduate-studies/coursedescriptions.html" target="_blank">Undergraduate
           Course Descriptions</a><br>
-        <a href="http://www.cs.umsl.edu/degree/MS-cs.html[3]">MS in Computer Science
-          Website</a><br>
-        <a href="http://www.cs.umsl.edu/index_items/colloquia.html[4]">Colloquia Dates
-          and Times</a><br>
-        <a href="http://www.umsl.edu/divisions/graduate/formsregs/mastforms.html[5]
-                 ">Forms</a><br>
-        <a href="http://www.umsl.edu/divisions/graduate/index.html[6]">Important
-          Dates</a> (see Important Dates header)<br>
+        <a href="http://www.cs.umsl.edu/degree/MS-cs.html" target="_blank">MS in Computer Science Website</a><br>
+        <a href="http://www.cs.umsl.edu/index_items/colloquia.html" target="_blank">Colloquia Dates and Times</a><br>
+        <a href="http://www.umsl.edu/divisions/graduate/formsregs/mastforms.html" target="_blank">Forms</a><br>
+        <a href="http://www.umsl.edu/divisions/graduate/index.html" target="_blank">Important Dates</a> (see Important Dates header)<br>
         <br>
         <h4>Notices</h4>
         <ul>
