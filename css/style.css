@@ -112,6 +112,14 @@
 
 }
 
+.headline {
+margin-top: 5px;
+margin-top: 5px;
+    font-size: 12px;
+    background-color: #EEEEEE;
+    border: 1px solid #B6B6B4;
+    width: 62%
+}
 
 #loading {
     padding-top: 40px;

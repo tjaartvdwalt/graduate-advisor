@@ -98,12 +98,15 @@
       <div class="tab-content">
         <div class="tab-pane" id="configure">
           <div id="config" class="container-fluid ">
+            <div class="row"></div>
+            <div class="headline">Tell us about any specific limitations that apply to you.</div>
           </div>
         </div>
         <div class="tab-pane" id="waived">
           <div class="container-fluid">
             <div class="row">
             </div>
+            <div class="headline">If you have permission from UMSL to waive any courses, do it here.</div>
             <div class="row">
               <div id="waived-available" class="col-xs-2">
                 <b>Not Waived</b>
@@ -126,6 +129,7 @@
           <div class="container-fluid ">
             <div class="row">
             </div>
+            <div class="headline">Put the courses you have already taken at UMSL, if any, here.</div>
             <div class="row">
               <div class="col-xs-1">
                 <b>Available</b>
@@ -162,6 +166,7 @@
           <div class="container-fluid ">
             <div class="row">
             </div>
+            <div class="headline">Here is where you choose any specific courses you want to take, or choose nothing and let the system choose for you.</div>
             <div class="row">
               <div class="col-xs-1">
                 <b>Available</b>
