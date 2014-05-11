@@ -37,7 +37,7 @@ function PopoverRenderer (userCourses, rules) {
         courseButton.popover({
             'span' : '2',
             'container' : 'body',
-            'title' : course.course_name,
+            'title' : '<a href="https://apps.umsl.edu/webapps/courseschedules/descriptions/dsp_just_course_desc.cfm?subject=CMP%20SCI&coursenum= '+ course.course_number + '" target="_blank">' + course.course_name + '</a>',
             'html' : true,
             'placement' : 'auto right',
             'content' : content[0] });
