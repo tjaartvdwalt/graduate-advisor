@@ -27,7 +27,6 @@ function PopoverRenderer (userCourses, rules) {
 
     // If the type is schedule we add different buttons
     this.renderPopover = function (course,type) {
-        console.log(course);
         var content = this.contentToDisplay(course.course_number);
 
         if(type == "schedules") {

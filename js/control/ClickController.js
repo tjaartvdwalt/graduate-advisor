@@ -33,9 +33,6 @@ function ClickController(parent, render) {
                 break;
             case "schedules":
                 return;
-                // console.log("schedules");
-                // this.scheduled(clickedCourse);
-                // break;
             }
             this.render.scoreboard.renderAll();
             this.render.waived.renderAll();
@@ -159,9 +156,6 @@ function ClickController(parent, render) {
             var action = e.detail.action;
             var courseNumber = e.detail.course;
             var course = self.userCourses.getCourse(courseNumber);
-            console.log(self.userCourses);
-            console.log(self.userCourses.getCourseBucket(courseNumber));
-            console.log(action);
             var src = self.userCourses.getCourseBucket(courseNumber);
             switch(action) {
             case "waived":

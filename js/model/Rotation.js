@@ -1,5 +1,6 @@
-function Rotation(arrangedCourses) {
+function Rotation(arrangedCourses, rules) {
     this.init = function() {
+        this.rules = rules;
         var json = this.getRotationFromJSON();
         this.rotation = this.getCSCourses(json);
         this.addArrangedCourses(arrangedCourses);
@@ -14,7 +15,6 @@ function Rotation(arrangedCourses) {
     // This is probably not the ideal way to do this...
     // We recreate the object, leaving out any unwanted courses
     this.getCSCourses = function(json) {
-        //        console.log(json);
         var returnObject = {};
         returnObject.rotation_year = [];
         for(var i in json) {
@@ -23,7 +23,10 @@ function Rotation(arrangedCourses) {
                 yearObject.year = json[i][j].year;
                 yearObject.course = [];
                 for(var k in json[i][j].course) {
-                    if(json[i][j].course[k].subject == "CMP SCI") {
+                    if(json[i][j].course[k].subject == "CMP SCI" || (json[i][j].course[k].subject == "MATH" && $.inArray(json[i][j].course[k].course_number, this.rules.rules.restrictions_math)>= 0)) {
+                        if(json[i][j].course[k].subject == "MATH") {
+                            json[i][j].course[k].course_number = json[i][j].course[k].course_number + "M";
+                        }
                         yearObject.course.push(json[i][j].course[k]);
                     }
                 }
@@ -32,12 +35,12 @@ function Rotation(arrangedCourses) {
         }
         return returnObject;
     }
-
+ 
     this.addArrangedCourses = function(arrangedCourses) {
         for(var i in arrangedCourses) {
             for(var j in this.rotation.rotation_year) {
                 this.rotation.rotation_year[j].course.push(
-             this.createArrangedRotationFromCourse(arrangedCourses[i]));
+                    this.createArrangedRotationFromCourse(arrangedCourses[i]));
             }
         }
     }
@@ -66,8 +69,7 @@ function Rotation(arrangedCourses) {
         var result = [];
         for(var i = 0; i < this.rotation.rotation_year.length; i++)
             for(var k = 0; k < this.rotation.rotation_year[i].course.length; k++) {
-                if(this.rotation.rotation_year[i].course[k].subject != "CMP SCI" ||
-                   this.rotation.rotation_year[i].course[k].course_number != course_number) continue;
+                if(this.rotation.rotation_year[i].course[k].course_number != course_number) continue;
                 for(var j = 0; j < this.rotation.rotation_year[i].course[k].rotation_term.length; j++) {
                     if(jQuery.isEmptyObject(this.rotation.rotation_year[i].course[k].rotation_term[j].time_code))
                         continue;

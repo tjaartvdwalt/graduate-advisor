@@ -133,7 +133,6 @@ function SelectedRenderer(userCourses, rotation, rules){
         //     return;
         // }
 
-        console.log(activeTab);
         var available = $("#" + activeTab + "-available>#" + activeTab + "-group");
         var availableGroups = $("#" + activeTab + "-available" + "> .row-fluid");
 
@@ -206,7 +205,6 @@ function SelectedRenderer(userCourses, rotation, rules){
         // Remove any appendix to the number... we know the course number is
         // 4 digits long, so we extract only the 4 digits
         var realCourseNumber = parseInt(courseNumber);
-
         // Deal with restricted courses seperately
         if(realCourseNumber < 4000) {
             if(filter == 'R') {
@@ -312,7 +310,6 @@ function SelectedRenderer(userCourses, rotation, rules){
     this.displayRules = function(keys, j, displayRules, selected) {
         if(keys != null && j == parseInt(displayRules[keys[0]])) {
             var myKey = keys[0];
-            console.log("in if");
             $("<div>").addClass(myKey).prependTo(selected);
         }
 

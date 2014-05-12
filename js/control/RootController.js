@@ -5,7 +5,7 @@ function RootController() {
         this.userCourses = new UserCourses(this.courses.courses, this.courses.restrictions, this.rules);
         // Initialize the different renderers
 
-        this.xmlRotation = new Rotation(this.userCourses.getArrangedCourses(this.userCourses.available)); //JSONParser().getJSON('rotation');
+        this.xmlRotation = new Rotation(this.userCourses.getArrangedCourses(this.userCourses.available), this.rules); //JSONParser().getJSON('rotation');
         this.schedule = new Schedule(); //JSONParser().getJSON('rotation');
 
         this.rotationTranslator = new RotationTranslator(this.xmlRotation.rotation, this.schedule);

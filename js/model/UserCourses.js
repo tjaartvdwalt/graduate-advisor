@@ -133,14 +133,16 @@ function UserCourses(courses, restrictions, rules) {
         // 1) split the string on comma
         // 2) split the resulting string on space, and select the 3rd one.
         // 3) we hardcode the prereq for CS6420 to be CS5420 for now.
-        var rulesArray = ruleString.split(",");
-        for(i = 0; i < rulesArray.length; i++) {
-            var ruleArray = rulesArray[i].split(" ");
-            var course_number = ruleArray[2];
+        if(! $.isArray(ruleString)) {
+            var rulesArray = ruleString.split(",");
+            for(i = 0; i < rulesArray.length; i++) {
+                var ruleArray = rulesArray[i].split(" ");
+                var course_number = ruleArray[2];
 
-            // This is a hack to deal with CS6420! it should be generalized
-            if(rulesArray.length == 1 || course_number == 5420) {
-                return this.getCourse(course_number);
+                // This is a hack to deal with CS6420! it should be generalized
+                if(rulesArray.length == 1 || course_number == 5420) {
+                    return this.getCourse(course_number);
+                }
             }
         }
     }

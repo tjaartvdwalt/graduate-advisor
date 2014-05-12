@@ -5,8 +5,18 @@ function Courses(rules) {
         // Note: the order is important here, if we first filter the graduate courses
         // the course numbers for math and cmp would clash and we may lose some cmp courses
         var allCourses = this.getCoursesFromJSON();
-        this.courses = this.getGraduateCourses(allCourses);
-        this.restrictions = this.getRestrictedCourses(allCourses, rules.rules.restrictions);
+        var csCourses = this.getCSCourses(allCourses);
+        this.courses = this.getGraduateCourses(csCourses);
+        this.restrictions = {};
+        cmpRestrictions = this.getRestrictedCourses(csCourses, rules.rules.restrictions, false);
+        for(i in cmpRestrictions) {
+            this.restrictions[i] = cmpRestrictions[i];
+        }
+        var mathCourses = this.getMathCourses(allCourses);
+        mathRestrictions = this.getRestrictedCourses(mathCourses, rules.rules.restrictions_math, true);
+        for(i in mathRestrictions) {
+            this.restrictions[i] = mathRestrictions[i];
+        }
     }
     /* The raw JSON has a "course" key that contains o list of all the courses.
        Ex:
@@ -19,10 +29,13 @@ function Courses(rules) {
        * {"1010":{"course_number":"1010", ...}, "1020":{...}...}
        */
     this.getCoursesFromJSON = function() {
-        var return_array = new Object();
-
         var json = new JSONParser();
         var courses = json.getJSON("courses").course;
+        return courses;
+    }
+
+    this.getCSCourses = function(courses) {
+        var return_array = new Object();
         for (var i in courses){
             var course = courses[i];
             // here we filter so that only cmp courses are displayed. If we want to
@@ -33,7 +46,18 @@ function Courses(rules) {
         }
         return return_array;
     }
+    this.getMathCourses = function(courses) {
+        var return_array = new Object();
+        for (var i in courses){
+            var course = courses[i];
+            if(course.subject == "MATH") {
+                return_array[course.course_number] = course;
+            }
+        }
+        return return_array;
+    }
 
+    
     //     /*
     //      * Filters a course object so that only Computer Science courses are returned
     //      */
@@ -62,11 +86,19 @@ function Courses(rules) {
         return return_array;
     }
 
-    this.getRestrictedCourses = function(courses, courseNames) {
+    this.getRestrictedCourses = function(courses, courseNames, isMath) {
+        console.log(courses);
+        console.log(courseNames);
         var myCourses = {};
         for(var i in courses) {
             if($.inArray(courses[i].course_number, courseNames)>= 0) {
-                myCourses[courses[i].course_number] = courses[i];
+                if(isMath) {
+                    courses[i].course_number = courses[i].course_number + "M";
+                    myCourses[courses[i].course_number] = courses[i];
+                }
+                else {
+                    myCourses[courses[i].course_number] = courses[i];
+                }
             }
         }
         return myCourses;
