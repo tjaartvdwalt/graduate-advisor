@@ -32,38 +32,72 @@ function ScheduleRenderer(userCourses){
         var table = $('<div>').attr('id', 'schedtable').addClass('table');
 
         var headers = $($('<div>').addClass("table-row"));
+        var headers2 = $($('<div>').addClass("table-row"));
         var row = [];
+        var row2 = [];
         var year = 0;
         var semester = "";
         var cur_row = 0;
+        var cur_col = 0;
+
         var schedule = this.userCourses.schedule;
         this.addPrereqClass(schedule);
+
+        var maxView = schedule.length/this.userCourses.coursesPerSem + 1;
         for(var j in schedule) {
             if(schedule[j].year != year || schedule[j].semester != semester) {
-                headers.append($('<div>').addClass("col-xs-2 table-header").html("<b>" + schedule[j].semester + " " + schedule[j].year + "</b>"));
-                cur_row = 0;
+                cur_col++;
+                if(cur_col > 6) {
+                    headers2.append($('<div>').addClass("col-xs-2 table-header").html("<b>" + schedule[j].semester + " " + schedule[j].year + "</b>"));
+                }
+                else {
+                    headers.append($('<div>').addClass("col-xs-2 table-header").html("<b>" + schedule[j].semester + " " + schedule[j].year + "</b>"));
+                }
                 year = schedule[j].year;
                 semester = schedule[j].semester;
             }
             table.append(headers);
-            if(cur_row >= row.length) {
-                row.push($('<div>').addClass("table-row"));
-            }
-            //console.log(schedule[j]);
-            var details = this.getDetails(schedule[j].courseNumber);
-            var cell = $("<div>").addClass('col-xs-2 table-cell');
-            row[cur_row].append(cell);
+            if(cur_col <= 6) {
+                var cur_row = 0;
+                if(cur_row >= row.length) {
+                    row.push($('<div>').addClass("table-row"));
+                }
+                //console.log(schedule[j]);
+                var details = this.getDetails(schedule[j].courseNumber);
+                var cell = $("<div>").addClass('col-xs-2 table-cell');
+                row[cur_row].append(cell);
 
-            for(var i in details) {
-                cell.append(details[i]);
-            }
+                for(var i in details) {
+                    cell.append(details[i]);
+                }
 
-            cur_row++;
+                cur_row++;
+            } else {
+                var cur_row = 0;
+                if(cur_row >= row2.length) {
+                    row2.push($('<div>').addClass("table-row"));
+                }
+                //console.log(schedule[j]);
+                var details = this.getDetails(schedule[j].courseNumber);
+                var cell = $("<div>").addClass('col-xs-2 table-cell');
+                row2[cur_row].append(cell);
+
+                for(var i in details) {
+                    cell.append(details[i]);
+                }
+
+                cur_row++;
+            }
         }
         for(var i=0; i< row.length; i++) {
             table.append(row[i])
         }
 
+        table.append(headers2);
+
+        for(var i=0; i< row2.length; i++) {
+            table.append(row2[i])
+        }
         $("#schedules").append(table)
     }
 
