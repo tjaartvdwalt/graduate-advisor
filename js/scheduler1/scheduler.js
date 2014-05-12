@@ -73,7 +73,7 @@ function scheduleAll(totalCourses, coursesPerSemester, coursesAvailable, require
 function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable, coursesTaken, currentSemesterIndex, requirements){
     var courseNumberAvailableList = [];
     var courseNumberTakenList = [];
-    var seasonList = ["Spring", "Fall"];
+    var seasonList = ["Spring", "Summer", "Fall"];
     var startDate = [2014, "Fall"];
     if(requirements.startDate != undefined){
         startDate = requirements.startDate;
@@ -82,11 +82,11 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
     var minNumberOfCoursesToTake = 0;
 
     if(requirements.minCoursesBase != undefined){
-        minNumberOfCoursesToTake = requirements.minCoursesBase-1;
+        minNumberOfCoursesToTake = requirements.minCoursesBase;
     }
 
     if(requirements.minCoursesPerSemester != undefined && requirements.minCoursesPerSemester[currentSemesterIndex] != undefined){
-        minNumberOfCoursesToTake = requirements.minCoursesPerSemester[currentSemesterIndex]-1;
+        minNumberOfCoursesToTake = requirements.minCoursesPerSemester[currentSemesterIndex];
     }
 
     var potentialSolutions = [];
@@ -140,6 +140,17 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
 
     if(courseNumberAvailableList.length == 0){
         console.log("Hitting the end of the schedule data. Result will be bound to the dataset.");
+        if(requirements.emptySemesters){
+            requirements.emptySemesters++;
+            if(requirements.emptySemesters >= seasonList.length){
+                return [];
+            }
+        }else{
+            requirements.emptySemesters = 1;
+        }
+
+    }else{
+        requirements.emptySemesters = 0;
     }
 
 
@@ -159,11 +170,21 @@ function scheduleAllRecursive(totalCourses, coursesPerSemester, coursesAvailable
 
 
     var solutionPermutationsForIndexY = [];
-    for(var numberOfCoursesIndex = courseLimitCurrentSemester; numberOfCoursesIndex > minNumberOfCoursesToTake; numberOfCoursesIndex--){
-        var semesterPermOfSameLength = scheduleSemesterClasses(numberOfCoursesIndex, courseNumberAvailableList, 0 , takenAndNoPreReq, 0);
-        if(requirements.reqCoursePerSemester != undefined && requirements.reqCoursePerSemester[currentSemesterIndex] != undefined){
-            semesterPermOfSameLength = filterRequirements(semesterPermOfSameLength, requirements.reqCoursePerSemester[currentSemesterIndex], semesterPermOfSameLength[0].length);
+    for(var numberOfCoursesIndex = courseLimitCurrentSemester; numberOfCoursesIndex > minNumberOfCoursesToTake-1; numberOfCoursesIndex--){
+        var semesterPermOfSameLength;
+        if( numberOfCoursesIndex > 0){
+            semesterPermOfSameLength = scheduleSemesterClasses(numberOfCoursesIndex, courseNumberAvailableList, 0 , takenAndNoPreReq, 0);
+            if(requirements.reqCoursePerSemester != undefined && requirements.reqCoursePerSemester[currentSemesterIndex] != undefined){
+                semesterPermOfSameLength = filterRequirements(semesterPermOfSameLength, requirements.reqCoursePerSemester[currentSemesterIndex], semesterPermOfSameLength[0].length);
+            }
+        }else{
+            semesterPermOfSameLength = [[]];
         }
+        solutionPermutationsForIndexY = solutionPermutationsForIndexY.concat(combineTakenAndNew(coursesTaken,semesterPermOfSameLength));
+    }
+
+    if(seasonList[(seasonList.indexOf(startDate[1]) + currentSemesterIndex)%seasonList.length] == "Summer" || seasonList[(seasonList.indexOf(startDate[1]) + currentSemesterIndex)%seasonList.length] == "Winter"){
+        var semesterPermOfSameLength = [[]];
         solutionPermutationsForIndexY = solutionPermutationsForIndexY.concat(combineTakenAndNew(coursesTaken,semesterPermOfSameLength));
     }
     //FILTER FOR REQ'S HERE ( if solutionPermutationsForIndexY has anything left in it, break, we have a solution)
