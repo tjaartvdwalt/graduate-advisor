@@ -10,7 +10,14 @@ function ScoreboardRenderer(userCourses, rules){
         var taken = this.userCourses.countCoursesAboveLevel(this.userCourses.taken, 4000);
         var selected = Object.keys(this.userCourses.selected).length;
         var total = selected;
-        var required = this.userCourses.coursesRequired - taken;
+        var restricted = 0;
+        for(var i in this.userCourses.selected) {
+            if(parseInt(this.userCourses.selected[i].course_number) < 4000) {
+                restricted++;
+            }
+        }
+        var required = this.userCourses.coursesRequired + restricted  - taken;
+        console.log(restricted);
         $('#waived-badge').html(waived);
         $('#completed-badge').html(taken);
         $('#selected-badge').html(selected);

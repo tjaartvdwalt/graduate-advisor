@@ -1,9 +1,9 @@
 function RenderController(parent) {
     this.init = function() {
-        this.configure =     new ConfigureRenderer(parent.userCourses, parent.rules);
-        this.configure.renderAll();
         this.scoreboard =    new ScoreboardRenderer(parent.userCourses, parent.rules);
         this.scoreboard.renderAll();
+        this.configure =     new ConfigureRenderer(parent.userCourses, parent.rules, this.scoreboard);
+        this.configure.renderAll();
         this.errors =        new ErrorRenderer();
         this.waived =        new WaivedRenderer(parent.userCourses,  parent.rules);
         this.selected =      new SelectedRenderer(parent.userCourses, parent.xmlRotation, parent.rules);

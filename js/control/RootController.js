@@ -76,6 +76,15 @@ function RootController() {
         for(var i in this.userCourses.taken) {
             requirements.waived.push(this.userCourses.taken[i].course_number);
         }
+        // waive the thesis option if not selected so that they don't get scheduled
+        if(!this.userCourses.thesis) {
+            requirements.waived.push("6900A");
+            requirements.waived.push("6900B");
+        }
+        else {
+            requirements.preReqs.push(["6900B", "6900A"]);
+        }
+        
         var nrOfRestrictedCourses = this.userCourses.countCoursesBelowLevel(this.userCourses.selected, 4000);
         nrOfCourses = nrOfCourses + nrOfRestrictedCourses;
         var RestCourses = this.userCourses.getCoursesBelowLevel(this.userCourses.selected,4000);
@@ -97,6 +106,7 @@ function RootController() {
                 }
             }
         }
+        
         //console.log(newTranslatedRotation);
         translatedRotation = newTranslatedRotation;
 

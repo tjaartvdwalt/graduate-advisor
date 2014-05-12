@@ -187,8 +187,14 @@ function SelectedRenderer(userCourses, rotation, rules){
                 }
 
                 if(inRange && this.isInBucket(button.get(0).id, filter)) {
-                    button.detach().appendTo(available);
-                    button.show();
+                    if(!this.userCourses.thesis && parseInt(button.get(0).id) == 6900) {
+                        button.detach().prependTo("#buttons");
+                        button.hide();
+                    }
+                    else {
+                        button.detach().appendTo(available);
+                        button.show();
+                    }
                 }
                 else {
                     button.detach().prependTo("#buttons");

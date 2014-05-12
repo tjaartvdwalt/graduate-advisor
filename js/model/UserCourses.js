@@ -9,6 +9,7 @@ function UserCourses(courses, restrictions, rules) {
         this.coursesRequired = 10;
         this.intStudent = false;
         this.nightOnly = false;
+        this.thesis = false;
         this.restrictedStudent = false;
         // -1 = no preference
         // 0  = Mo/We

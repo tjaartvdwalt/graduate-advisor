@@ -1,7 +1,8 @@
-function ConfigureRenderer(userCourses, rules){
+function ConfigureRenderer(userCourses, rules, scoreboard){
     this.init = function() {
         self = this;
         this.userCourses = userCourses;
+        this.scoreboard = scoreboard;
         this.rules = rules;
     }
     // this.renderAdvancedButton = function() {
@@ -24,6 +25,7 @@ function ConfigureRenderer(userCourses, rules){
         this.regularConfig.append(this.getHeader('General settings'));
         this.regularConfig.append(this.getInternationalStudent());
         this.regularConfig.append(this.getRestricted());
+        this.regularConfig.append(this.getThesis());
         this.regularConfig.append($("<div>").addClass('row'));
         this.regularConfig.append(this.getHeader('Courses per semester'));
         this.regularConfig.append(this.getCoursesPerSemester());
@@ -96,6 +98,43 @@ function ConfigureRenderer(userCourses, rules){
         return div;
 
     }
+
+    this.getThesis = function() {
+        var self = this;
+        var div = $("<div>").addClass('row thesis');
+        var text= $("<div>").addClass('col-xs-4').html("Thesis option");
+        var thesisCheckbox = $('<input>').attr('type', 'checkbox');
+        thesisCheckbox.change(function(event) {
+            console.log(event.target.checked);
+            if(event.target.checked == true) {
+                console.log("click");
+                self.userCourses.thesis = true;
+                var a = self.userCourses.getCourse("6900A");
+                var src_a = self.userCourses.getCourseBucket("6900A");
+                var src_b = self.userCourses.getCourseBucket("6900B");
+                var b = self.userCourses.getCourse("6900B");
+                self.userCourses.moveCourse(a, src_a, self.userCourses.selected);
+                self.userCourses.moveCourse(b, src_b, self.userCourses.selected);
+                self.scoreboard.renderAll();
+            }
+            else {
+                self.userCourses.thesis = false;
+                var a = self.userCourses.getCourse("6900A");
+                var src_a = self.userCourses.getCourseBucket("6900A");
+                var src_b = self.userCourses.getCourseBucket("6900B");
+                var b = self.userCourses.getCourse("6900B");
+                self.userCourses.moveCourse(a, src_a, self.userCourses.available);
+                self.userCourses.moveCourse(b, src_b, self.userCourses.available);
+                self.scoreboard.renderAll();
+            }
+        });
+        thesisCheckbox.val(self.userCourses.thesis);
+        div.append(text);
+        div.append($("<div>").addClass('col-xs-1').append(thesisCheckbox));
+        return div;
+
+    }
+
 
     this.getCoursesPerSemester = function() {
         var div = $('<div>').addClass("courses-per-sem");
@@ -248,9 +287,9 @@ function ConfigureRenderer(userCourses, rules){
         var text= $("<div>").addClass('col-xs-4').html("Scheduling algorithm");
 
         var backendList = $('<select>').addClass('selectpicker').attr('id', 'backend-list');
-            backendList.change(function(event) {
-                self.userCourses.backend = event.target.value;
-            });
+        backendList.change(function(event) {
+            self.userCourses.backend = event.target.value;
+        });
         backendList.append($('<option>').attr('value', '0').html("Schedule Packing"));
         backendList.append($('<option>').attr('value', '1').html("Depth First Search"));
         backendList.val("1");
@@ -269,5 +308,3 @@ function ConfigureRenderer(userCourses, rules){
 
     this.init();
 }
-
-
