@@ -1,7 +1,7 @@
 #+TITLE:UMSL Graduate Advisor
 
 * Origins
-This is a group project done as part of CS5500 (Software Engineering) during Fall 2014 at the University of Missouri Saint Louis (UMSL)
+This is a group project done as part of CS5500 (Software Engineering) during Spring 2014 at the University of Missouri Saint Louis (UMSL)
 
 Our group consisted of:
 Ryan Chrisco, Peter Zylka, Shahrouz Yousefi, Tjaart van der Walt
