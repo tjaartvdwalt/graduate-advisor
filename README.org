@@ -18,18 +18,21 @@ The system was not really built with reusability in mind. You will have to align
 There are 3 different source XML files:
 ** Courses
 A list of all courses.\\
-http://comp.umsl.edu/~xml_data/Courses.xml\\
-http://comp.umsl.edu/~xml_data/Courses.xsd\\
+http://comp.umsl.edu/~xml_data/Courses.xml
+
+http://comp.umsl.edu/~xml_data/Courses.xsd
 
 ** Rotation
 A list of what courses gets presented in what semester over the medium to long term.\\
-http://comp.umsl.edu/~xml_data/Rotation.xml\\
-http://comp.umsl.edu/~xml_data/Rotation.xsd\\
+http://comp.umsl.edu/~xml_data/Rotation.xml
+
+http://comp.umsl.edu/~xml_data/Rotation.xsd
 
 ** Schedule
 A detailed list of the courses for the next semester.\\
-http://comp.umsl.edu/~xml_data/Schedule.xml\\
-http://comp.umsl.edu/~xml_data/Schedule.xsd\\
+http://comp.umsl.edu/~xml_data/Schedule.xml
+
+http://comp.umsl.edu/~xml_data/Schedule.xsd
 
 Apart from these input files, we have a JSON rules file:
 ** Rules 
