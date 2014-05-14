@@ -4,34 +4,32 @@
 This is a group project done as part of CS5500 (Software Engineering) during Fall 2014 at the University of Missouri Saint Louis (UMSL)
 
 Our group consisted of:
-Ryan Chrisco
-Peter Zylka
-Shahrouz Yousefi
-Tjaart van der Walt
+Ryan Chrisco, Peter Zylka, Shahrouz Yousefi, Tjaart van der Walt
 
 The mandate was to write a system that can help you schedule your graduate studies.
-Currently the system is deployed here: http://comp.umsl.edu/~Group1/graduate-advisor/ but I have no guarrantee on how long it will remain available at this location.
+
+Currently the system is deployed here: http://comp.umsl.edu/~Group1/graduate-advisor/ but we have no guarantee on how long it will remain available at this location.
 
 At the end of the semester we decided to open source the code, and publish it under the MIT license.
 
 * Reusability
-The system was not built with reusability in mind. You will have to align your data strictly with our schema to make the system work for you. If you want to use the system and have specific requirements not covered by the current system, send a message (or better yet a pull request) and I will see what I can do for you.
+The system was not really built with reusability in mind. You will have to align your data strictly with our schema to make the system work for you. If you want to use the system and have specific requirements not covered by the current system, send a message (or better yet a pull request) and I will see what I can do for you.
 
 There are 3 different source XML files:
 ** Courses
-A list of all courses. 
-http://comp.umsl.edu/~xml_data/Courses.xml
-http://comp.umsl.edu/~xml_data/Courses.xsd
+A list of all courses.\\
+http://comp.umsl.edu/~xml_data/Courses.xml\\
+http://comp.umsl.edu/~xml_data/Courses.xsd\\
 
 ** Rotation
-A list of what courses gets presented in what semester over the medium to long term.
-http://comp.umsl.edu/~xml_data/Rotation.xml
-http://comp.umsl.edu/~xml_data/Rotation.xsd
+A list of what courses gets presented in what semester over the medium to long term.\\
+http://comp.umsl.edu/~xml_data/Rotation.xml\\
+http://comp.umsl.edu/~xml_data/Rotation.xsd\\
 
 ** Schedule
-A detailed list of the courses for the next semester.
-http://comp.umsl.edu/~xml_data/Schedule.xml
-http://comp.umsl.edu/~xml_data/Schedule.xsd
+A detailed list of the courses for the next semester.\\
+http://comp.umsl.edu/~xml_data/Schedule.xml\\
+http://comp.umsl.edu/~xml_data/Schedule.xsd\\
 
 Apart from these input files, we have a JSON rules file:
 ** Rules 
